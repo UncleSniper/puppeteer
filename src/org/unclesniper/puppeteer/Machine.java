@@ -92,7 +92,7 @@ public class Machine {
 
 	public static String makeMessage(Machine machine, String ifPresent, String ifAbsent) {
 		String hostname = machine == null ? null : machine.getHostname();
-		return hostname == null ? ifAbsent : ifPresent + " '" + hostname + '\'';
+		return hostname == null ? ifAbsent : ifPresent + '\'' + hostname + '\'';
 	}
 
 }
