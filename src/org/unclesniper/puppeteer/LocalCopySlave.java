@@ -13,6 +13,11 @@ public class LocalCopySlave implements CopySlave {
 	public LocalCopySlave() {}
 
 	public void copyTo(Machine machine, String source, String destination) throws PuppetException {
+		if(LocalUtils.DEBUG_LOCAL) {
+			System.err.println("*** DEBUG: copyTo:");
+			System.err.println("               source: '" + source + '\'');
+			System.err.println("               destination: '" + destination + '\'');
+		}
 		try(FileInputStream fis = new FileInputStream(source)) {
 			copyTo(machine, fis, destination);
 		}
@@ -22,6 +27,11 @@ public class LocalCopySlave implements CopySlave {
 	}
 
 	public void copyTo(Machine machine, InputStream source, String destination) throws PuppetException {
+		if(LocalUtils.DEBUG_LOCAL) {
+			System.err.println("*** DEBUG: copyTo:");
+			System.err.println("               source is stream");
+			System.err.println("               destination: '" + destination + '\'');
+		}
 		try(FileOutputStream fos = new FileOutputStream(destination)) {
 			byte[] buffer = new byte[128];
 			for(;;) {
@@ -37,6 +47,11 @@ public class LocalCopySlave implements CopySlave {
 	}
 
 	public void copyFrom(Machine machine, String source, String destination) throws PuppetException {
+		if(LocalUtils.DEBUG_LOCAL) {
+			System.err.println("*** DEBUG: copyFrom:");
+			System.err.println("               source: '" + source + '\'');
+			System.err.println("               destination: '" + destination + '\'');
+		}
 		try(FileOutputStream fos = new FileOutputStream(destination)) {
 			copyFrom(machine, source, fos);
 		}
@@ -46,6 +61,11 @@ public class LocalCopySlave implements CopySlave {
 	}
 
 	public void copyFrom(Machine machine, String source, OutputStream destination) throws PuppetException {
+		if(LocalUtils.DEBUG_LOCAL) {
+			System.err.println("*** DEBUG: copyFrom:");
+			System.err.println("               source: '" + source + '\'');
+			System.err.println("               destination is stream");
+		}
 		try(FileInputStream fis = new FileInputStream(source)) {
 			byte[] buffer = new byte[128];
 			for(;;) {

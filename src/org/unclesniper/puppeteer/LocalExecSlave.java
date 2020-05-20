@@ -18,6 +18,18 @@ public class LocalExecSlave implements ExecSlave {
 
 	public ExecControl execute(Machine machine, String[] argv, String workdir, Map<String, String> environ,
 			int flags) throws PuppetException {
+		if(LocalUtils.DEBUG_LOCAL) {
+			System.err.println("*** DEBUG: execute:");
+			System.err.println("               argv:");
+			for(String word : argv)
+				System.err.println("                   '" + word + '\'');
+			System.err.println("               workdir: " + (workdir == null ? "<null>" : '\'' + workdir + '\''));
+			if(environ != null && !environ.isEmpty()) {
+				System.err.println("               environ:");
+				for(Map.Entry<String, String> entry : environ.entrySet())
+					System.err.println("                   '" + entry.getKey() + "'='" + entry.getValue() + '\'');
+			}
+		}
 		ProcessBuilder builder = new ProcessBuilder(argv);
 		if(workdir != null)
 			builder.directory(new File(workdir));

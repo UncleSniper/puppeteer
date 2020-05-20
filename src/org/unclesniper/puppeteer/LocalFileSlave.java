@@ -24,7 +24,12 @@ public class LocalFileSlave implements FileSlave {
 	@Override
 	public String newTempFile(Machine machine) throws PuppetException {
 		try {
-			return File.createTempFile("puppet", null, directory).getAbsolutePath();
+			String path = File.createTempFile("puppet", null, directory).getAbsolutePath();
+			if(LocalUtils.DEBUG_LOCAL) {
+				System.err.println("*** DEBUG: newTempFile:");
+				System.err.println("               => '" + path + '\'');
+			}
+			return path;
 		}
 		catch(IOException ioe) {
 			throw new FailedToCreateTempFileIOPuppetException(ioe);
@@ -33,6 +38,10 @@ public class LocalFileSlave implements FileSlave {
 
 	@Override
 	public void deleteFile(Machine machine, String file) throws PuppetException {
+		if(LocalUtils.DEBUG_LOCAL) {
+			System.err.println("*** DEBUG: deleteFile:");
+			System.err.println("               path: '" + file + '\'');
+		}
 		try {
 			Files.delete(FileSystems.getDefault().getPath(file));
 		}
