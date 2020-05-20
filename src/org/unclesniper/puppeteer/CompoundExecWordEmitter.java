@@ -31,6 +31,10 @@ public class CompoundExecWordEmitter implements ExecWordEmitter {
 		this.transform = transform;
 	}
 
+	public void setTransform(WordQuoter transform) {
+		this.transform = transform == null ? null : new QuotingStringTransform(transform);
+	}
+
 	@Override
 	public void buildArgv(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
 			Consumer<String> sink) throws PuppetException {

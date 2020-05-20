@@ -26,6 +26,10 @@ public class ArgvExecStringSource implements ExecStringSource {
 		this.transform = transform;
 	}
 
+	public void setTransform(WordQuoter transform) {
+		this.transform = transform == null ? null : new QuotingStringTransform(transform);
+	}
+
 	@Override
 	public void buildString(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
 			StringBuilder sink)  {

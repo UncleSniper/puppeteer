@@ -14,6 +14,10 @@ public class SourcePathCopyToStringSource implements CopyToStringSource {
 		this.transform = transform;
 	}
 
+	public void setTransform(WordQuoter transform) {
+		this.transform = transform == null ? null : new QuotingStringTransform(transform);
+	}
+
 	@Override
 	public void buildString(Machine machine, InFile source, String destination, StringBuilder sink)
 			throws PuppetException {

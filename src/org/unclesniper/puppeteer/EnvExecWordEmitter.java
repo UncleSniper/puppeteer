@@ -33,6 +33,10 @@ public class EnvExecWordEmitter implements ExecWordEmitter {
 		this.keyTransform = keyTransform;
 	}
 
+	public void setKeyTransform(WordQuoter keyTransform) {
+		this.keyTransform = keyTransform == null ? null : new QuotingStringTransform(keyTransform);
+	}
+
 	public String getInfix() {
 		return infix;
 	}
@@ -47,6 +51,10 @@ public class EnvExecWordEmitter implements ExecWordEmitter {
 
 	public void setValueTransform(StringTransform valueTransform) {
 		this.valueTransform = valueTransform;
+	}
+
+	public void setValueTransform(WordQuoter valueTransform) {
+		this.valueTransform = valueTransform == null ? null : new QuotingStringTransform(valueTransform);
 	}
 
 	public String getSuffix() {

@@ -44,6 +44,10 @@ public class EnvExecStringSource implements ExecStringSource {
 		this.keyTransform = keyTransform;
 	}
 
+	public void setKeyTransform(WordQuoter keyTransform) {
+		this.keyTransform = keyTransform == null ? null : new QuotingStringTransform(keyTransform);
+	}
+
 	public String getPairInfix() {
 		return pairInfix;
 	}
@@ -58,6 +62,10 @@ public class EnvExecStringSource implements ExecStringSource {
 
 	public void setValueTransform(StringTransform valueTransform) {
 		this.valueTransform = valueTransform;
+	}
+
+	public void setValueTransform(WordQuoter valueTransform) {
+		this.valueTransform = valueTransform == null ? null : new QuotingStringTransform(valueTransform);
 	}
 
 	public String getPairSuffix() {

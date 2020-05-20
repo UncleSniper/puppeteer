@@ -29,6 +29,10 @@ public class WorkDirExecWordEmitter implements ExecWordEmitter {
 		this.transform = transform;
 	}
 
+	public void setTransform(WordQuoter transform) {
+		this.transform = transform == null ? null : new QuotingStringTransform(transform);
+	}
+
 	public String getSuffix() {
 		return suffix;
 	}

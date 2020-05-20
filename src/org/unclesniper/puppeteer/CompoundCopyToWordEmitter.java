@@ -30,6 +30,10 @@ public class CompoundCopyToWordEmitter implements CopyToWordEmitter {
 		this.transform = transform;
 	}
 
+	public void setTransform(WordQuoter transform) {
+		this.transform = transform == null ? null : new QuotingStringTransform(transform);
+	}
+
 	@Override
 	public void buildArgv(Machine machine, InFile source, String destination, Consumer<String> sink)
 			throws PuppetException {

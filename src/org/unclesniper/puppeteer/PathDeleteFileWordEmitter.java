@@ -16,6 +16,10 @@ public class PathDeleteFileWordEmitter implements DeleteFileWordEmitter {
 		this.transform = transform;
 	}
 
+	public void setTransform(WordQuoter transform) {
+		this.transform = transform == null ? null : new QuotingStringTransform(transform);
+	}
+
 	@Override
 	public void buildArgv(Machine machine, String file, Consumer<String> sink) {
 		sink.accept(transform == null ? file : transform.transformString(file));

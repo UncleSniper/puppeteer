@@ -14,6 +14,10 @@ public class PathDeleteFileStringSource implements DeleteFileStringSource {
 		this.transform = transform;
 	}
 
+	public void setTransform(WordQuoter transform) {
+		this.transform = transform == null ? null : new QuotingStringTransform(transform);
+	}
+
 	@Override
 	public void buildString(Machine machine, String file, StringBuilder sink) {
 		sink.append(transform == null ? file : transform.transformString(file));

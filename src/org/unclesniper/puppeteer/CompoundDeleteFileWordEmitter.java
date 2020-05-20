@@ -30,6 +30,10 @@ public class CompoundDeleteFileWordEmitter implements DeleteFileWordEmitter {
 		this.transform = transform;
 	}
 
+	public void setTransform(WordQuoter transform) {
+		this.transform = transform == null ? null : new QuotingStringTransform(transform);
+	}
+
 	@Override
 	public void buildArgv(Machine machine, String file, Consumer<String> sink) throws PuppetException {
 		StringBuilder builder = new StringBuilder();
