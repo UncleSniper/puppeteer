@@ -13,6 +13,8 @@ public class Machine {
 
 	private CopySlave copySlave;
 
+	private FileSlave fileSlave;
+
 	private final Map<String, String> stringProperties = new HashMap<String, String>();
 
 	private final Set<String> tags = new HashSet<String>();
@@ -51,6 +53,14 @@ public class Machine {
 
 	public void setCopySlave(CopySlave copySlave) {
 		this.copySlave = copySlave;
+	}
+
+	public FileSlave getFileSlave() {
+		return fileSlave;
+	}
+
+	public void setFileSlave(FileSlave fileSlave) {
+		this.fileSlave = fileSlave;
 	}
 
 	public void setStringProperty(String key, String value) {

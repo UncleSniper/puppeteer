@@ -1,15 +1,14 @@
 package org.unclesniper.puppeteer;
 
-import java.util.Map;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class StringExecWordEmitter implements ExecWordEmitter {
+public class StringNewTempFileWordEmitter implements NewTempFileWordEmitter {
 
 	private final List<String> words = new LinkedList<String>();
 
-	public StringExecWordEmitter() {}
+	public StringNewTempFileWordEmitter() {}
 
 	public void addWord(String word) {
 		if(word != null)
@@ -17,8 +16,7 @@ public class StringExecWordEmitter implements ExecWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
-			Consumer<String> sink) {
+	public void buildArgv(Machine machine, Consumer<String> sink) {
 		for(String word : words)
 			sink.accept(word);
 	}

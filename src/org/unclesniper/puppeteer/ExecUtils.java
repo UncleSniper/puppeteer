@@ -10,6 +10,19 @@ import java.util.function.Function;
 
 public class ExecUtils {
 
+	public static class CapturedOutput {
+
+		public List<String> stdout;
+
+		public List<String> stderr;
+
+		public CapturedOutput(List<String> stdout, List<String> stderr) {
+			this.stdout = stdout;
+			this.stderr = stderr;
+		}
+
+	}
+
 	private ExecUtils() {}
 
 	public static ExecControl useArray(ExecSlave slave, Machine machine, Collection<String> argv, String workdir,
@@ -29,7 +42,7 @@ public class ExecUtils {
 		return machine == null ? LocalExecSlave.instance : machine.getExecSlave();
 	}
 
-	public static <ExceptT extends Exception & CommandOutputBuffer> void awaitSuccess(ExecControl xctl,
+	public static <ExceptT extends Exception & CommandOutputBuffer> CapturedOutput awaitSuccess(ExecControl xctl,
 			boolean allowWinEOL, Function<? super IOException, ? extends ExceptT> onError) throws ExceptT {
 		List<String> outBuffer = new LinkedList<String>();
 		List<String> errBuffer = new LinkedList<String>();
@@ -58,6 +71,7 @@ public class ExecUtils {
 				inner.addStderrLine(line);
 			throw inner;
 		}
+		return new CapturedOutput(outBuffer, errBuffer);
 	}
 
 }
