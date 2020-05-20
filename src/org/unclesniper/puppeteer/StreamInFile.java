@@ -10,19 +10,22 @@ public class StreamInFile implements InFile {
 
 	private final InputStream stream;
 
-	private final TempArea tempArea;
+	private final FileSlave fileSlave;
 
-	private File file;
+	private final Machine fileMachine;
 
-	public StreamInFile(InputStream stream, TempArea tempArea) {
+	private String file;
+
+	public StreamInFile(InputStream stream, FileSlave fileSlave, Machine fileMachine) {
 		this.stream = stream;
-		this.tempArea = tempArea;
+		this.fileSlave = fileSlave;
+		this.fileMachine = fileMachine;
 	}
 
 	private void slurp() throws PuppetException {
 		if(file != null)
 			return;
-		file = (tempArea == null ? DefaultTempArea.instance : tempArea).newTempFile();
+		file = (fileSlave == null ? LocalFileSlave.instance : fileSlave).newTempFile(fileMachine);
 		boolean good = false;
 		try(FileOutputStream fos = new FileOutputStream(file)) {
 			byte[] buffer = new byte[128];
@@ -39,14 +42,14 @@ public class StreamInFile implements InFile {
 		}
 		finally {
 			if(!good) {
-				file.delete();
+				new File(file).delete();
 				file = null;
 			}
 		}
 	}
 
 	@Override
-	public File asFile() throws PuppetException {
+	public String asFile() throws PuppetException {
 		slurp();
 		return file;
 	}
@@ -63,9 +66,15 @@ public class StreamInFile implements InFile {
 	}
 
 	@Override
+	public void copyTo(Machine machine, String destination) throws PuppetException {
+		slurp();
+		machine.getCopySlave().copyTo(machine, file, destination);
+	}
+
+	@Override
 	public void close() {
 		if(file != null) {
-			file.delete();
+			new File(file).delete();
 			file = null;
 		}
 	}

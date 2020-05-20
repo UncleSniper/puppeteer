@@ -1,6 +1,5 @@
 package org.unclesniper.puppeteer;
 
-import java.io.File;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,7 +12,7 @@ public class LocalCopySlave implements CopySlave {
 
 	public LocalCopySlave() {}
 
-	public void copyTo(Machine machine, File source, String destination) throws PuppetException {
+	public void copyTo(Machine machine, String source, String destination) throws PuppetException {
 		try(FileInputStream fis = new FileInputStream(source)) {
 			copyTo(machine, fis, destination);
 		}
@@ -37,7 +36,7 @@ public class LocalCopySlave implements CopySlave {
 		}
 	}
 
-	public void copyFrom(Machine machine, String source, File destination) throws PuppetException {
+	public void copyFrom(Machine machine, String source, String destination) throws PuppetException {
 		try(FileOutputStream fos = new FileOutputStream(destination)) {
 			copyFrom(machine, source, fos);
 		}

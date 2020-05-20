@@ -2,6 +2,8 @@ package org.unclesniper.puppeteer;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.FileSystems;
 
 public class LocalFileSlave implements FileSlave {
 
@@ -26,6 +28,16 @@ public class LocalFileSlave implements FileSlave {
 		}
 		catch(IOException ioe) {
 			throw new FailedToCreateTempFileIOPuppetException(ioe);
+		}
+	}
+
+	@Override
+	public void deleteFile(Machine machine, String file) throws PuppetException {
+		try {
+			Files.delete(FileSystems.getDefault().getPath(file));
+		}
+		catch(IOException ioe) {
+			throw new FailedToDeleteFileIOPuppetException(file, ioe);
 		}
 	}
 

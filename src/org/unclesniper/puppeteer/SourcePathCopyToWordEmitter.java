@@ -19,7 +19,7 @@ public class SourcePathCopyToWordEmitter implements CopyToWordEmitter {
 	@Override
 	public void buildArgv(Machine machine, InFile source, String destination, Consumer<String> sink)
 			throws PuppetException {
-		String path = source.asFile().getAbsolutePath();
+		String path = source.asFile();
 		sink.accept(transform == null ? path : transform.transformString(path));
 	}
 

@@ -1,18 +1,17 @@
 package org.unclesniper.puppeteer;
 
-import java.io.File;
 import java.io.IOException;
 
 public class CannotOpenOutFileException extends IOPuppetException {
 
-	private final File outFile;
+	private final String outFile;
 
-	public CannotOpenOutFileException(File outFile, IOException cause) {
-		super("Failed to open output file '" + outFile.getPath() + '\'', cause);
+	public CannotOpenOutFileException(String outFile, IOException cause) {
+		super("Failed to open output file '" + outFile + '\'', cause);
 		this.outFile = outFile;
 	}
 
-	public File getOutFile() {
+	public String getOutFile() {
 		return outFile;
 	}
 

@@ -1,18 +1,17 @@
 package org.unclesniper.puppeteer;
 
-import java.io.File;
 import java.io.IOException;
 
 public class CannotForwardOutFileException extends IOPuppetException {
 
-	private final File tempFile;
+	private final String tempFile;
 
-	public CannotForwardOutFileException(File tempFile, IOException cause) {
-		super("Failed to forward output file from temporary location '" + tempFile.getPath() + '\'', cause);
+	public CannotForwardOutFileException(String tempFile, IOException cause) {
+		super("Failed to forward output file from temporary location '" + tempFile + '\'', cause);
 		this.tempFile = tempFile;
 	}
 
-	public File getTempFile() {
+	public String getTempFile() {
 		return tempFile;
 	}
 

@@ -9,25 +9,33 @@ public class StreamOutFile implements OutFile {
 
 	private final OutputStream stream;
 
-	private final TempArea tempArea;
+	private final FileSlave fileSlave;
 
-	private File file;
+	private final Machine fileMachine;
 
-	public StreamOutFile(OutputStream stream, TempArea tempArea) {
+	private String file;
+
+	public StreamOutFile(OutputStream stream, FileSlave fileSlave, Machine fileMachine) {
 		this.stream = stream;
-		this.tempArea = tempArea;
+		this.fileSlave = fileSlave;
+		this.fileMachine = fileMachine;
 	}
 
 	@Override
-	public File asFile() throws PuppetException {
+	public String asFile() throws PuppetException {
 		if(file == null)
-			file = (tempArea == null ? DefaultTempArea.instance : tempArea).newTempFile();
+			file = (fileSlave == null ? LocalFileSlave.instance : fileSlave).newTempFile(fileMachine);
 		return file;
 	}
 
 	@Override
 	public OutputStream asStream() {
 		return stream;
+	}
+
+	@Override
+	public void copyFrom(Machine machine, String source) throws PuppetException {
+		machine.getCopySlave().copyFrom(machine, source, stream);
 	}
 
 	@Override
@@ -47,7 +55,7 @@ public class StreamOutFile implements OutFile {
 			throw new CannotForwardOutFileException(file, ioe);
 		}
 		finally {
-			file.delete();
+			new File(file).delete();
 			file = null;
 		}
 	}

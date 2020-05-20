@@ -1,22 +1,21 @@
 package org.unclesniper.puppeteer;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.FileInputStream;
 
 public class FileInFile implements InFile {
 
-	private final File file;
+	private final String file;
 
 	private InputStream stream;
 
-	public FileInFile(File file) {
+	public FileInFile(String file) {
 		this.file = file;
 	}
 
 	@Override
-	public File asFile() {
+	public String asFile() {
 		return file;
 	}
 
@@ -33,6 +32,11 @@ public class FileInFile implements InFile {
 		catch(IOException ioe) {
 			throw new CannotOpenInFileException(file, ioe);
 		}
+	}
+
+	@Override
+	public void copyTo(Machine machine, String destination) throws PuppetException {
+		machine.getCopySlave().copyTo(machine, file, destination);
 	}
 
 	@Override
