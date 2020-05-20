@@ -39,7 +39,7 @@ public class WorkDirExecWordEmitter implements ExecWordEmitter {
 
 	@Override
 	public void buildArgv(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
-			Consumer<String> sink) throws PuppetException {
+			Consumer<String> sink) {
 		if(workdir == null || workdir.length() == 0)
 			return;
 		if(prefix == null && suffix == null) {

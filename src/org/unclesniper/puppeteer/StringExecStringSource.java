@@ -20,8 +20,9 @@ public class StringExecStringSource implements ExecStringSource {
 		this.string = string;
 	}
 
+	@Override
 	public void buildString(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
-			StringBuilder sink) throws PuppetException {
+			StringBuilder sink) {
 		if(string != null)
 			sink.append(string);
 	}

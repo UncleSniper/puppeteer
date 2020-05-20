@@ -59,7 +59,7 @@ public class EnvExecWordEmitter implements ExecWordEmitter {
 
 	@Override
 	public void buildArgv(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
-			Consumer<String> sink) throws PuppetException {
+			Consumer<String> sink) {
 		if(environ == null)
 			return;
 		StringBuilder builder = new StringBuilder();

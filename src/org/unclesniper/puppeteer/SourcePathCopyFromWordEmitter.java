@@ -17,8 +17,7 @@ public class SourcePathCopyFromWordEmitter implements CopyFromWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(Machine machine, String source, OutFile destination, Consumer<String> sink)
-			throws PuppetException {
+	public void buildArgv(Machine machine, String source, OutFile destination, Consumer<String> sink) {
 		sink.accept(transform == null ? source : transform.transformString(source));
 	}
 

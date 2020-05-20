@@ -19,7 +19,7 @@ public class ArgvExecWordEmitter implements ExecWordEmitter {
 
 	@Override
 	public void buildArgv(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
-			Consumer<String> sink) throws PuppetException {
+			Consumer<String> sink) {
 		for(String word : argv.asIterable())
 			sink.accept(transform == null ? word : transform.transformString(word));
 	}
