@@ -60,7 +60,7 @@ public class EnvExecWordEmitter implements ExecWordEmitter {
 	@Override
 	public void buildArgv(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
 			Consumer<String> sink) {
-		if(environ == null)
+		if(environ == null || environ.isEmpty())
 			return;
 		StringBuilder builder = new StringBuilder();
 		for(Map.Entry<String, String> entry : environ.entrySet()) {
