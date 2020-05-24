@@ -19,6 +19,8 @@ public class Machine {
 
 	private final Set<String> tags = new HashSet<String>();
 
+	private final Set<String> aliases = new HashSet<String>();
+
 	public Machine() {}
 
 	public Machine(String hostname) {
@@ -81,6 +83,10 @@ public class Machine {
 		return value == null ? fallback : value;
 	}
 
+	public Iterable<String> getTags() {
+		return tags;
+	}
+
 	public void addTag(String tag) {
 		if(tag != null)
 			tags.add(tag);
@@ -88,6 +94,15 @@ public class Machine {
 
 	public boolean hasTag(String tag) {
 		return tag != null && tags.contains(tag);
+	}
+
+	public Iterable<String> getAliases() {
+		return aliases;
+	}
+
+	public void addAlias(String alias) {
+		if(alias != null)
+			aliases.add(alias);
 	}
 
 	public static String makeMessage(Machine machine, String ifPresent, String ifAbsent) {
