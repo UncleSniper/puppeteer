@@ -105,6 +105,10 @@ public class Machine {
 			aliases.add(alias);
 	}
 
+	public boolean hasAlias(String alias) {
+		return alias != null && aliases.contains(alias);
+	}
+
 	public static String makeMessage(Machine machine, String ifPresent, String ifAbsent) {
 		String hostname = machine == null ? null : machine.getHostname();
 		return hostname == null ? ifAbsent : ifPresent + '\'' + hostname + '\'';

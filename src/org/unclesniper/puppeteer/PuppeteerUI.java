@@ -2,6 +2,6 @@ package org.unclesniper.puppeteer;
 
 public interface PuppeteerUI {
 
-	//TODO
+	void executingStep(GeneralStep step);
 
 }

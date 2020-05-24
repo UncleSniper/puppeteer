@@ -1,8 +1,10 @@
 package org.unclesniper.puppeteer;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.List;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.IdentityHashMap;
 
@@ -13,6 +15,8 @@ public class Network {
 	private final Map<String, Machine> machines = new HashMap<String, Machine>();
 
 	private final Map<Machine, Machine> allMachines = new IdentityHashMap<Machine, Machine>();
+
+	private final Set<String> tags = new HashSet<String>();
 
 	public Network() {}
 
@@ -73,6 +77,19 @@ public class Network {
 
 	public Iterable<Machine> getMachines() {
 		return allMachines.keySet();
+	}
+
+	public Iterable<String> getTags() {
+		return tags;
+	}
+
+	public void addTag(String tag) {
+		if(tag != null)
+			tags.add(tag);
+	}
+
+	public boolean hasTag(String tag) {
+		return tag != null && tags.contains(tag);
 	}
 
 	public static String makeMessage(Network network, String ifPresent, String ifAbsent) {
