@@ -18,25 +18,19 @@ public class WithEachMachine extends AbstractWithAnyMachine {
 	protected void performImpl(NetworkStepInfo info) throws PuppetException {
 		MachinePredicate predicate = getThePredicate();
 		Iterable<MachineStep> steps = getSteps();
-		try {
-			boolean hasOne = false;
-			MachineStep.MachineStepInfo minfo = new MachineStep.MachineStepInfo(info);
-			Network network = info.getNetwork();
-			for(Machine machine : network.getMachines()) {
-				minfo.setMachine(machine);
-				if(!predicate.test(minfo))
-					continue;
-				hasOne = true;
-				for(MachineStep step : steps)
-					step.perform(minfo);
-			}
-			if(!hasOne && requiresAtLeastOne)
-				throw new NoMatchingMachineException(network);
+		boolean hasOne = false;
+		MachineStep.MachineStepInfo minfo = new MachineStep.MachineStepInfo(info);
+		Network network = info.getNetwork();
+		for(Machine machine : network.getMachines()) {
+			minfo.setMachine(machine);
+			if(!predicate.test(minfo))
+				continue;
+			hasOne = true;
+			for(MachineStep step : steps)
+				step.perform(minfo);
 		}
-		catch(PuppetException pe) {
-			GeneralStep.addFrame(pe, this);
-			throw pe;
-		}
+		if(!hasOne && requiresAtLeastOne)
+			throw new NoMatchingMachineException(network);
 	}
 
 }

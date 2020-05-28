@@ -15,6 +15,10 @@ public abstract class AbstractNetworkStep extends AbstractGeneralStep implements
 			currentNetwork = info.getNetwork();
 			performImpl(info);
 		}
+		catch(PuppetException pe) {
+			GeneralStep.addFrame(pe, this);
+			throw pe;
+		}
 		finally {
 			currentNetwork = oldNetwork;
 		}

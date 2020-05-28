@@ -15,9 +15,21 @@ public abstract class AbstractMachineStep extends AbstractGeneralStep implements
 			currentMachine = info.getMachine();
 			performImpl(info);
 		}
+		catch(PuppetException pe) {
+			GeneralStep.addFrame(pe, this);
+			throw pe;
+		}
 		finally {
 			currentMachine = oldMachine;
 		}
+	}
+
+	@Override
+	public String getStepQualifier() {
+		if(currentMachine == null)
+			return null;
+		String name = currentMachine.getHostname();
+		return name == null ? null : "machine '" + name + '\'';
 	}
 
 }

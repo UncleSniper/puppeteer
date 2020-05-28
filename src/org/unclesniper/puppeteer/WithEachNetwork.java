@@ -15,27 +15,21 @@ public class WithEachNetwork extends AbstractWithAnyNetwork {
 	}
 
 	@Override
-	public void perform(StepInfo info) throws PuppetException {
+	protected void performImpl(StepInfo info) throws PuppetException {
 		NetworkPredicate predicate = getThePredicate();
 		Iterable<NetworkStep> steps = getSteps();
-		try {
-			boolean hasOne = false;
-			NetworkStep.NetworkStepInfo ninfo = new NetworkStep.NetworkStepInfo(info);
-			for(Network network : info.getWorld().getNetworks()) {
-				ninfo.setNetwork(network);
-				if(!predicate.test(ninfo))
-					continue;
-				hasOne = true;
-				for(NetworkStep step : steps)
-					step.perform(ninfo);
-			}
-			if(!hasOne && requiresAtLeastOne)
-				throw new NoMatchingNetworkException();
+		boolean hasOne = false;
+		NetworkStep.NetworkStepInfo ninfo = new NetworkStep.NetworkStepInfo(info);
+		for(Network network : info.getWorld().getNetworks()) {
+			ninfo.setNetwork(network);
+			if(!predicate.test(ninfo))
+				continue;
+			hasOne = true;
+			for(NetworkStep step : steps)
+				step.perform(ninfo);
 		}
-		catch(PuppetException pe) {
-			GeneralStep.addFrame(pe, this);
-			throw pe;
-		}
+		if(!hasOne && requiresAtLeastOne)
+			throw new NoMatchingNetworkException();
 	}
 
 }

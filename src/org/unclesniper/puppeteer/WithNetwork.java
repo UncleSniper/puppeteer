@@ -33,21 +33,15 @@ public class WithNetwork extends AbstractStep {
 	}
 
 	@Override
-	public void perform(StepInfo info) throws PuppetException {
+	protected void performImpl(StepInfo info) throws PuppetException {
 		if(name == null)
 			throw new IllegalStateException("No network name set");
-		try {
-			Network network = info.getWorld().getNetwork(name);
-			if(network == null)
-				throw new NoSuchNetworkException(name);
-			NetworkStep.NetworkStepInfo ninfo = new NetworkStep.NetworkStepInfo(info, network);
-			for(NetworkStep step : steps)
-				step.perform(ninfo);
-		}
-		catch(PuppetException pe) {
-			GeneralStep.addFrame(pe, this);
-			throw pe;
-		}
+		Network network = info.getWorld().getNetwork(name);
+		if(network == null)
+			throw new NoSuchNetworkException(name);
+		NetworkStep.NetworkStepInfo ninfo = new NetworkStep.NetworkStepInfo(info, network);
+		for(NetworkStep step : steps)
+			step.perform(ninfo);
 	}
 
 }

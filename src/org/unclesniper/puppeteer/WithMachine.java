@@ -36,19 +36,13 @@ public class WithMachine extends AbstractNetworkStep {
 	protected void performImpl(NetworkStepInfo info) throws PuppetException {
 		if(hostname == null)
 			throw new IllegalStateException("No hostname set");
-		try {
-			Network network = info.getNetwork();
-			Machine machine = network.getMachine(hostname);
-			if(machine == null)
-				throw new NoSuchMachineException(hostname, network);
-			MachineStep.MachineStepInfo minfo = new MachineStep.MachineStepInfo(info, machine);
-			for(MachineStep step : steps)
-				step.perform(minfo);
-		}
-		catch(PuppetException pe) {
-			GeneralStep.addFrame(pe, this);
-			throw pe;
-		}
+		Network network = info.getNetwork();
+		Machine machine = network.getMachine(hostname);
+		if(machine == null)
+			throw new NoSuchMachineException(hostname, network);
+		MachineStep.MachineStepInfo minfo = new MachineStep.MachineStepInfo(info, machine);
+		for(MachineStep step : steps)
+			step.perform(minfo);
 	}
 
 }
