@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public abstract class AbstractVariable implements Variable {
+public abstract class AbstractVariable extends AbstractTraceable implements Variable {
 
 	private String name;
 

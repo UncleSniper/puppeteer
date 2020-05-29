@@ -7,7 +7,8 @@ public class AmbiguousMachineNameException extends PuppetException {
 	private final Network network;
 
 	public AmbiguousMachineNameException(String machineName, Network network) {
-		super("Machine name '" + machineName + "' is ambiguous" + Network.makeMessage(network, " in network ", ""));
+		super("Machine name '" + machineName + "' is ambiguous" + Network.makeMessage(network, " in network ", "")
+				+ Traceable.makeLocation(network, " (network defined at ", ")", ""));
 		this.machineName = machineName;
 		this.network = network;
 	}

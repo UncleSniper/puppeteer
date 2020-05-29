@@ -10,7 +10,8 @@ public class NewTempFileIOPuppetException extends IOPuppetException
 	private ListCommandOutputBuffer outputBuffer;
 
 	public NewTempFileIOPuppetException(Machine machine, IOException cause) {
-		super("Failed to create temporary file" + Machine.makeMessage(machine, " on ", ""), cause);
+		super("Failed to create temporary file" + Machine.makeMessage(machine, " on ", "")
+				+ Traceable.makeLocation(machine, " (machine defined at ", ")", ""), cause);
 		this.machine = machine;
 	}
 

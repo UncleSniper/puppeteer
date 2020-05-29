@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.IdentityHashMap;
 
-public class Network {
+public class Network extends AbstractTraceable {
 
 	private String name;
 

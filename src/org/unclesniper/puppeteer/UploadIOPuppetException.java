@@ -13,7 +13,8 @@ public class UploadIOPuppetException extends IOPuppetException
 
 	public UploadIOPuppetException(Machine destinationMachine, String destinationPath, IOException cause) {
 		super("Failed to upload to file '" + destinationPath + '\''
-				+ Machine.makeMessage(destinationMachine, " on ", ""), cause);
+				+ Machine.makeMessage(destinationMachine, " on ", "")
+				+ Traceable.makeLocation(destinationMachine, " (machine defined at ", ")", ""), cause);
 		this.destinationMachine = destinationMachine;
 		this.destinationPath = destinationPath;
 	}

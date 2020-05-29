@@ -12,7 +12,8 @@ public class DeleteFileIOPuppetException extends IOPuppetException
 	private ListCommandOutputBuffer outputBuffer;
 
 	public DeleteFileIOPuppetException(Machine machine, String offendingFile, IOException cause) {
-		super("failed to delete file '" + offendingFile + '\'' + Machine.makeMessage(machine, " on ", ""), cause);
+		super("failed to delete file '" + offendingFile + '\'' + Machine.makeMessage(machine, " on ", "")
+				+ Traceable.makeLocation(machine, " (machine defined at ", ")", ""), cause);
 		this.machine = machine;
 		this.offendingFile = offendingFile;
 	}

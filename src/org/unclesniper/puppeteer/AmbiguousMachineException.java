@@ -8,7 +8,8 @@ public class AmbiguousMachineException extends PuppetException {
 
 	public AmbiguousMachineException(int machineCount, Network network) {
 		super("Expected a single machine to match the predicate" + Network.makeMessage(network, " in network ", "")
-				+ ", but " + machineCount + " matched");
+				+ ", but " + machineCount + " matched"
+				+ Traceable.makeLocation(network, " (network defined at ", ")", ""));
 		this.network = network;
 		this.machineCount = machineCount;
 	}

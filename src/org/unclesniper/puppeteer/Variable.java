@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public interface Variable {
+public interface Variable extends Traceable {
 
 	String getName();
 

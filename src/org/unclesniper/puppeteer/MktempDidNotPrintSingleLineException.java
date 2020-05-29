@@ -7,7 +7,8 @@ public class MktempDidNotPrintSingleLineException extends PuppetException {
 	private final int lineCount;
 
 	public MktempDidNotPrintSingleLineException(Machine machine, int lineCount) {
-		super("Failed to create temporary file" + Machine.makeMessage(machine, " on ", "") + ": Command printed "
+		super("Failed to create temporary file" + Machine.makeMessage(machine, " on ", "")
+				+ Traceable.makeLocation(machine, " (machine defined at ", ")", "") + ": Command printed "
 				+ lineCount + " lines instead of exactly one");
 		this.machine = machine;
 		this.lineCount = lineCount;

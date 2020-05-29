@@ -29,7 +29,7 @@ public class WithEachNetwork extends AbstractWithAnyNetwork {
 				step.perform(ninfo);
 		}
 		if(!hasOne && requiresAtLeastOne)
-			throw new NoMatchingNetworkException();
+			throw new NoMatchingNetworkException(predicate);
 	}
 
 }

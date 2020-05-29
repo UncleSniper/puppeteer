@@ -13,7 +13,8 @@ public class DownloadIOPuppetException extends IOPuppetException
 
 	public DownloadIOPuppetException(Machine sourceMachine, String sourcePath, IOException cause) {
 		super("Failed to download file '" + sourcePath + '\''
-				+ Machine.makeMessage(sourceMachine, " from ", ""), cause);
+				+ Machine.makeMessage(sourceMachine, " from ", "")
+				+ Traceable.makeLocation(sourceMachine, " (machine defined at ", ")", ""), cause);
 		this.sourceMachine = sourceMachine;
 		this.sourcePath = sourcePath;
 	}

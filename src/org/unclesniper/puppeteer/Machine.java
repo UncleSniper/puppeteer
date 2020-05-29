@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Machine {
+public class Machine extends AbstractTraceable {
 
 	private String hostname;
 

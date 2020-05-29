@@ -8,7 +8,8 @@ public class NoSuchMachineException extends PuppetException {
 
 	public NoSuchMachineException(String machineName, Network network) {
 		super("There is no machine by name of '" + machineName + '\''
-				+ Network.makeMessage(network, " in network ", ""));
+				+ Network.makeMessage(network, " in network ", "")
+				+ Traceable.makeLocation(network, " (network defined at ", ")", ""));
 		this.machineName = machineName;
 		this.network = network;
 	}

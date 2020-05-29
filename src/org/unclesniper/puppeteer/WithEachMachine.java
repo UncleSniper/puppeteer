@@ -30,7 +30,7 @@ public class WithEachMachine extends AbstractWithAnyMachine {
 				step.perform(minfo);
 		}
 		if(!hasOne && requiresAtLeastOne)
-			throw new NoMatchingMachineException(network);
+			throw new NoMatchingMachineException(network, predicate);
 	}
 
 }
