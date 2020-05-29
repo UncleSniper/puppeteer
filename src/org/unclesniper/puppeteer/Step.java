@@ -8,9 +8,18 @@ public interface Step extends GeneralStep {
 
 		private final World world;
 
-		public StepInfo(PuppeteerUI ui, World world) {
+		private final ScopeLevel scope;
+
+		public StepInfo(PuppeteerUI ui, World world, ScopeLevel scope) {
 			this.ui = ui;
 			this.world = world;
+			this.scope = scope;
+		}
+
+		public StepInfo(StepInfo info) {
+			ui = info.ui;
+			world = info.world;
+			scope = info.scope;
 		}
 
 		public PuppeteerUI getUI() {
@@ -19,6 +28,10 @@ public interface Step extends GeneralStep {
 
 		public World getWorld() {
 			return world;
+		}
+
+		public ScopeLevel getScope() {
+			return scope;
 		}
 
 	}

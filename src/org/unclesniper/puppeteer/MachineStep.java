@@ -6,22 +6,18 @@ public interface MachineStep extends GeneralStep {
 
 		private Machine machine;
 
-		public MachineStepInfo(PuppeteerUI ui, World world, Network network) {
-			this(ui, world, network, null);
-		}
-
-		public MachineStepInfo(PuppeteerUI ui, World world, Network network, Machine machine) {
-			super(ui, world, network);
-			this.machine = machine;
-		}
-
 		public MachineStepInfo(NetworkStep.NetworkStepInfo info) {
 			this(info, null);
 		}
 
 		public MachineStepInfo(NetworkStep.NetworkStepInfo info, Machine machine) {
-			this(info == null ? null : info.getUI(), info == null ? null : info.getWorld(),
-					info == null ? null : info.getNetwork(), machine);
+			super(info);
+			this.machine = machine;
+		}
+
+		public MachineStepInfo(MachineStepInfo info) {
+			super(info);
+			machine = info.machine;
 		}
 
 		public Machine getMachine() {

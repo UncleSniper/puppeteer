@@ -18,8 +18,13 @@ public class Plan {
 			steps.add(step);
 	}
 
-	public void perform(PuppeteerUI ui, World world) throws PuppetException {
-		Step.StepInfo info = new Step.StepInfo(ui, world);
+	public void perform(PuppeteerUI ui, World world, ScopeLevel scope) throws PuppetException {
+		if(scope == null)
+			scope = new ScopeLevel(null);
+		perform(new Step.StepInfo(ui, world, scope));
+	}
+
+	public void perform(Step.StepInfo info) throws PuppetException {
 		for(Step step : steps)
 			step.perform(info);
 	}
