@@ -2,7 +2,7 @@ package org.unclesniper.puppeteer;
 
 import java.util.Map;
 
-public class WorkDirExecStringSource implements ExecStringSource {
+public class WorkDirExecStringSource extends AbstractExecStringSource {
 
 	private String prefix;
 
@@ -41,8 +41,8 @@ public class WorkDirExecStringSource implements ExecStringSource {
 	}
 
 	@Override
-	public void buildString(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
-			StringBuilder sink)  {
+	protected void buildStringImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
+			int flags, StringBuilder sink)  {
 		if(workdir == null || workdir.length() == 0)
 			return;
 		if(prefix != null)

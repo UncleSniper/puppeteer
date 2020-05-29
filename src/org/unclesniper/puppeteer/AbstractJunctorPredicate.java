@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public abstract class AbstractJunctorPredicate {
+public abstract class AbstractJunctorPredicate extends AbstractTraceable {
 
 	private Junctor junctor;
 

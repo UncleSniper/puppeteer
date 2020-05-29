@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Collection;
 import java.util.function.Consumer;
 
-public class ExecExecSlave implements ExecSlave {
+public class ExecExecSlave extends AbstractExecSlave {
 
 	private Machine execHost;
 
@@ -49,13 +49,13 @@ public class ExecExecSlave implements ExecSlave {
 	}
 
 	@Override
-	public ExecControl execute(Machine machine, Collection<String> argv, String workdir,
+	protected ExecControl executeImpl(Machine machine, Collection<String> argv, String workdir,
 			Map<String, String> environ, int flags) throws PuppetException {
 		return execute(machine, new CollectionArgv(argv), workdir, environ, flags);
 	}
 
 	@Override
-	public ExecControl execute(Machine machine, String[] argv, String workdir, Map<String, String> environ,
+	protected ExecControl executeImpl(Machine machine, String[] argv, String workdir, Map<String, String> environ,
 			int flags) throws PuppetException {
 		return execute(machine, new ArrayArgv(argv), workdir, environ, flags);
 	}

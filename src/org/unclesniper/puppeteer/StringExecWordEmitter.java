@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class StringExecWordEmitter implements ExecWordEmitter {
+public class StringExecWordEmitter extends AbstractExecWordEmitter {
 
 	private final List<String> words = new LinkedList<String>();
 
@@ -17,8 +17,8 @@ public class StringExecWordEmitter implements ExecWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
-			Consumer<String> sink) {
+	protected void buildArgvImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
+			int flags, Consumer<String> sink) {
 		for(String word : words)
 			sink.accept(word);
 	}

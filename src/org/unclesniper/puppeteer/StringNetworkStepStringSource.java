@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class StringNetworkStepStringSource implements NetworkStepStringSource {
+public class StringNetworkStepStringSource extends AbstractNetworkStepStringSource {
 
 	private String string;
 
@@ -19,7 +19,7 @@ public class StringNetworkStepStringSource implements NetworkStepStringSource {
 	}
 
 	@Override
-	public void buildString(NetworkStep.NetworkStepInfo info, StringBuilder sink) {
+	protected void buildStringImpl(NetworkStep.NetworkStepInfo info, StringBuilder sink) {
 		if(string != null)
 			sink.append(string);
 	}

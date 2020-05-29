@@ -2,7 +2,7 @@ package org.unclesniper.puppeteer;
 
 import java.util.function.Consumer;
 
-public class PathDeleteFileWordEmitter implements DeleteFileWordEmitter {
+public class PathDeleteFileWordEmitter extends AbstractDeleteFileWordEmitter {
 
 	private StringTransform transform;
 
@@ -21,7 +21,7 @@ public class PathDeleteFileWordEmitter implements DeleteFileWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(Machine machine, String file, Consumer<String> sink) {
+	protected void buildArgvImpl(Machine machine, String file, Consumer<String> sink) {
 		sink.accept(transform == null ? file : transform.transformString(file));
 	}
 

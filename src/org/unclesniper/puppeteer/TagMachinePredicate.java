@@ -6,7 +6,13 @@ public class TagMachinePredicate extends AbstractTagPredicate implements Machine
 
 	@Override
 	public boolean test(MachineStep.MachineStepInfo info) throws PuppetException {
-		return isSatisfied(info.getMachine()::hasTag);
+		try {
+			return isSatisfied(info.getMachine()::hasTag);
+		}
+		catch(PuppetException pe) {
+			pe.addPuppetFrame(this);
+			throw pe;
+		}
 	}
 
 }

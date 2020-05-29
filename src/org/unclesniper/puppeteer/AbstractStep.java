@@ -17,7 +17,7 @@ public abstract class AbstractStep extends AbstractGeneralStep implements Step {
 			performImpl(info);
 		}
 		catch(PuppetException pe) {
-			GeneralStep.addFrame(pe, this);
+			pe.addPuppetFrame(this);
 			throw pe;
 		}
 	}

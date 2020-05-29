@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public abstract class AbstractMachineStringPropertyReference {
+public abstract class AbstractMachineStringPropertyReference extends AbstractTraceable {
 
 	private String property;
 

@@ -10,9 +10,15 @@ public class MachineStringPropertyExecStringSource extends AbstractMachineString
 	@Override
 	public void buildString(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
 			StringBuilder sink) throws MissingMachineStringPropertyException {
-		String value = getPropertyValue(machine);
-		if(value != null)
-			sink.append(value);
+		try {
+			String value = getPropertyValue(machine);
+			if(value != null)
+				sink.append(value);
+		}
+		catch(MissingMachineStringPropertyException mmspe) {
+			mmspe.addPuppetFrame(this);
+			throw mmspe;
+		}
 	}
 
 }

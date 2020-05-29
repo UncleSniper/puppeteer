@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class AmbiguousMachineException extends AbstractStepTracingException {
+public class AmbiguousMachineException extends PuppetException {
 
 	private final Network network;
 

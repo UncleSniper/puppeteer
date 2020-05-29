@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class CompoundCopyToWordEmitter implements CopyToWordEmitter {
+public class CompoundCopyToWordEmitter extends AbstractCopyToWordEmitter {
 
 	private final List<CopyToStringSource> pieces = new LinkedList<CopyToStringSource>();
 
@@ -35,7 +35,7 @@ public class CompoundCopyToWordEmitter implements CopyToWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(Machine machine, InFile source, String destination, Consumer<String> sink)
+	protected void buildArgvImpl(Machine machine, InFile source, String destination, Consumer<String> sink)
 			throws PuppetException {
 		StringBuilder builder = new StringBuilder();
 		for(CopyToStringSource piece : pieces)

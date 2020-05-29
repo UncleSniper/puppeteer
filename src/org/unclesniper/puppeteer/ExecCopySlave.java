@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class ExecCopySlave implements CopySlave {
+public class ExecCopySlave extends AbstractCopySlave {
 
 	private Machine execHost;
 
@@ -160,22 +160,22 @@ public class ExecCopySlave implements CopySlave {
 	}
 
 	@Override
-	public void copyTo(Machine machine, String source, String destination) throws PuppetException {
+	protected void copyToImpl(Machine machine, String source, String destination) throws PuppetException {
 		copyTo(machine, new FileInFile(source), destination);
 	}
 
 	@Override
-	public void copyTo(Machine machine, InputStream source, String destination) throws PuppetException {
+	protected void copyToImpl(Machine machine, InputStream source, String destination) throws PuppetException {
 		copyTo(machine, new StreamInFile(source, localFileSlave, null), destination);
 	}
 
 	@Override
-	public void copyFrom(Machine machine, String source, String destination) throws PuppetException {
+	protected void copyFromImpl(Machine machine, String source, String destination) throws PuppetException {
 		copyFrom(machine, source, new FileOutFile(destination));
 	}
 
 	@Override
-	public void copyFrom(Machine machine, String source, OutputStream destination) throws PuppetException {
+	protected void copyFromImpl(Machine machine, String source, OutputStream destination) throws PuppetException {
 		copyFrom(machine, source, new StreamOutFile(destination, localFileSlave, null));
 	}
 

@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class NoSuchNetworkException extends AbstractStepTracingException {
+public class NoSuchNetworkException extends PuppetException {
 
 	private final String networkName;
 

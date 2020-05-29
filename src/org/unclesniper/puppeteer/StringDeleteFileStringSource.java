@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class StringDeleteFileStringSource implements DeleteFileStringSource {
+public class StringDeleteFileStringSource extends AbstractDeleteFileStringSource {
 
 	private String string;
 
@@ -19,7 +19,7 @@ public class StringDeleteFileStringSource implements DeleteFileStringSource {
 	}
 
 	@Override
-	public void buildString(Machine machine, String file, StringBuilder sink) {
+	protected void buildStringImpl(Machine machine, String file, StringBuilder sink) {
 		if(string != null)
 			sink.append(string);
 	}

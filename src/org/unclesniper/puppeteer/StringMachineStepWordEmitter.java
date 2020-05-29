@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class StringMachineStepWordEmitter implements MachineStepWordEmitter {
+public class StringMachineStepWordEmitter extends AbstractMachineStepWordEmitter {
 
 	private final List<String> words = new LinkedList<String>();
 
@@ -16,7 +16,7 @@ public class StringMachineStepWordEmitter implements MachineStepWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(MachineStep.MachineStepInfo info, Consumer<String> sink) {
+	protected void buildArgvImpl(MachineStep.MachineStepInfo info, Consumer<String> sink) {
 		for(String word : words)
 			sink.accept(word);
 	}

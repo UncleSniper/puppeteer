@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class StringNetworkStepWordEmitter implements NetworkStepWordEmitter {
+public class StringNetworkStepWordEmitter extends AbstractNetworkStepWordEmitter {
 
 	private final List<String> words = new LinkedList<String>();
 
@@ -16,7 +16,7 @@ public class StringNetworkStepWordEmitter implements NetworkStepWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(NetworkStep.NetworkStepInfo info, Consumer<String> sink) {
+	protected void buildArgvImpl(NetworkStep.NetworkStepInfo info, Consumer<String> sink) {
 		for(String word : words)
 			sink.accept(word);
 	}

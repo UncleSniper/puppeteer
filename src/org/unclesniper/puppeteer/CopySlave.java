@@ -3,7 +3,7 @@ package org.unclesniper.puppeteer;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public interface CopySlave {
+public interface CopySlave extends Traceable {
 
 	void copyTo(Machine machine, String source, String destination) throws PuppetException;
 

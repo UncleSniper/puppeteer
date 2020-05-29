@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class StringNewTempFileWordEmitter implements NewTempFileWordEmitter {
+public class StringNewTempFileWordEmitter extends AbstractNewTempFileWordEmitter {
 
 	private final List<String> words = new LinkedList<String>();
 
@@ -16,7 +16,7 @@ public class StringNewTempFileWordEmitter implements NewTempFileWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(Machine machine, Consumer<String> sink) {
+	protected void buildArgvImpl(Machine machine, Consumer<String> sink) {
 		for(String word : words)
 			sink.accept(word);
 	}

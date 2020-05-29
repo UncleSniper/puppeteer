@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class ExecFileSlave implements FileSlave {
+public class ExecFileSlave extends AbstractFileSlave {
 
 	private Machine execHost;
 
@@ -49,7 +49,7 @@ public class ExecFileSlave implements FileSlave {
 	}
 
 	@Override
-	public String newTempFile(Machine machine) throws PuppetException {
+	protected String newTempFileImpl(Machine machine) throws PuppetException {
 		List<String> argv = new LinkedList<String>();
 		Consumer<String> sink = argv::add;
 		for(NewTempFileWordEmitter emitter : tempFileWords)
@@ -63,7 +63,7 @@ public class ExecFileSlave implements FileSlave {
 	}
 
 	@Override
-	public void deleteFile(Machine machine, String file) throws PuppetException {
+	protected void deleteFileImpl(Machine machine, String file) throws PuppetException {
 		List<String> argv = new LinkedList<String>();
 		Consumer<String> sink = argv::add;
 		for(DeleteFileWordEmitter emitter : deleteFileWords)

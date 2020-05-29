@@ -1,13 +1,13 @@
 package org.unclesniper.puppeteer;
 
-public class AnyMachinePredicate implements MachinePredicate {
+public class AnyMachinePredicate extends AbstractMachinePredicate {
 
 	public static final AnyMachinePredicate instance = new AnyMachinePredicate();
 
 	public AnyMachinePredicate() {}
 
 	@Override
-	public boolean test(MachineStep.MachineStepInfo info) {
+	protected boolean testImpl(MachineStep.MachineStepInfo info) {
 		return true;
 	}
 

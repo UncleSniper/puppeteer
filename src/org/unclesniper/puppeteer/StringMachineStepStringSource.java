@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class StringMachineStepStringSource implements MachineStepStringSource {
+public class StringMachineStepStringSource extends AbstractMachineStepStringSource {
 
 	private String string;
 
@@ -19,7 +19,7 @@ public class StringMachineStepStringSource implements MachineStepStringSource {
 	}
 
 	@Override
-	public void buildString(MachineStep.MachineStepInfo info, StringBuilder sink) {
+	protected void buildStringImpl(MachineStep.MachineStepInfo info, StringBuilder sink) {
 		if(string != null)
 			sink.append(string);
 	}

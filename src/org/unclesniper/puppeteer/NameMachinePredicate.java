@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class NameMachinePredicate implements MachinePredicate {
+public class NameMachinePredicate extends AbstractMachinePredicate {
 
 	private String name;
 
@@ -15,7 +15,7 @@ public class NameMachinePredicate implements MachinePredicate {
 	}
 
 	@Override
-	public boolean test(MachineStep.MachineStepInfo info) {
+	protected boolean testImpl(MachineStep.MachineStepInfo info) {
 		if(name == null)
 			return false;
 		Machine machine = info.getMachine();

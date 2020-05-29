@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class CompoundNetworkStepWordEmitter implements NetworkStepWordEmitter {
+public class CompoundNetworkStepWordEmitter extends AbstractNetworkStepWordEmitter {
 
 	private final List<NetworkStepStringSource> pieces = new LinkedList<NetworkStepStringSource>();
 
@@ -35,7 +35,7 @@ public class CompoundNetworkStepWordEmitter implements NetworkStepWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(NetworkStep.NetworkStepInfo info, Consumer<String> sink) throws PuppetException {
+	protected void buildArgvImpl(NetworkStep.NetworkStepInfo info, Consumer<String> sink) throws PuppetException {
 		StringBuilder builder = new StringBuilder();
 
 		for(NetworkStepStringSource piece : pieces)

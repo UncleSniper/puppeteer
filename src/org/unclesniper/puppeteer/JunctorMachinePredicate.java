@@ -20,7 +20,13 @@ public class JunctorMachinePredicate extends AbstractJunctorPredicate implements
 
 	@Override
 	public boolean test(MachineStep.MachineStepInfo info) throws PuppetException {
-		return isSatisfied(predicates, info, MachinePredicate::test);
+		try {
+			return isSatisfied(predicates, info, MachinePredicate::test);
+		}
+		catch(PuppetException pe) {
+			pe.addPuppetFrame(this);
+			throw pe;
+		}
 	}
 
 }

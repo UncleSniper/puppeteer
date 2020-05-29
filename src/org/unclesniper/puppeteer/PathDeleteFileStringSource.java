@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class PathDeleteFileStringSource implements DeleteFileStringSource {
+public class PathDeleteFileStringSource extends AbstractDeleteFileStringSource {
 
 	private StringTransform transform;
 
@@ -19,7 +19,7 @@ public class PathDeleteFileStringSource implements DeleteFileStringSource {
 	}
 
 	@Override
-	public void buildString(Machine machine, String file, StringBuilder sink) {
+	protected void buildStringImpl(Machine machine, String file, StringBuilder sink) {
 		sink.append(transform == null ? file : transform.transformString(file));
 	}
 

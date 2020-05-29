@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class CompoundMachineStepWordEmitter implements MachineStepWordEmitter {
+public class CompoundMachineStepWordEmitter extends AbstractMachineStepWordEmitter {
 
 	private final List<MachineStepStringSource> pieces = new LinkedList<MachineStepStringSource>();
 
@@ -35,7 +35,7 @@ public class CompoundMachineStepWordEmitter implements MachineStepWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(MachineStep.MachineStepInfo info, Consumer<String> sink) throws PuppetException {
+	protected void buildArgvImpl(MachineStep.MachineStepInfo info, Consumer<String> sink) throws PuppetException {
 		StringBuilder builder = new StringBuilder();
 		for(MachineStepStringSource piece : pieces)
 			piece.buildString(info, builder);

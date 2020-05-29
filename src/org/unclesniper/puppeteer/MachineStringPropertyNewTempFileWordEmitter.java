@@ -9,9 +9,15 @@ public class MachineStringPropertyNewTempFileWordEmitter extends AbstractMachine
 
 	@Override
 	public void buildArgv(Machine machine, Consumer<String> sink) throws MissingMachineStringPropertyException {
-		String value = getPropertyValue(machine);
-		if(value != null)
-			sink.accept(value);
+		try {
+			String value = getPropertyValue(machine);
+			if(value != null)
+				sink.accept(value);
+		}
+		catch(MissingMachineStringPropertyException mmspe) {
+			mmspe.addPuppetFrame(this);
+			throw mmspe;
+		}
 	}
 
 }

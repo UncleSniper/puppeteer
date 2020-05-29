@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public abstract class AbstractGeneralStep implements GeneralStep {
+public abstract class AbstractGeneralStep extends AbstractTraceable implements GeneralStep {
 
 	private String stepTitle;
 

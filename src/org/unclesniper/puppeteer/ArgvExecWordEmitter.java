@@ -3,7 +3,7 @@ package org.unclesniper.puppeteer;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class ArgvExecWordEmitter implements ExecWordEmitter {
+public class ArgvExecWordEmitter extends AbstractExecWordEmitter {
 
 	private StringTransform transform;
 
@@ -22,8 +22,8 @@ public class ArgvExecWordEmitter implements ExecWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
-			Consumer<String> sink) {
+	protected void buildArgvImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
+			int flags, Consumer<String> sink) {
 		for(String word : argv.asIterable())
 			sink.accept(transform == null ? word : transform.transformString(word));
 	}

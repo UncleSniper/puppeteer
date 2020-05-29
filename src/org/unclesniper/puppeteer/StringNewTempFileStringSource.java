@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class StringNewTempFileStringSource implements NewTempFileStringSource {
+public class StringNewTempFileStringSource extends AbstractNewTempFileStringSource {
 
 	private String string;
 
@@ -19,7 +19,7 @@ public class StringNewTempFileStringSource implements NewTempFileStringSource {
 	}
 
 	@Override
-	public void buildString(Machine machine, StringBuilder sink) throws PuppetException {
+	protected void buildStringImpl(Machine machine, StringBuilder sink) throws PuppetException {
 		if(string != null)
 			sink.append(string);
 	}

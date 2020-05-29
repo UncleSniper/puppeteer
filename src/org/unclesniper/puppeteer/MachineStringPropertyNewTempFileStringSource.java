@@ -7,9 +7,15 @@ public class MachineStringPropertyNewTempFileStringSource extends AbstractMachin
 
 	@Override
 	public void buildString(Machine machine, StringBuilder sink) throws MissingMachineStringPropertyException {
-		String value = getPropertyValue(machine);
-		if(value != null)
-			sink.append(value);
+		try {
+			String value = getPropertyValue(machine);
+			if(value != null)
+				sink.append(value);
+		}
+		catch(MissingMachineStringPropertyException mmspe) {
+			mmspe.addPuppetFrame(this);
+			throw mmspe;
+		}
 	}
 
 }

@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class HostnameMachinePredicate implements MachinePredicate {
+public class HostnameMachinePredicate extends AbstractMachinePredicate {
 
 	private String hostname;
 
@@ -19,7 +19,7 @@ public class HostnameMachinePredicate implements MachinePredicate {
 	}
 
 	@Override
-	public boolean test(MachineStep.MachineStepInfo info) {
+	protected boolean testImpl(MachineStep.MachineStepInfo info) {
 		return hostname != null && hostname.equals(info.getMachine().getHostname());
 	}
 

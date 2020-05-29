@@ -5,29 +5,31 @@ import java.util.Map;
 import java.io.IOException;
 import java.util.Collection;
 
-public class LocalExecSlave implements ExecSlave {
+public class LocalExecSlave extends AbstractExecSlave {
 
 	public static final LocalExecSlave instance = new LocalExecSlave();
 
 	public LocalExecSlave() {}
 
-	public ExecControl execute(Machine machine, Collection<String> argv, String workdir,
+	@Override
+	protected ExecControl executeImpl(Machine machine, Collection<String> argv, String workdir,
 			Map<String, String> environ, int flags) throws PuppetException {
 		return ExecUtils.useArray(this, machine, argv, workdir, environ, flags);
 	}
 
-	public ExecControl execute(Machine machine, String[] argv, String workdir, Map<String, String> environ,
+	@Override
+	protected ExecControl executeImpl(Machine machine, String[] argv, String workdir, Map<String, String> environ,
 			int flags) throws PuppetException {
 		if(LocalUtils.DEBUG_LOCAL) {
 			System.err.println("*** DEBUG: execute:");
-			System.err.println("               argv:");
+			System.err.println("***            argv:");
 			for(String word : argv)
-				System.err.println("                   '" + word + '\'');
-			System.err.println("               workdir: " + (workdir == null ? "<null>" : '\'' + workdir + '\''));
+				System.err.println("***                '" + word + '\'');
+			System.err.println("***            workdir: " + (workdir == null ? "<null>" : '\'' + workdir + '\''));
 			if(environ != null && !environ.isEmpty()) {
-				System.err.println("               environ:");
+				System.err.println("***            environ:");
 				for(Map.Entry<String, String> entry : environ.entrySet())
-					System.err.println("                   '" + entry.getKey() + "'='" + entry.getValue() + '\'');
+					System.err.println("***                '" + entry.getKey() + "'='" + entry.getValue() + '\'');
 			}
 		}
 		ProcessBuilder builder = new ProcessBuilder(argv);

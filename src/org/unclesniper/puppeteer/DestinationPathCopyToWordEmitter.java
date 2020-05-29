@@ -2,7 +2,7 @@ package org.unclesniper.puppeteer;
 
 import java.util.function.Consumer;
 
-public class DestinationPathCopyToWordEmitter implements CopyToWordEmitter {
+public class DestinationPathCopyToWordEmitter extends AbstractCopyToWordEmitter {
 
 	private StringTransform transform;
 
@@ -21,7 +21,7 @@ public class DestinationPathCopyToWordEmitter implements CopyToWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(Machine machine, InFile source, String destination, Consumer<String> sink) {
+	protected void buildArgvImpl(Machine machine, InFile source, String destination, Consumer<String> sink) {
 		sink.accept(transform == null ? destination : transform.transformString(destination));
 	}
 

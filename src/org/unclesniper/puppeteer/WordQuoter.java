@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public interface WordQuoter {
+public interface WordQuoter extends Traceable {
 
 	void quoteIterable(Iterable<String> words, StringBuilder sink);
 

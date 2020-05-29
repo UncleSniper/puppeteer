@@ -8,9 +8,15 @@ class MachineStringPropertyDeleteFileStringSource extends AbstractMachineStringP
 	@Override
 	public void buildString(Machine machine, String file, StringBuilder sink)
 			throws MissingMachineStringPropertyException {
-		String value = getPropertyValue(machine);
-		if(value != null)
-			sink.append(value);
+		try {
+			String value = getPropertyValue(machine);
+			if(value != null)
+				sink.append(value);
+		}
+		catch(MissingMachineStringPropertyException mmspe) {
+			mmspe.addPuppetFrame(this);
+			throw mmspe;
+		}
 	}
 
 }

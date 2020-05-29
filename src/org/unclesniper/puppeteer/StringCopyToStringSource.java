@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class StringCopyToStringSource implements CopyToStringSource {
+public class StringCopyToStringSource extends AbstractCopyToStringSource {
 
 	private String string;
 
@@ -19,7 +19,7 @@ public class StringCopyToStringSource implements CopyToStringSource {
 	}
 
 	@Override
-	public void buildString(Machine machine, InFile source, String destination, StringBuilder sink)
+	protected void buildStringImpl(Machine machine, InFile source, String destination, StringBuilder sink)
 			throws PuppetException {
 		if(string != null)
 			sink.append(string);

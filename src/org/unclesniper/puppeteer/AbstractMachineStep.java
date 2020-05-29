@@ -16,7 +16,7 @@ public abstract class AbstractMachineStep extends AbstractGeneralStep implements
 			performImpl(info);
 		}
 		catch(PuppetException pe) {
-			GeneralStep.addFrame(pe, this);
+			pe.addPuppetFrame(this);
 			throw pe;
 		}
 		finally {

@@ -2,7 +2,7 @@ package org.unclesniper.puppeteer;
 
 import java.util.Map;
 
-public class ArgvExecStringSource implements ExecStringSource {
+public class ArgvExecStringSource extends AbstractExecStringSource {
 
 	private String separator = " ";
 
@@ -31,8 +31,8 @@ public class ArgvExecStringSource implements ExecStringSource {
 	}
 
 	@Override
-	public void buildString(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
-			StringBuilder sink)  {
+	protected void buildStringImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
+			int flags, StringBuilder sink)  {
 		boolean first = true;
 		for(String word : argv.asIterable()) {
 			if(first)

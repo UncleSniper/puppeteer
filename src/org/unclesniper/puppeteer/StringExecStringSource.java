@@ -2,7 +2,7 @@ package org.unclesniper.puppeteer;
 
 import java.util.Map;
 
-public class StringExecStringSource implements ExecStringSource {
+public class StringExecStringSource extends AbstractExecStringSource {
 
 	private String string;
 
@@ -21,8 +21,8 @@ public class StringExecStringSource implements ExecStringSource {
 	}
 
 	@Override
-	public void buildString(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
-			StringBuilder sink) {
+	protected void buildStringImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
+			int flags, StringBuilder sink) {
 		if(string != null)
 			sink.append(string);
 	}

@@ -2,7 +2,7 @@ package org.unclesniper.puppeteer;
 
 import java.util.Map;
 
-public class EnvExecStringSource implements ExecStringSource {
+public class EnvExecStringSource extends AbstractExecStringSource {
 
 	private String mapPrefix;
 
@@ -85,8 +85,8 @@ public class EnvExecStringSource implements ExecStringSource {
 	}
 
 	@Override
-	public void buildString(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
-			StringBuilder sink) {
+	protected void buildStringImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
+			int flags, StringBuilder sink) {
 		if(environ == null || environ.isEmpty())
 			return;
 		if(mapPrefix != null)

@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class NoSuchMachineException extends AbstractStepTracingException {
+public class NoSuchMachineException extends PuppetException {
 
 	private final String machineName;
 

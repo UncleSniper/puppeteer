@@ -24,4 +24,10 @@ public class StepNetworkStep extends AbstractNetworkStep {
 			step.perform(info);
 	}
 
+	@Override
+	public String getTraceObjectDefinitionLocation() {
+		String location = super.getTraceObjectDefinitionLocation();
+		return location == null && step != null ? step.getTraceObjectDefinitionLocation() : location;
+	}
+
 }

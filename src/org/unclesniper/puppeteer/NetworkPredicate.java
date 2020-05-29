@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public interface NetworkPredicate {
+public interface NetworkPredicate extends Traceable {
 
 	boolean test(NetworkStep.NetworkStepInfo info) throws PuppetException;
 

@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class BashWordQuoter implements WordQuoter {
+public class BashWordQuoter extends AbstractWordQuoter {
 
 	public static final BashWordQuoter instance = new BashWordQuoter();
 

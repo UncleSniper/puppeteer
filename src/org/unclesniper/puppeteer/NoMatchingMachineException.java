@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class NoMatchingMachineException extends AbstractStepTracingException {
+public class NoMatchingMachineException extends PuppetException {
 
 	private final Network network;
 

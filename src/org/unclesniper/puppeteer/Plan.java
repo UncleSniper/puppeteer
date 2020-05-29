@@ -3,7 +3,7 @@ package org.unclesniper.puppeteer;
 import java.util.List;
 import java.util.LinkedList;
 
-public class Plan {
+public class Plan extends AbstractTraceable {
 
 	private final List<Step> steps = new LinkedList<Step>();
 
@@ -25,8 +25,14 @@ public class Plan {
 	}
 
 	public void perform(Step.StepInfo info) throws PuppetException {
-		for(Step step : steps)
-			step.perform(info);
+		try {
+			for(Step step : steps)
+				step.perform(info);
+		}
+		catch(PuppetException pe) {
+			pe.addPuppetFrame(this);
+			throw pe;
+		}
 	}
 
 }

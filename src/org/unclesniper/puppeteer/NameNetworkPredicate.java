@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class NameNetworkPredicate implements NetworkPredicate {
+public class NameNetworkPredicate extends AbstractNetworkPredicate {
 
 	private String name;
 
@@ -19,7 +19,7 @@ public class NameNetworkPredicate implements NetworkPredicate {
 	}
 
 	@Override
-	public boolean test(NetworkStep.NetworkStepInfo info) {
+	protected boolean testImpl(NetworkStep.NetworkStepInfo info) {
 		return name != null && name.equals(info.getNetwork().getName());
 	}
 

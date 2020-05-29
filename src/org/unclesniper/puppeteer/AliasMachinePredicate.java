@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class AliasMachinePredicate implements MachinePredicate {
+public class AliasMachinePredicate extends AbstractMachinePredicate {
 
 	private String alias;
 
@@ -19,7 +19,7 @@ public class AliasMachinePredicate implements MachinePredicate {
 	}
 
 	@Override
-	public boolean test(MachineStep.MachineStepInfo info) {
+	protected boolean testImpl(MachineStep.MachineStepInfo info) {
 		return alias != null && info.getMachine().hasAlias(alias);
 	}
 

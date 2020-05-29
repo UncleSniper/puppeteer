@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class CompoundNewTempFileWordEmitter implements NewTempFileWordEmitter {
+public class CompoundNewTempFileWordEmitter extends AbstractNewTempFileWordEmitter {
 
 	private final List<NewTempFileStringSource> pieces = new LinkedList<NewTempFileStringSource>();
 
@@ -35,7 +35,7 @@ public class CompoundNewTempFileWordEmitter implements NewTempFileWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(Machine machine, Consumer<String> sink) throws PuppetException {
+	protected void buildArgvImpl(Machine machine, Consumer<String> sink) throws PuppetException {
 		StringBuilder builder = new StringBuilder();
 		for(NewTempFileStringSource piece : pieces)
 			piece.buildString(machine, builder);

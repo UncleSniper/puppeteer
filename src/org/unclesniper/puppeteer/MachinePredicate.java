@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public interface MachinePredicate {
+public interface MachinePredicate extends Traceable {
 
 	boolean test(MachineStep.MachineStepInfo info) throws PuppetException;
 

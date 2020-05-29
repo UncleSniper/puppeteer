@@ -1,6 +1,6 @@
 package org.unclesniper.puppeteer;
 
-public class DestinationPathCopyFromStringSource implements CopyFromStringSource {
+public class DestinationPathCopyFromStringSource extends AbstractCopyFromStringSource {
 
 	private StringTransform transform;
 
@@ -19,7 +19,7 @@ public class DestinationPathCopyFromStringSource implements CopyFromStringSource
 	}
 
 	@Override
-	public void buildString(Machine machine, String source, OutFile destination, StringBuilder sink)
+	protected void buildStringImpl(Machine machine, String source, OutFile destination, StringBuilder sink)
 			throws PuppetException {
 		String path = destination.asFile();
 		sink.append(transform == null ? path : transform.transformString(path));

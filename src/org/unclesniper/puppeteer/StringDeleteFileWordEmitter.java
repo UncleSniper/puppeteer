@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class StringDeleteFileWordEmitter implements DeleteFileWordEmitter {
+public class StringDeleteFileWordEmitter extends AbstractDeleteFileWordEmitter {
 
 	private final List<String> words = new LinkedList<String>();
 
@@ -16,7 +16,7 @@ public class StringDeleteFileWordEmitter implements DeleteFileWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(Machine machine, String file, Consumer<String> sink) throws PuppetException {
+	protected void buildArgvImpl(Machine machine, String file, Consumer<String> sink) throws PuppetException {
 		for(String word : words)
 			sink.accept(word);
 	}

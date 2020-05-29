@@ -3,7 +3,7 @@ package org.unclesniper.puppeteer;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class WorkDirExecWordEmitter implements ExecWordEmitter {
+public class WorkDirExecWordEmitter extends AbstractExecWordEmitter {
 
 	private String prefix;
 
@@ -42,8 +42,8 @@ public class WorkDirExecWordEmitter implements ExecWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
-			Consumer<String> sink) {
+	protected void buildArgvImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
+			int flags, Consumer<String> sink) {
 		if(workdir == null || workdir.length() == 0)
 			return;
 		if(prefix == null && suffix == null) {

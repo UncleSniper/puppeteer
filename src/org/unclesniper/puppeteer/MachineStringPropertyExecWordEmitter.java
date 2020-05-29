@@ -11,9 +11,15 @@ public class MachineStringPropertyExecWordEmitter extends AbstractMachineStringP
 	@Override
 	public void buildArgv(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
 			Consumer<String> sink) throws MissingMachineStringPropertyException {
-		String value = getPropertyValue(machine);
-		if(value != null)
-			sink.accept(value);
+		try {
+			String value = getPropertyValue(machine);
+			if(value != null)
+				sink.accept(value);
+		}
+		catch(MissingMachineStringPropertyException mmspe) {
+			mmspe.addPuppetFrame(this);
+			throw mmspe;
+		}
 	}
 
 }

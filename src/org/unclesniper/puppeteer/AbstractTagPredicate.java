@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.function.Predicate;
 
-public abstract class AbstractTagPredicate {
+public abstract class AbstractTagPredicate extends AbstractTraceable {
 
 	private Junctor junctor;
 

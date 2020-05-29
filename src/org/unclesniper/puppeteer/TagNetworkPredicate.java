@@ -6,7 +6,13 @@ public class TagNetworkPredicate extends AbstractTagPredicate implements Network
 
 	@Override
 	public boolean test(NetworkStep.NetworkStepInfo info) throws PuppetException {
-		return isSatisfied(info.getNetwork()::hasTag);
+		try {
+			return isSatisfied(info.getNetwork()::hasTag);
+		}
+		catch(PuppetException pe) {
+			pe.addPuppetFrame(this);
+			throw pe;
+		}
 	}
 
 }

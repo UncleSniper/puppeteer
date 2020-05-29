@@ -3,7 +3,7 @@ package org.unclesniper.puppeteer;
 import java.util.Map;
 import java.util.Collection;
 
-public interface ExecSlave {
+public interface ExecSlave extends Traceable {
 
 	public static final int FL_STDIN_UTF8  = 001;
 	public static final int FL_STDOUT_UTF8 = 002;

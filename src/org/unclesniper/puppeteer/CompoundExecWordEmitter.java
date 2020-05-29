@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class CompoundExecWordEmitter implements ExecWordEmitter {
+public class CompoundExecWordEmitter extends AbstractExecWordEmitter {
 
 	private final List<ExecStringSource> pieces = new LinkedList<ExecStringSource>();
 
@@ -36,8 +36,8 @@ public class CompoundExecWordEmitter implements ExecWordEmitter {
 	}
 
 	@Override
-	public void buildArgv(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
-			Consumer<String> sink) throws PuppetException {
+	protected void buildArgvImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
+			int flags, Consumer<String> sink) throws PuppetException {
 		StringBuilder builder = new StringBuilder();
 		for(ExecStringSource piece : pieces)
 			piece.buildString(machine, argv, workdir, environ, flags, builder);

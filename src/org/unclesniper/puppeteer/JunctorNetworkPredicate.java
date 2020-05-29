@@ -20,7 +20,13 @@ public class JunctorNetworkPredicate extends AbstractJunctorPredicate implements
 
 	@Override
 	public boolean test(NetworkStep.NetworkStepInfo info) throws PuppetException {
-		return isSatisfied(predicates, info, NetworkPredicate::test);
+		try {
+			return isSatisfied(predicates, info, NetworkPredicate::test);
+		}
+		catch(PuppetException pe) {
+			pe.addPuppetFrame(this);
+			throw pe;
+		}
 	}
 
 }

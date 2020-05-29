@@ -10,9 +10,15 @@ public class MachineStringPropertyCopyFromWordEmitter extends AbstractMachineStr
 	@Override
 	public void buildArgv(Machine machine, String source, OutFile destination, Consumer<String> sink)
 			throws MissingMachineStringPropertyException {
-		String value = getPropertyValue(machine);
-		if(value != null)
-			sink.accept(value);
+		try {
+			String value = getPropertyValue(machine);
+			if(value != null)
+				sink.accept(value);
+		}
+		catch(MissingMachineStringPropertyException mmspe) {
+			mmspe.addPuppetFrame(this);
+			throw mmspe;
+		}
 	}
 
 }
