@@ -10,6 +10,7 @@ public abstract class AbstractNetworkStep extends AbstractGeneralStep implements
 
 	@Override
 	public void perform(NetworkStepInfo info) throws PuppetException {
+		info.getUI().executingStep(this);
 		Network oldNetwork = currentNetwork;
 		try {
 			currentNetwork = info.getNetwork();

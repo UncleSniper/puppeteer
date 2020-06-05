@@ -13,6 +13,7 @@ public abstract class AbstractStep extends AbstractGeneralStep implements Step {
 
 	@Override
 	public void perform(StepInfo info) throws PuppetException {
+		info.getUI().executingStep(this);
 		try {
 			performImpl(info);
 		}
