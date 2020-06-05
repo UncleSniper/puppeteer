@@ -38,8 +38,8 @@ public abstract class AbstractTraceable implements Traceable {
 		boolean hasLine = injectionObjectDefinitionLine > 0;
 		if(!hasFile && !hasLine)
 			return null;
-		String start = (hasFile ? injectionObjectDefinitionFile : "<unknown file>") + ':';
-		return hasLine ? start + injectionObjectDefinitionLine : start + ":<unknown line>";
+		String start = hasFile ? injectionObjectDefinitionFile + ':' : "<unknown file>:";
+		return hasLine ? start + injectionObjectDefinitionLine : start + "<unknown line>";
 	}
 
 }
