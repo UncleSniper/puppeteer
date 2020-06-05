@@ -45,6 +45,12 @@ public class Machine extends AbstractTraceable {
 		return execSlave;
 	}
 
+	public ExecSlave getExecSlave(boolean required) throws MissingExecSlaveException {
+		if(required && execSlave == null)
+			throw new MissingExecSlaveException(this);
+		return execSlave;
+	}
+
 	public void setExecSlave(ExecSlave execSlave) {
 		this.execSlave = execSlave;
 	}
@@ -53,11 +59,23 @@ public class Machine extends AbstractTraceable {
 		return copySlave;
 	}
 
+	public CopySlave getCopySlave(boolean required) throws MissingCopySlaveException {
+		if(required && copySlave == null)
+			throw new MissingCopySlaveException(this);
+		return copySlave;
+	}
+
 	public void setCopySlave(CopySlave copySlave) {
 		this.copySlave = copySlave;
 	}
 
 	public FileSlave getFileSlave() {
+		return fileSlave;
+	}
+
+	public FileSlave getFileSlave(boolean required) throws MissingFileSlaveException {
+		if(required && fileSlave == null)
+			throw new MissingFileSlaveException(this);
 		return fileSlave;
 	}
 
