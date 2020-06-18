@@ -10,6 +10,11 @@ public abstract class AbstractTraceable implements Traceable {
 
 	public AbstractTraceable() {}
 
+	protected AbstractTraceable(AbstractTraceable traceable) {
+		injectionObjectDefinitionFile = traceable.injectionObjectDefinitionFile;
+		injectionObjectDefinitionLine = traceable.injectionObjectDefinitionLine;
+	}
+
 	public String getInjectionObjectDefinitionFile() {
 		return injectionObjectDefinitionFile;
 	}
