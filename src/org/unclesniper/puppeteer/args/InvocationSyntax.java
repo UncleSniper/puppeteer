@@ -51,4 +51,9 @@ public class InvocationSyntax extends Syntax {
 		target.parse(scope, source);
 	}
 
+	@Override
+	protected void initializeParseImpl(ScopeLevel scope, SetComputationInfo info) {
+		target.initializeParse(scope, info);
+	}
+
 }

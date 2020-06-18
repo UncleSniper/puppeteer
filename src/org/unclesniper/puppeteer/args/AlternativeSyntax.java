@@ -161,4 +161,10 @@ public class AlternativeSyntax extends Syntax {
 		}
 	}
 
+	@Override
+	protected void initializeParseImpl(ScopeLevel scope, SetComputationInfo info) {
+		for(Syntax choice : choices)
+			choice.initializeParse(scope, info);
+	}
+
 }

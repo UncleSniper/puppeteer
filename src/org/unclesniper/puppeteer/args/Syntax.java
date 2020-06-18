@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.IdentityHashMap;
+import org.unclesniper.puppeteer.Doom;
 import org.unclesniper.puppeteer.Traceable;
 import org.unclesniper.puppeteer.ScopeLevel;
 import org.unclesniper.puppeteer.PuppetException;
@@ -195,6 +196,19 @@ public abstract class Syntax extends AbstractTraceable {
 	}
 
 	protected abstract void parseImpl(ScopeLevel scope, ArgumentSource source) throws PuppetException;
+
+	public final void initializeParse(ScopeLevel scope, SetComputationInfo info) {
+		try {
+			if(info.addRoot(this, "<this>"))
+				initializeParseImpl(scope, info);
+		}
+		catch(NullSyntaxException nse) {
+			nse.addPuppetFrame(this);
+			throw new Doom("Syntax.this is null!?", nse);
+		}
+	}
+
+	protected abstract void initializeParseImpl(ScopeLevel scope, SetComputationInfo info);
 
 	public String getSimpleClassName() {
 		String name = getClass().getName();

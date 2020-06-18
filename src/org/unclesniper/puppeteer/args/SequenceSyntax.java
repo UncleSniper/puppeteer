@@ -130,4 +130,10 @@ public class SequenceSyntax extends Syntax {
 			child.parse(scope, source);
 	}
 
+	@Override
+	protected void initializeParseImpl(ScopeLevel scope, SetComputationInfo info) {
+		for(Syntax child : children)
+			child.initializeParse(scope, info);
+	}
+
 }

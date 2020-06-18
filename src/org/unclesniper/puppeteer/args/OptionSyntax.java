@@ -122,4 +122,9 @@ public class OptionSyntax extends Syntax {
 		return ArgumentSyntaxException.expect(literals, followSet.getEnd() != null);
 	}
 
+	@Override
+	protected void initializeParseImpl(ScopeLevel scope, SetComputationInfo info) {
+		subject.initializeParse(scope, info);
+	}
+
 }

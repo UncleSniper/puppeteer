@@ -166,4 +166,9 @@ public class RepetitionSyntax extends Syntax {
 		return ArgumentSyntaxException.expect(literals, subject.followSet.getEnd() != null);
 	}
 
+	@Override
+	protected void initializeParseImpl(ScopeLevel scope, SetComputationInfo info) {
+		subject.initializeParse(scope, info);
+	}
+
 }

@@ -57,4 +57,7 @@ public class TerminalSyntax extends Syntax {
 		source.next();
 	}
 
+	@Override
+	protected void initializeParseImpl(ScopeLevel scope, SetComputationInfo info) {}
+
 }

@@ -56,4 +56,9 @@ public class CaptureSyntax extends Syntax {
 		source.next();
 	}
 
+	@Override
+	protected void initializeParseImpl(ScopeLevel scope, SetComputationInfo info) {
+		argument.initializeValue(scope);
+	}
+
 }
