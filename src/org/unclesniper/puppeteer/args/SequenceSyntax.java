@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedList;
+import org.unclesniper.puppeteer.ScopeLevel;
+import org.unclesniper.puppeteer.PuppetException;
 
 public class SequenceSyntax extends Syntax {
 
@@ -120,6 +122,12 @@ public class SequenceSyntax extends Syntax {
 	@Override
 	protected Syntax duplicate() {
 		return new SequenceSyntax(this);
+	}
+
+	@Override
+	protected void parseImpl(ScopeLevel scope, ArgumentSource source) throws PuppetException {
+		for(Syntax child : children)
+			child.parse(scope, source);
 	}
 
 }

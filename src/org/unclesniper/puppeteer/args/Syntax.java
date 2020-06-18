@@ -7,6 +7,8 @@ import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.IdentityHashMap;
 import org.unclesniper.puppeteer.Traceable;
+import org.unclesniper.puppeteer.ScopeLevel;
+import org.unclesniper.puppeteer.PuppetException;
 import org.unclesniper.puppeteer.AbstractTraceable;
 
 public abstract class Syntax extends AbstractTraceable {
@@ -181,6 +183,18 @@ public abstract class Syntax extends AbstractTraceable {
 	protected abstract void computePathsImpl() throws LL1ityException;
 
 	protected abstract Syntax duplicate();
+
+	public final void parse(ScopeLevel scope, ArgumentSource source) throws PuppetException {
+		try {
+			parseImpl(scope, source);
+		}
+		catch(ArgumentSyntaxException ase) {
+			ase.addPuppetFrame(this);
+			throw ase;
+		}
+	}
+
+	protected abstract void parseImpl(ScopeLevel scope, ArgumentSource source) throws PuppetException;
 
 	public String getSimpleClassName() {
 		String name = getClass().getName();

@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer.args;
 
+import org.unclesniper.puppeteer.ScopeLevel;
+import org.unclesniper.puppeteer.PuppetException;
+
 public class InvocationSyntax extends Syntax {
 
 	private Syntax target;
@@ -41,6 +44,11 @@ public class InvocationSyntax extends Syntax {
 	@Override
 	protected Syntax duplicate() {
 		return new InvocationSyntax(this, 0);
+	}
+
+	@Override
+	protected void parseImpl(ScopeLevel scope, ArgumentSource source) throws PuppetException {
+		target.parse(scope, source);
 	}
 
 }

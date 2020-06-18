@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedList;
+import org.unclesniper.puppeteer.ScopeLevel;
+import org.unclesniper.puppeteer.PuppetException;
 
 public class AlternativeSyntax extends Syntax {
 
@@ -12,6 +14,8 @@ public class AlternativeSyntax extends Syntax {
 	private final Map<String, Syntax> pathMap = new HashMap<String, Syntax>();
 
 	private Syntax anyChoice;
+
+	private Syntax endChoice;
 
 	public AlternativeSyntax() {}
 
@@ -47,7 +51,7 @@ public class AlternativeSyntax extends Syntax {
 	@Override
 	protected void computePathsImpl() throws LL1ityException {
 		Map<String, Syntax> locations = new HashMap<String, Syntax>();
-		Syntax endDirect = null, endVia = null;
+		Syntax endDirect = null;
 		Syntax anyDirect = null;
 		Map.Entry<String, Syntax> anyLiteral = null;
 		Syntax anyLiteralChoice = null;
@@ -69,9 +73,9 @@ public class AlternativeSyntax extends Syntax {
 				if(endDirect != null)
 					throw new LL1ityException(this, describe()
 							+ " contains multiple paths for FIRST terminal <epsilon>; I detected "
-							+ Syntax.makePath(endDirect, endVia) + " and " + Syntax.makePath(cend, choice));
+							+ Syntax.makePath(endDirect, endChoice) + " and " + Syntax.makePath(cend, choice));
 				endDirect = cend;
-				endVia = choice;
+				endChoice = choice;
 			}
 			Syntax cany = choice.firstSet.getAny();
 			if(cany != null) {
@@ -100,7 +104,7 @@ public class AlternativeSyntax extends Syntax {
 						if(followIncurred != null)
 							throw new LL1ityException(this, describe()
 									+ " contains a path deriving the empty string ("
-									+ Syntax.makePath(endDirect, endVia)
+									+ Syntax.makePath(endDirect, endChoice)
 									+ ") and one deriving a string beginning with '" + terminal + "' ("
 									+ Syntax.makePath(entry.getValue(), choice)
 									+ "), which is in the FOLLOW set of the enclosing AlternativeSyntax, "
@@ -122,7 +126,7 @@ public class AlternativeSyntax extends Syntax {
 					terminal = '\'' + terminal + '\'';
 				throw new LL1ityException(this, describe()
 						+ " contains a path deriving the empty string ("
-						+ Syntax.makePath(endDirect, endVia)
+						+ Syntax.makePath(endDirect, endChoice)
 						+ ") and one deriving a string beginning with " + terminal + " ("
 						+ Syntax.makePath(anyInput.getValue(), anyInputChoice)
 						+ "), and <any> is in the FOLLOW set of the enclosing AlternativeSyntax, "
@@ -134,6 +138,27 @@ public class AlternativeSyntax extends Syntax {
 	@Override
 	protected Syntax duplicate() {
 		return new AlternativeSyntax(this);
+	}
+
+	@Override
+	protected void parseImpl(ScopeLevel scope, ArgumentSource source) throws PuppetException {
+		String token = source.current();
+		if(token == null) {
+			if(endChoice == null)
+				throw new ArgumentSyntaxException(anyChoice == null
+						? ArgumentSyntaxException.expect(pathMap.keySet(), false) : "argument",
+						null, source.location());
+			endChoice.parse(scope, source);
+		}
+		else if(anyChoice != null)
+			anyChoice.parse(scope, source);
+		else {
+			Syntax choice = pathMap.get(token);
+			if(choice == null)
+				throw new ArgumentSyntaxException(ArgumentSyntaxException.expect(pathMap.keySet(),
+						endChoice != null), token, source.location());
+			choice.parse(scope, source);
+		}
 	}
 
 }

@@ -1,6 +1,8 @@
 package org.unclesniper.puppeteer.args;
 
 import org.unclesniper.puppeteer.Argument;
+import org.unclesniper.puppeteer.ScopeLevel;
+import org.unclesniper.puppeteer.PuppetException;
 
 public class CaptureSyntax extends Syntax {
 
@@ -42,6 +44,16 @@ public class CaptureSyntax extends Syntax {
 	@Override
 	protected Syntax duplicate() {
 		return new CaptureSyntax(this);
+	}
+
+	@Override
+	protected void parseImpl(ScopeLevel scope, ArgumentSource source) throws PuppetException {
+		String token = source.current();
+		if(token == null)
+			throw new ArgumentSyntaxException("argument", null, source.location());
+		if(argument != null)
+			argument.addValue(scope, token);
+		source.next();
 	}
 
 }

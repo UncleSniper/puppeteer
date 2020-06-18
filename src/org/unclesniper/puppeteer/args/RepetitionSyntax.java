@@ -1,6 +1,10 @@
 package org.unclesniper.puppeteer.args;
 
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+import org.unclesniper.puppeteer.ScopeLevel;
+import org.unclesniper.puppeteer.PuppetException;
 
 public class RepetitionSyntax extends Syntax {
 
@@ -118,6 +122,48 @@ public class RepetitionSyntax extends Syntax {
 	@Override
 	protected Syntax duplicate() {
 		return new RepetitionSyntax(this);
+	}
+
+	@Override
+	protected void parseImpl(ScopeLevel scope, ArgumentSource source) throws PuppetException {
+		boolean have = false;
+		String token;
+		for(;;) {
+			token = source.current();
+			if(!canRepeat(token))
+				break;
+			subject.parse(scope, source);
+			have = true;
+		}
+		if(!have && !noneOK)
+			throw new ArgumentSyntaxException(subject.firstSet.getAny() != null
+					? "argument" : ArgumentSyntaxException.expect(subject.firstSet.getLiterals().keySet(), false),
+					token, source.location());
+		if(token == null) {
+			if(followSet.getEnd() == null)
+				throw new ArgumentSyntaxException(makeExpect(), null, source.location());
+		}
+		else {
+			if(followSet.getAny() == null && !followSet.getLiterals().containsKey(token))
+				throw new ArgumentSyntaxException(makeExpect(), token, source.location());
+		}
+	}
+
+	private boolean canRepeat(String token) {
+		if(token == null)
+			return false;
+		if(subject.firstSet.getAny() != null)
+			return true;
+		return subject.firstSet.getLiterals().containsKey(token);
+	}
+
+	private String makeExpect() {
+		if(subject.firstSet.getAny() != null || followSet.getAny() != null)
+			return "argument";
+		Set<String> literals = new HashSet<String>();
+		literals.addAll(subject.firstSet.getLiterals().keySet());
+		literals.addAll(followSet.getLiterals().keySet());
+		return ArgumentSyntaxException.expect(literals, subject.followSet.getEnd() != null);
 	}
 
 }

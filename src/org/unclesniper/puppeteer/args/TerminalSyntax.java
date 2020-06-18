@@ -1,6 +1,8 @@
 package org.unclesniper.puppeteer.args;
 
 import java.util.Map;
+import org.unclesniper.puppeteer.ScopeLevel;
+import org.unclesniper.puppeteer.PuppetException;
 
 public class TerminalSyntax extends Syntax {
 
@@ -45,6 +47,14 @@ public class TerminalSyntax extends Syntax {
 	@Override
 	protected Syntax duplicate() {
 		return new TerminalSyntax(this);
+	}
+
+	@Override
+	protected void parseImpl(ScopeLevel scope, ArgumentSource source) throws PuppetException {
+		String token = source.current();
+		if(!literal.equals(token))
+			throw new ArgumentSyntaxException('\'' + literal + '\'', token, source.location());
+		source.next();
 	}
 
 }

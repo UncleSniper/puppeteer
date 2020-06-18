@@ -1,6 +1,10 @@
 package org.unclesniper.puppeteer.args;
 
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+import org.unclesniper.puppeteer.ScopeLevel;
+import org.unclesniper.puppeteer.PuppetException;
 
 public class OptionSyntax extends Syntax {
 
@@ -93,6 +97,29 @@ public class OptionSyntax extends Syntax {
 	@Override
 	protected Syntax duplicate() {
 		return new OptionSyntax(this, 0);
+	}
+
+	@Override
+	protected void parseImpl(ScopeLevel scope, ArgumentSource source) throws PuppetException {
+		String token = source.current();
+		if(token == null) {
+			if(followSet.getEnd() == null)
+				throw new ArgumentSyntaxException(makeExpect(), null, source.location());
+			return;
+		}
+		if(subject.firstSet.getAny() != null || subject.firstSet.getLiterals().containsKey(token))
+			subject.parse(scope, source);
+		else if(followSet.getAny() == null && !followSet.getLiterals().containsKey(token))
+			throw new ArgumentSyntaxException(makeExpect(), token, source.location());
+	}
+
+	private String makeExpect() {
+		if(subject.firstSet.getAny() != null || followSet.getAny() != null)
+			return "argument";
+		Set<String> literals = new HashSet<String>();
+		literals.addAll(subject.firstSet.getLiterals().keySet());
+		literals.addAll(followSet.getLiterals().keySet());
+		return ArgumentSyntaxException.expect(literals, followSet.getEnd() != null);
 	}
 
 }
