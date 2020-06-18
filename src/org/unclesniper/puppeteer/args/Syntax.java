@@ -95,10 +95,6 @@ public abstract class Syntax extends AbstractTraceable {
 		super(syntax);
 	}
 
-	public FirstFollowSet getFirstSet() {
-		return firstSet;
-	}
-
 	protected final void computeFirstSet(SetComputationInfo info) throws NullSyntaxException {
 		try {
 			computeFirstSetImpl(info);
@@ -197,7 +193,7 @@ public abstract class Syntax extends AbstractTraceable {
 
 	protected abstract void parseImpl(ScopeLevel scope, ArgumentSource source) throws PuppetException;
 
-	public final void initializeParse(ScopeLevel scope, SetComputationInfo info) {
+	protected final void initializeParse(ScopeLevel scope, SetComputationInfo info) {
 		try {
 			if(info.addRoot(this, "<this>"))
 				initializeParseImpl(scope, info);
@@ -209,6 +205,32 @@ public abstract class Syntax extends AbstractTraceable {
 	}
 
 	protected abstract void initializeParseImpl(ScopeLevel scope, SetComputationInfo info);
+
+	public final void initializeParse(ScopeLevel scope) {
+		initializeParse(scope, new SetComputationInfo());
+	}
+
+	public Syntax compile() throws NullSyntaxException, LL1ityException {
+		Syntax start = duplicate();
+		SetComputationInfo info = new SetComputationInfo();
+		info.addRoot(start, "<this>");
+		do {
+			info.modified = false;
+			for(Syntax root : info.getRoots())
+				root.computeFirstSet(info);
+		} while(info.modified);
+		start.followSet.setEnd(start);
+		info = new SetComputationInfo();
+		info.addRoot(start, "<this>");
+		do {
+			info.modified = false;
+			for(Syntax root : info.getRoots())
+				root.computeFollowSet(info);
+		} while(info.modified);
+		for(Syntax root : info.getRoots())
+			root.computePaths();
+		return start;
+	}
 
 	public String getSimpleClassName() {
 		String name = getClass().getName();

@@ -28,14 +28,14 @@ public class InvocationSyntax extends Syntax {
 
 	@Override
 	protected void computeFirstSetImpl(SetComputationInfo info) throws NullSyntaxException {
-		info.addRoot(target, "target");
-		computeFirstSetForChild(info, target, false, false);
+		if(info.addRoot(target, "target"))
+			computeFirstSetForChild(info, target, false, false);
 	}
 
 	@Override
 	protected void computeFollowSetImpl(SetComputationInfo info) throws NullSyntaxException {
-		info.addRoot(target, "target");
-		computeFollowSetForChild(info, target, false);
+		if(info.addRoot(target, "target"))
+			computeFollowSetForChild(info, target, false);
 	}
 
 	@Override
