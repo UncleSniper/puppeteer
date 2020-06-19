@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.HashSet;
+import org.unclesniper.puppeteer.util.Listeners;
 
 public class Machine extends AbstractTraceable {
 
@@ -21,24 +22,37 @@ public class Machine extends AbstractTraceable {
 
 	private final Set<String> aliases = new HashSet<String>();
 
+	private final Listeners<MachineListener, AmbiguousMachineNameException> listeners
+			= new Listeners<MachineListener, AmbiguousMachineNameException>();
+
 	public Machine() {}
 
 	public Machine(String hostname) {
-		this(hostname, null, null);
+		this(hostname, null, null, null);
 	}
 
-	public Machine(String hostname, ExecSlave execSlave, CopySlave copySlave) {
+	public Machine(String hostname, ExecSlave execSlave, CopySlave copySlave, FileSlave fileSlave) {
 		this.hostname = hostname;
 		this.execSlave = execSlave;
 		this.copySlave = copySlave;
+		this.fileSlave = fileSlave;
 	}
 
 	public String getHostname() {
 		return hostname;
 	}
 
-	public void setHostname(String hostname) {
+	public void setHostname(String hostname) throws AmbiguousMachineNameException {
+		String oldName = this.hostname;
 		this.hostname = hostname;
+		try {
+			listeners.fire(listener -> listener.machineHostnameChanged(this, oldName));
+		}
+		catch(AmbiguousMachineNameException amne) {
+			this.hostname = oldName;
+			listeners.fire(listener -> listener.machineHostnameChanged(this, hostname));
+			throw amne;
+		}
 	}
 
 	public ExecSlave getExecSlave() {
@@ -118,13 +132,36 @@ public class Machine extends AbstractTraceable {
 		return aliases;
 	}
 
-	public void addAlias(String alias) {
-		if(alias != null)
-			aliases.add(alias);
+	public boolean addAlias(String alias) throws AmbiguousMachineNameException {
+		if(alias == null)
+			return false;
+		if(!aliases.add(alias))
+			return false;
+		try {
+			listeners.fire(listener -> listener.machineAliasAdded(this, alias));
+		}
+		catch(AmbiguousMachineNameException amne) {
+			aliases.remove(alias);
+			listeners.fire(listener -> listener.machineAliasRemoved(this, alias));
+			throw amne;
+		}
+		return true;
 	}
 
 	public boolean hasAlias(String alias) {
 		return alias != null && aliases.contains(alias);
+	}
+
+	public Iterable<MachineListener> getMachineListeners() {
+		return listeners.getListeners();
+	}
+
+	public boolean addMachineListener(MachineListener listener) {
+		return listeners.addListener(listener);
+	}
+
+	public boolean removeMachineListener(MachineListener listener) {
+		return listeners.removeListener(listener);
 	}
 
 	public static String makeMessage(Machine machine, String ifPresent, String ifAbsent) {
