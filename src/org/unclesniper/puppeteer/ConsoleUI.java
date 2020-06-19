@@ -27,7 +27,7 @@ public class ConsoleUI implements PuppeteerUI {
 			return;
 		String qualifier = step.getStepQualifier();
 		if(qualifier != null)
-			System.out.println(qualifier + ": ");
+			System.out.print(qualifier + ": ");
 		System.out.println(title);
 		System.out.flush();
 	}

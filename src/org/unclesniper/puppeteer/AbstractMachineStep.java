@@ -10,10 +10,10 @@ public abstract class AbstractMachineStep extends AbstractGeneralStep implements
 
 	@Override
 	public void perform(MachineStepInfo info) throws PuppetException {
-		info.getUI().executingStep(this);
 		Machine oldMachine = currentMachine;
 		try {
 			currentMachine = info.getMachine();
+			info.getUI().executingStep(this);
 			performImpl(info);
 		}
 		catch(PuppetException pe) {
