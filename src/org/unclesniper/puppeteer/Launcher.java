@@ -257,13 +257,19 @@ public class Launcher {
 		Injection inj = new Injection(new ClassRegistry());
 		inj.registerBuiltinStringClassMappers();
 		inj.addTokenSinkWrapper(Launcher.makeTokenSinkWrapper(config));
-		Object worldObj = Launcher.readDescription(inj, networksFile).getRootObject();
+		ObjectGraphDescriptor worldDesc = Launcher.readDescription(inj, networksFile);
+		if(worldDesc == null)
+			return 1;
+		Object worldObj = worldDesc.getRootObject();
 		if(!(worldObj instanceof World)) {
 			System.err.println("Error: Expected a " + World.class.getName() + " from '" + networksFile.getPath()
 					+ "', but got a " + worldObj.getClass().getName());
 			return 1;
 		}
-		Object planObj = Launcher.readDescription(inj, planFile).getRootObject();
+		ObjectGraphDescriptor planDesc = Launcher.readDescription(inj, planFile);
+		if(planDesc == null)
+			return 1;
+		Object planObj = planDesc.getRootObject();
 		if(!(planObj instanceof Plan)) {
 			System.err.println("Error: Expected a " + Plan.class.getName() + " from '" + planFile.getPath()
 					+ "', but got a " + planObj.getClass().getName());
