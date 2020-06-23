@@ -32,6 +32,11 @@ public class WithNetwork extends AbstractStep {
 			steps.add(step);
 	}
 
+	public void addStep(Step step) {
+		if(step != null)
+			steps.add(new StepNetworkStep(step));
+	}
+
 	@Override
 	protected void performImpl(StepInfo info) throws PuppetException {
 		if(name == null)

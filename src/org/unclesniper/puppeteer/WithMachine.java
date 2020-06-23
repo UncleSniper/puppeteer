@@ -32,6 +32,16 @@ public class WithMachine extends AbstractNetworkStep {
 			steps.add(step);
 	}
 
+	public void addStep(NetworkStep step) {
+		if(step != null)
+			steps.add(new NetworkStepMachineStep(step));
+	}
+
+	public void addStep(Step step) {
+		if(step != null)
+			steps.add(new StepMachineStep(step));
+	}
+
 	@Override
 	protected void performImpl(NetworkStepInfo info) throws PuppetException {
 		if(hostname == null)

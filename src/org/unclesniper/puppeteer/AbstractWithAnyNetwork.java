@@ -34,4 +34,9 @@ public abstract class AbstractWithAnyNetwork extends AbstractStep {
 			steps.add(step);
 	}
 
+	public void addStep(Step step) {
+		if(step != null)
+			steps.add(new StepNetworkStep(step));
+	}
+
 }
