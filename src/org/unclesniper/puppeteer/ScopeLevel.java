@@ -17,6 +17,14 @@ public class ScopeLevel {
 		return parent;
 	}
 
+	public boolean hasString(StringVariable variable) {
+		for(ScopeLevel level = this; level != null; level = level.parent) {
+			if(level.strings.containsKey(variable))
+				return true;
+		}
+		return false;
+	}
+
 	public String getString(StringVariable variable, boolean required) throws UndefinedStringVariableException {
 		for(ScopeLevel level = this; level != null; level = level.parent) {
 			if(level.strings.containsKey(variable))
