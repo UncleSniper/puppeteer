@@ -24,6 +24,16 @@ public class CopyToMachineStep extends AbstractMachineStep {
 			destinationPieces.add(piece);
 	}
 
+	public void addDestinationPiece(NetworkStepStringSource piece) {
+		if(piece != null)
+			destinationPieces.add(new NetworkStepStringSourceMachineStepStringSource(piece));
+	}
+
+	public void addDestinationPiece(StepStringSource piece) {
+		if(piece != null)
+			destinationPieces.add(new StepStringSourceMachineStepStringSource(piece));
+	}
+
 	public void addDestinationPiece(String piece) {
 		if(piece != null)
 			destinationPieces.add(new StringMachineStepStringSource(piece));

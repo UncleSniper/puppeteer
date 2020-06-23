@@ -17,6 +17,16 @@ public class CompoundMachineStepWordEmitter extends AbstractMachineStepWordEmitt
 			pieces.add(piece);
 	}
 
+	public void addPiece(NetworkStepStringSource piece) {
+		if(piece != null)
+			pieces.add(new NetworkStepStringSourceMachineStepStringSource(piece));
+	}
+
+	public void addPiece(StepStringSource piece) {
+		if(piece != null)
+			pieces.add(new StepStringSourceMachineStepStringSource(piece));
+	}
+
 	public void addPiece(String piece) {
 		if(piece != null)
 			pieces.add(new StringMachineStepStringSource(piece));

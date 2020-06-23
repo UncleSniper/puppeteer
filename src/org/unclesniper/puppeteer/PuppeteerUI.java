@@ -4,6 +4,16 @@ public interface PuppeteerUI {
 
 	void executingStep(GeneralStep step);
 
-	void warn(Object object, String message);
+	void warn(Object object, String[] message);
+
+	void info(Object object, String[] message, boolean verbose);
+
+	default void warn(Object object, String message) {
+		warn(object, new String[] {message});
+	}
+
+	default void info(Object object, String message, boolean verbose) {
+		info(object, new String[] {message}, verbose);
+	}
 
 }

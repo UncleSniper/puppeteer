@@ -48,6 +48,16 @@ public class ExecMachineStep extends AbstractMachineStep {
 			workDir.add(piece);
 	}
 
+	public void addWorkDir(NetworkStepStringSource piece) {
+		if(piece != null)
+			workDir.add(new NetworkStepStringSourceMachineStepStringSource(piece));
+	}
+
+	public void addWorkDir(StepStringSource piece) {
+		if(piece != null)
+			workDir.add(new StepStringSourceMachineStepStringSource(piece));
+	}
+
 	public void addWorkDir(String piece) {
 		if(piece != null)
 			workDir.add(new StringMachineStepStringSource(piece));

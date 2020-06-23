@@ -21,6 +21,16 @@ public class CompoundMachineStepPairEmitter extends AbstractMachineStepPairEmitt
 			keyPieces.add(piece);
 	}
 
+	public void addKeyPiece(NetworkStepStringSource piece) {
+		if(piece != null)
+			keyPieces.add(new NetworkStepStringSourceMachineStepStringSource(piece));
+	}
+
+	public void addKeyPiece(StepStringSource piece) {
+		if(piece != null)
+			keyPieces.add(new StepStringSourceMachineStepStringSource(piece));
+	}
+
 	public void addKeyPiece(String piece) {
 		if(piece != null)
 			keyPieces.add(new StringMachineStepStringSource(piece));
@@ -29,6 +39,16 @@ public class CompoundMachineStepPairEmitter extends AbstractMachineStepPairEmitt
 	public void addValuePiece(MachineStepStringSource piece) {
 		if(piece != null)
 			valuePieces.add(piece);
+	}
+
+	public void addValuePiece(NetworkStepStringSource piece) {
+		if(piece != null)
+			valuePieces.add(new NetworkStepStringSourceMachineStepStringSource(piece));
+	}
+
+	public void addValuePiece(StepStringSource piece) {
+		if(piece != null)
+			valuePieces.add(new StepStringSourceMachineStepStringSource(piece));
 	}
 
 	public void addValuePiece(String piece) {

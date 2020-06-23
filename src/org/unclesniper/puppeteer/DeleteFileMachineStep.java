@@ -14,6 +14,16 @@ public class DeleteFileMachineStep extends AbstractMachineStep {
 			pathPieces.add(piece);
 	}
 
+	public void addPathPiece(NetworkStepStringSource piece) {
+		if(piece != null)
+			pathPieces.add(new NetworkStepStringSourceMachineStepStringSource(piece));
+	}
+
+	public void addPathPiece(StepStringSource piece) {
+		if(piece != null)
+			pathPieces.add(new StepStringSourceMachineStepStringSource(piece));
+	}
+
 	public void addPathPiece(String piece) {
 		if(piece != null)
 			pathPieces.add(new StringMachineStepStringSource(piece));
