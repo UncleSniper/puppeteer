@@ -1,6 +1,5 @@
 package org.unclesniper.puppeteer;
 
-import java.util.Map;
 import java.util.function.Consumer;
 import org.unclesniper.puppeteer.util.ShorthandName;
 
@@ -24,9 +23,8 @@ public class ArgvExecWordEmitter extends AbstractExecWordEmitter {
 	}
 
 	@Override
-	protected void buildArgvImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
-			int flags, Consumer<String> sink) {
-		for(String word : argv.asIterable())
+	protected void buildArgvImpl(ExecSlave.ExecInfo info, Consumer<String> sink) {
+		for(String word : info.argv.asIterable())
 			sink.accept(transform == null ? word : transform.transformString(word));
 	}
 

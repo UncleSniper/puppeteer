@@ -6,14 +6,13 @@ public abstract class AbstractCopyFromWordEmitter extends AbstractTraceable impl
 
 	public AbstractCopyFromWordEmitter() {}
 
-	protected abstract void buildArgvImpl(Machine machine, String source, OutFile destination,
-			Consumer<String> sink) throws PuppetException;
+	protected abstract void buildArgvImpl(CopySlave.CopyFromInfo info, Consumer<String> sink) throws PuppetException;
 
 	@Override
-	public void buildArgv(Machine machine, String source, OutFile destination, Consumer<String> sink)
+	public void buildArgv(CopySlave.CopyFromInfo info, Consumer<String> sink)
 			throws PuppetException {
 		try {
-			buildArgvImpl(machine, source, destination, sink);
+			buildArgvImpl(info, sink);
 		}
 		catch(PuppetException pe) {
 			pe.addPuppetFrame(this);

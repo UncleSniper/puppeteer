@@ -18,7 +18,7 @@ public class StringNewTempFileWordEmitter extends AbstractNewTempFileWordEmitter
 	}
 
 	@Override
-	protected void buildArgvImpl(Machine machine, Consumer<String> sink) {
+	protected void buildArgvImpl(FileSlave.NewTempFileInfo info, Consumer<String> sink) {
 		for(String word : words)
 			sink.accept(word);
 	}

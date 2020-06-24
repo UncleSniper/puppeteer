@@ -22,7 +22,7 @@ public class StringNewTempFileStringSource extends AbstractNewTempFileStringSour
 	}
 
 	@Override
-	protected void buildStringImpl(Machine machine, StringBuilder sink) throws PuppetException {
+	protected void buildStringImpl(FileSlave.NewTempFileInfo info, StringBuilder sink) throws PuppetException {
 		if(string != null)
 			sink.append(string);
 	}

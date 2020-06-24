@@ -18,7 +18,7 @@ public class StringDeleteFileWordEmitter extends AbstractDeleteFileWordEmitter {
 	}
 
 	@Override
-	protected void buildArgvImpl(Machine machine, String file, Consumer<String> sink) throws PuppetException {
+	protected void buildArgvImpl(FileSlave.DeleteFileInfo info, Consumer<String> sink) throws PuppetException {
 		for(String word : words)
 			sink.accept(word);
 	}

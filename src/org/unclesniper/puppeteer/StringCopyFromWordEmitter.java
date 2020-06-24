@@ -18,7 +18,7 @@ public class StringCopyFromWordEmitter extends AbstractCopyFromWordEmitter {
 	}
 
 	@Override
-	protected void buildArgvImpl(Machine machine, String source, OutFile destination, Consumer<String> sink)
+	protected void buildArgvImpl(CopySlave.CopyFromInfo info, Consumer<String> sink)
 			throws PuppetException {
 		for(String word : words)
 			sink.accept(word);

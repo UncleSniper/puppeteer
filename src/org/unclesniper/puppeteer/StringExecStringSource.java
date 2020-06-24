@@ -1,6 +1,5 @@
 package org.unclesniper.puppeteer;
 
-import java.util.Map;
 import org.unclesniper.puppeteer.util.ShorthandName;
 
 @ShorthandName("execString")
@@ -23,8 +22,7 @@ public class StringExecStringSource extends AbstractExecStringSource {
 	}
 
 	@Override
-	protected void buildStringImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
-			int flags, StringBuilder sink) {
+	protected void buildStringImpl(ExecSlave.ExecInfo info, StringBuilder sink) {
 		if(string != null)
 			sink.append(string);
 	}

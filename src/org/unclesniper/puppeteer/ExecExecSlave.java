@@ -49,8 +49,9 @@ public class ExecExecSlave extends AbstractExecSlave {
 			Map<String, String> environ, int flags) throws PuppetException {
 		List<String> subArgv = new LinkedList<String>();
 		Consumer<String> sink = subArgv::add;
+		ExecInfo info = new ExecInfo(machine, execHost, argv, workdir, environ, flags);
 		for(ExecWordEmitter emitter : words)
-			emitter.buildArgv(machine, argv, workdir, environ, flags, sink);
+			emitter.buildArgv(info, sink);
 		return ExecUtils.on(execHost).execute(execHost, subArgv, workdir, environ, flags);
 	}
 

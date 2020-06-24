@@ -10,9 +10,10 @@ public class MachineStringPropertyNewTempFileWordEmitter extends AbstractMachine
 	public MachineStringPropertyNewTempFileWordEmitter() {}
 
 	@Override
-	public void buildArgv(Machine machine, Consumer<String> sink) throws MissingMachineStringPropertyException {
+	public void buildArgv(FileSlave.NewTempFileInfo info, Consumer<String> sink)
+			throws MissingMachineStringPropertyException {
 		try {
-			String value = getPropertyValue(machine);
+			String value = getPropertyValue(info.machine);
 			if(value != null) {
 				putPrefixWords(sink);
 				sink.accept(value);

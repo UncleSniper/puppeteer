@@ -37,10 +37,10 @@ public class CompoundNewTempFileWordEmitter extends AbstractNewTempFileWordEmitt
 	}
 
 	@Override
-	protected void buildArgvImpl(Machine machine, Consumer<String> sink) throws PuppetException {
+	protected void buildArgvImpl(FileSlave.NewTempFileInfo info, Consumer<String> sink) throws PuppetException {
 		StringBuilder builder = new StringBuilder();
 		for(NewTempFileStringSource piece : pieces)
-			piece.buildString(machine, builder);
+			piece.buildString(info, builder);
 		String word = builder.toString();
 		sink.accept(transform == null ? word : transform.transformString(word));
 	}

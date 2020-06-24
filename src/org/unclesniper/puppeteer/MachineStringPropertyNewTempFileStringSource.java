@@ -9,9 +9,10 @@ public class MachineStringPropertyNewTempFileStringSource extends AbstractMachin
 	public MachineStringPropertyNewTempFileStringSource() {}
 
 	@Override
-	public void buildString(Machine machine, StringBuilder sink) throws MissingMachineStringPropertyException {
+	public void buildString(FileSlave.NewTempFileInfo info, StringBuilder sink)
+			throws MissingMachineStringPropertyException {
 		try {
-			String value = getPropertyValue(machine);
+			String value = getPropertyValue(info.machine);
 			if(value != null) {
 				putPrefixWords(sink);
 				sink.append(value);

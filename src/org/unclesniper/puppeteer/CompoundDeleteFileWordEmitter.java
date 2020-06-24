@@ -37,10 +37,10 @@ public class CompoundDeleteFileWordEmitter extends AbstractDeleteFileWordEmitter
 	}
 
 	@Override
-	protected void buildArgvImpl(Machine machine, String file, Consumer<String> sink) throws PuppetException {
+	protected void buildArgvImpl(FileSlave.DeleteFileInfo info, Consumer<String> sink) throws PuppetException {
 		StringBuilder builder = new StringBuilder();
 		for(DeleteFileStringSource piece : pieces)
-			piece.buildString(machine, file, builder);
+			piece.buildString(info, builder);
 		String word = builder.toString();
 		sink.accept(transform == null ? word : transform.transformString(word));
 	}

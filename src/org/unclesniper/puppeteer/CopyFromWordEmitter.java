@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 
 public interface CopyFromWordEmitter extends Traceable {
 
-	void buildArgv(Machine machine, String source, OutFile destination, Consumer<String> sink)
+	void buildArgv(CopySlave.CopyFromInfo info, Consumer<String> sink)
 			throws PuppetException;
 
 }

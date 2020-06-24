@@ -22,7 +22,7 @@ public class StringCopyFromStringSource extends AbstractCopyFromStringSource {
 	}
 
 	@Override
-	protected void buildStringImpl(Machine machine, String source, OutFile destination, StringBuilder sink)
+	protected void buildStringImpl(CopySlave.CopyFromInfo info, StringBuilder sink)
 			throws PuppetException {
 		if(string != null)
 			sink.append(string);

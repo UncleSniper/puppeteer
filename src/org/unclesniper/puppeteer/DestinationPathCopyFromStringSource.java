@@ -22,9 +22,8 @@ public class DestinationPathCopyFromStringSource extends AbstractCopyFromStringS
 	}
 
 	@Override
-	protected void buildStringImpl(Machine machine, String source, OutFile destination, StringBuilder sink)
-			throws PuppetException {
-		String path = destination.asFile();
+	protected void buildStringImpl(CopySlave.CopyFromInfo info, StringBuilder sink) throws PuppetException {
+		String path = info.destination.asFile();
 		sink.append(transform == null ? path : transform.transformString(path));
 	}
 

@@ -23,8 +23,8 @@ public class PathDeleteFileWordEmitter extends AbstractDeleteFileWordEmitter {
 	}
 
 	@Override
-	protected void buildArgvImpl(Machine machine, String file, Consumer<String> sink) {
-		sink.accept(transform == null ? file : transform.transformString(file));
+	protected void buildArgvImpl(FileSlave.DeleteFileInfo info, Consumer<String> sink) {
+		sink.accept(transform == null ? info.file : transform.transformString(info.file));
 	}
 
 }

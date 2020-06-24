@@ -4,6 +4,6 @@ import java.util.function.Consumer;
 
 public interface NewTempFileWordEmitter extends Traceable {
 
-	void buildArgv(Machine machine, Consumer<String> sink) throws PuppetException;
+	void buildArgv(FileSlave.NewTempFileInfo info, Consumer<String> sink) throws PuppetException;
 
 }

@@ -6,12 +6,13 @@ public abstract class AbstractNewTempFileWordEmitter extends AbstractTraceable i
 
 	public AbstractNewTempFileWordEmitter() {}
 
-	protected abstract void buildArgvImpl(Machine machine, Consumer<String> sink) throws PuppetException;
+	protected abstract void buildArgvImpl(FileSlave.NewTempFileInfo info, Consumer<String> sink)
+			throws PuppetException;
 
 	@Override
-	public void buildArgv(Machine machine, Consumer<String> sink) throws PuppetException {
+	public void buildArgv(FileSlave.NewTempFileInfo info, Consumer<String> sink) throws PuppetException {
 		try {
-			buildArgvImpl(machine, sink);
+			buildArgvImpl(info, sink);
 		}
 		catch(PuppetException pe) {
 			pe.addPuppetFrame(this);

@@ -23,9 +23,9 @@ public class SourcePathCopyToWordEmitter extends AbstractCopyToWordEmitter {
 	}
 
 	@Override
-	protected void buildArgvImpl(Machine machine, InFile source, String destination, Consumer<String> sink)
+	protected void buildArgvImpl(CopySlave.CopyToInfo info, Consumer<String> sink)
 			throws PuppetException {
-		String path = source.asFile();
+		String path = info.source.asFile();
 		sink.accept(transform == null ? path : transform.transformString(path));
 	}
 

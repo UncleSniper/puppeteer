@@ -98,8 +98,9 @@ public class ExecCopySlave extends AbstractCopySlave {
 		try(InFile inf = source) {
 			List<String> argv = new LinkedList<String>();
 			Consumer<String> sink = argv::add;
+			CopyToInfo info = new CopyToInfo(machine, execHost, source, destination);
 			for(CopyToWordEmitter emitter : toWords)
-				emitter.buildArgv(machine, source, destination, sink);
+				emitter.buildArgv(info, sink);
 			copy(argv, ioe -> new UploadIOPuppetException(machine, destination, ioe));
 		}
 		catch(IOException ioe) {
@@ -115,8 +116,9 @@ public class ExecCopySlave extends AbstractCopySlave {
 				List<String> argv = new LinkedList<String>();
 				Consumer<String> sink = argv::add;
 				IntermediateInFile intIn = new IntermediateInFile(inf, tempPath);
+				CopyToInfo info = new CopyToInfo(machine, execHost, intIn, destination);
 				for(CopyToWordEmitter emitter : toWords)
-					emitter.buildArgv(machine, intIn, destination, sink);
+					emitter.buildArgv(info, sink);
 				copy(argv, ioe -> new UploadIOPuppetException(machine, destination, ioe));
 			}
 		}
@@ -136,8 +138,9 @@ public class ExecCopySlave extends AbstractCopySlave {
 		try(OutFile outf = destination) {
 			List<String> argv = new LinkedList<String>();
 			Consumer<String> sink = argv::add;
+			CopyFromInfo info = new CopyFromInfo(machine, execHost, source, destination);
 			for(CopyFromWordEmitter emitter : fromWords)
-				emitter.buildArgv(machine, source, destination, sink);
+				emitter.buildArgv(info, sink);
 			copy(argv, ioe -> new DownloadIOPuppetException(machine, source, ioe));
 		}
 		catch(IOException ioe) {
@@ -152,8 +155,9 @@ public class ExecCopySlave extends AbstractCopySlave {
 				List<String> argv = new LinkedList<String>();
 				Consumer<String> sink = argv::add;
 				IntermediateOutFile intOut = new IntermediateOutFile(tempPath);
+				CopyFromInfo info = new CopyFromInfo(machine, execHost, source, intOut);
 				for(CopyFromWordEmitter emitter : fromWords)
-					emitter.buildArgv(machine, source, intOut, sink);
+					emitter.buildArgv(info, sink);
 				copy(argv, ioe -> new DownloadIOPuppetException(machine, source, ioe));
 				destination.copyFrom(execHost, tempPath);
 			}

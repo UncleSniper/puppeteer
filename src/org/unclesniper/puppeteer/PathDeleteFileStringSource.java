@@ -22,8 +22,8 @@ public class PathDeleteFileStringSource extends AbstractDeleteFileStringSource {
 	}
 
 	@Override
-	protected void buildStringImpl(Machine machine, String file, StringBuilder sink) {
-		sink.append(transform == null ? file : transform.transformString(file));
+	protected void buildStringImpl(FileSlave.DeleteFileInfo info, StringBuilder sink) {
+		sink.append(transform == null ? info.file : transform.transformString(info.file));
 	}
 
 }

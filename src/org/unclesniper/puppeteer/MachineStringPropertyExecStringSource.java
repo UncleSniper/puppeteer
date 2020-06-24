@@ -1,6 +1,5 @@
 package org.unclesniper.puppeteer;
 
-import java.util.Map;
 import org.unclesniper.puppeteer.util.ShorthandName;
 
 @ShorthandName("machineStringPropertyExecString")
@@ -10,10 +9,10 @@ public class MachineStringPropertyExecStringSource extends AbstractMachineString
 	public MachineStringPropertyExecStringSource() {}
 
 	@Override
-	public void buildString(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
-			StringBuilder sink) throws MissingMachineStringPropertyException {
+	public void buildString(ExecSlave.ExecInfo info, StringBuilder sink)
+			throws MissingMachineStringPropertyException {
 		try {
-			String value = getPropertyValue(machine);
+			String value = getPropertyValue(info.machine);
 			if(value != null) {
 				putPrefixWords(sink);
 				sink.append(value);

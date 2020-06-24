@@ -9,10 +9,10 @@ class MachineStringPropertyDeleteFileStringSource extends AbstractMachineStringP
 	public MachineStringPropertyDeleteFileStringSource() {}
 
 	@Override
-	public void buildString(Machine machine, String file, StringBuilder sink)
+	public void buildString(FileSlave.DeleteFileInfo info, StringBuilder sink)
 			throws MissingMachineStringPropertyException {
 		try {
-			String value = getPropertyValue(machine);
+			String value = getPropertyValue(info.machine);
 			if(value != null) {
 				putPrefixWords(sink);
 				sink.append(value);

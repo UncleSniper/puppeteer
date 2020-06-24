@@ -10,10 +10,10 @@ public class MachineStringPropertyDeleteFileWordEmitter extends AbstractMachineS
 	public MachineStringPropertyDeleteFileWordEmitter() {}
 
 	@Override
-	public void buildArgv(Machine machine, String file, Consumer<String> sink)
+	public void buildArgv(FileSlave.DeleteFileInfo info, Consumer<String> sink)
 			throws MissingMachineStringPropertyException {
 		try {
-			String value = getPropertyValue(machine);
+			String value = getPropertyValue(info.machine);
 			if(value != null) {
 				putPrefixWords(sink);
 				sink.accept(value);

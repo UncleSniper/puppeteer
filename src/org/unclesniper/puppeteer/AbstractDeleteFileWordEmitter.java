@@ -6,13 +6,13 @@ public abstract class AbstractDeleteFileWordEmitter extends AbstractTraceable im
 
 	public AbstractDeleteFileWordEmitter() {}
 
-	protected abstract void buildArgvImpl(Machine machine, String file, Consumer<String> sink)
+	protected abstract void buildArgvImpl(FileSlave.DeleteFileInfo info, Consumer<String> sink)
 			throws PuppetException;
 
 	@Override
-	public void buildArgv(Machine machine, String file, Consumer<String> sink) throws PuppetException {
+	public void buildArgv(FileSlave.DeleteFileInfo info, Consumer<String> sink) throws PuppetException {
 		try {
-			buildArgvImpl(machine, file, sink);
+			buildArgvImpl(info, sink);
 		}
 		catch(PuppetException pe) {
 			pe.addPuppetFrame(this);

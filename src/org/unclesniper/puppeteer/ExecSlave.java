@@ -5,6 +5,32 @@ import java.util.Collection;
 
 public interface ExecSlave extends Traceable {
 
+	public final class ExecInfo {
+
+		public final Machine machine;
+
+		public final Machine execHost;
+
+		public final Argv argv;
+
+		public final String workdir;
+
+		public final Map<String, String> environ;
+
+		public final int flags;
+
+		public ExecInfo(Machine machine, Machine execHost, Argv argv, String workdir, Map<String, String> environ,
+				int flags) {
+			this.machine = machine;
+			this.execHost = execHost;
+			this.argv = argv;
+			this.workdir = workdir;
+			this.environ = environ;
+			this.flags = flags;
+		}
+
+	}
+
 	public static final int FL_STDIN_UTF8  = 001;
 	public static final int FL_STDOUT_UTF8 = 002;
 	public static final int FL_STDERR_UTF8 = 004;

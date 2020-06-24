@@ -9,10 +9,10 @@ public class MachineStringPropertyCopyToStringSource extends AbstractMachineStri
 	public MachineStringPropertyCopyToStringSource() {}
 
 	@Override
-	public void buildString(Machine machine, InFile source, String destination, StringBuilder sink)
+	public void buildString(CopySlave.CopyToInfo info, StringBuilder sink)
 			throws MissingMachineStringPropertyException {
 		try {
-			String value = getPropertyValue(machine);
+			String value = getPropertyValue(info.machine);
 			if(value != null) {
 				putPrefixWords(sink);
 				sink.append(value);

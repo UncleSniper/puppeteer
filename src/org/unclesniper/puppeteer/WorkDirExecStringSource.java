@@ -43,13 +43,12 @@ public class WorkDirExecStringSource extends AbstractExecStringSource {
 	}
 
 	@Override
-	protected void buildStringImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
-			int flags, StringBuilder sink)  {
-		if(workdir == null || workdir.length() == 0)
+	protected void buildStringImpl(ExecSlave.ExecInfo info, StringBuilder sink)  {
+		if(info.workdir == null || info.workdir.length() == 0)
 			return;
 		if(prefix != null)
 			sink.append(prefix);
-		sink.append(transform == null ? workdir : transform.transformString(workdir));
+		sink.append(transform == null ? info.workdir : transform.transformString(info.workdir));
 		if(suffix != null)
 			sink.append(suffix);
 	}

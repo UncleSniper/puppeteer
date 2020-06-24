@@ -22,8 +22,8 @@ public class DestinationPathCopyToStringSource extends AbstractCopyToStringSourc
 	}
 
 	@Override
-	protected void buildStringImpl(Machine machine, InFile source, String destination, StringBuilder sink) {
-		sink.append(transform == null ? destination : transform.transformString(destination));
+	protected void buildStringImpl(CopySlave.CopyToInfo info, StringBuilder sink) {
+		sink.append(transform == null ? info.destination : transform.transformString(info.destination));
 	}
 
 }

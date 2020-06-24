@@ -68,12 +68,11 @@ public class EnvExecWordEmitter extends AbstractExecWordEmitter {
 	}
 
 	@Override
-	protected void buildArgvImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
-			int flags, Consumer<String> sink) {
-		if(environ == null || environ.isEmpty())
+	protected void buildArgvImpl(ExecSlave.ExecInfo info, Consumer<String> sink) {
+		if(info.environ == null || info.environ.isEmpty())
 			return;
 		StringBuilder builder = new StringBuilder();
-		for(Map.Entry<String, String> entry : environ.entrySet()) {
+		for(Map.Entry<String, String> entry : info.environ.entrySet()) {
 			builder.setLength(0);
 			if(prefix != null)
 				builder.append(prefix);

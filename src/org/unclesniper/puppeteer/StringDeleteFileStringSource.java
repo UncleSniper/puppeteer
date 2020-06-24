@@ -22,7 +22,7 @@ public class StringDeleteFileStringSource extends AbstractDeleteFileStringSource
 	}
 
 	@Override
-	protected void buildStringImpl(Machine machine, String file, StringBuilder sink) {
+	protected void buildStringImpl(FileSlave.DeleteFileInfo info, StringBuilder sink) {
 		if(string != null)
 			sink.append(string);
 	}

@@ -1,6 +1,5 @@
 package org.unclesniper.puppeteer;
 
-import java.util.Map;
 import java.util.function.Consumer;
 import org.unclesniper.puppeteer.util.ShorthandName;
 
@@ -11,10 +10,9 @@ public class MachineStringPropertyExecWordEmitter extends AbstractMachineStringP
 	public MachineStringPropertyExecWordEmitter() {}
 
 	@Override
-	public void buildArgv(Machine machine, Argv argv, String workdir, Map<String, String> environ, int flags,
-			Consumer<String> sink) throws MissingMachineStringPropertyException {
+	public void buildArgv(ExecSlave.ExecInfo info, Consumer<String> sink) throws MissingMachineStringPropertyException {
 		try {
-			String value = getPropertyValue(machine);
+			String value = getPropertyValue(info.machine);
 			if(value != null) {
 				putPrefixWords(sink);
 				sink.accept(value);

@@ -1,6 +1,5 @@
 package org.unclesniper.puppeteer;
 
-import java.util.Map;
 import java.util.function.Consumer;
 import org.unclesniper.puppeteer.util.ShorthandName;
 
@@ -44,18 +43,17 @@ public class WorkDirExecWordEmitter extends AbstractExecWordEmitter {
 	}
 
 	@Override
-	protected void buildArgvImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
-			int flags, Consumer<String> sink) {
-		if(workdir == null || workdir.length() == 0)
+	protected void buildArgvImpl(ExecSlave.ExecInfo info, Consumer<String> sink) {
+		if(info.workdir == null || info.workdir.length() == 0)
 			return;
 		if(prefix == null && suffix == null) {
-			sink.accept(transform == null ? workdir : transform.transformString(workdir));
+			sink.accept(transform == null ? info.workdir : transform.transformString(info.workdir));
 			return;
 		}
 		StringBuilder builder = new StringBuilder();
 		if(prefix != null)
 			builder.append(prefix);
-		builder.append(transform == null ? workdir : transform.transformString(workdir));
+		builder.append(transform == null ? info.workdir : transform.transformString(info.workdir));
 		if(suffix != null)
 			builder.append(suffix);
 		sink.accept(builder.toString());

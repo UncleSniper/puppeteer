@@ -4,13 +4,13 @@ public abstract class AbstractDeleteFileStringSource extends AbstractTraceable i
 
 	public AbstractDeleteFileStringSource() {}
 
-	protected abstract void buildStringImpl(Machine machine, String file, StringBuilder sink)
+	protected abstract void buildStringImpl(FileSlave.DeleteFileInfo info, StringBuilder sink)
 			throws PuppetException;
 
 	@Override
-	public void buildString(Machine machine, String file, StringBuilder sink) throws PuppetException {
+	public void buildString(FileSlave.DeleteFileInfo info, StringBuilder sink) throws PuppetException {
 		try {
-			buildStringImpl(machine, file, sink);
+			buildStringImpl(info, sink);
 		}
 		catch(PuppetException pe) {
 			pe.addPuppetFrame(this);

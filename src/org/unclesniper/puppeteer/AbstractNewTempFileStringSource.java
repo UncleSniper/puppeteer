@@ -4,12 +4,13 @@ public abstract class AbstractNewTempFileStringSource extends AbstractTraceable 
 
 	public AbstractNewTempFileStringSource() {}
 
-	protected abstract void buildStringImpl(Machine machine, StringBuilder sink) throws PuppetException;
+	protected abstract void buildStringImpl(FileSlave.NewTempFileInfo info, StringBuilder sink)
+			throws PuppetException;
 
 	@Override
-	public void buildString(Machine machine, StringBuilder sink) throws PuppetException {
+	public void buildString(FileSlave.NewTempFileInfo info, StringBuilder sink) throws PuppetException {
 		try {
-			buildStringImpl(machine, sink);
+			buildStringImpl(info, sink);
 		}
 		catch(PuppetException pe) {
 			pe.addPuppetFrame(this);

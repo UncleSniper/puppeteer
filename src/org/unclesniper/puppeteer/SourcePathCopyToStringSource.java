@@ -22,9 +22,9 @@ public class SourcePathCopyToStringSource extends AbstractCopyToStringSource {
 	}
 
 	@Override
-	protected void buildStringImpl(Machine machine, InFile source, String destination, StringBuilder sink)
+	protected void buildStringImpl(CopySlave.CopyToInfo info, StringBuilder sink)
 			throws PuppetException {
-		String path = source.asFile();
+		String path = info.source.asFile();
 		sink.append(transform == null ? path : transform.transformString(path));
 	}
 

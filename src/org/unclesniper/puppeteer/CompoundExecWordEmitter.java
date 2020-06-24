@@ -1,6 +1,5 @@
 package org.unclesniper.puppeteer;
 
-import java.util.Map;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
@@ -38,11 +37,10 @@ public class CompoundExecWordEmitter extends AbstractExecWordEmitter {
 	}
 
 	@Override
-	protected void buildArgvImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
-			int flags, Consumer<String> sink) throws PuppetException {
+	protected void buildArgvImpl(ExecSlave.ExecInfo info, Consumer<String> sink) throws PuppetException {
 		StringBuilder builder = new StringBuilder();
 		for(ExecStringSource piece : pieces)
-			piece.buildString(machine, argv, workdir, environ, flags, builder);
+			piece.buildString(info, builder);
 		String word = builder.toString();
 		sink.accept(transform == null ? word : transform.transformString(word));
 	}

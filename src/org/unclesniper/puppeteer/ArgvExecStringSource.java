@@ -1,6 +1,5 @@
 package org.unclesniper.puppeteer;
 
-import java.util.Map;
 import org.unclesniper.puppeteer.util.ShorthandName;
 
 @ShorthandName("argvExecString")
@@ -33,10 +32,9 @@ public class ArgvExecStringSource extends AbstractExecStringSource {
 	}
 
 	@Override
-	protected void buildStringImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
-			int flags, StringBuilder sink)  {
+	protected void buildStringImpl(ExecSlave.ExecInfo info, StringBuilder sink)  {
 		boolean first = true;
-		for(String word : argv.asIterable()) {
+		for(String word : info.argv.asIterable()) {
 			if(first)
 				first = false;
 			else if(separator != null)

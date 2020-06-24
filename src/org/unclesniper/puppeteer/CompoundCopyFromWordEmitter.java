@@ -37,11 +37,11 @@ public class CompoundCopyFromWordEmitter extends AbstractCopyFromWordEmitter {
 	}
 
 	@Override
-	protected void buildArgvImpl(Machine machine, String source, OutFile destination, Consumer<String> sink)
+	protected void buildArgvImpl(CopySlave.CopyFromInfo info, Consumer<String> sink)
 			throws PuppetException {
 		StringBuilder builder = new StringBuilder();
 		for(CopyFromStringSource piece : pieces)
-			piece.buildString(machine, source, destination, builder);
+			piece.buildString(info, builder);
 		String word = builder.toString();
 		sink.accept(transform == null ? word : transform.transformString(word));
 	}

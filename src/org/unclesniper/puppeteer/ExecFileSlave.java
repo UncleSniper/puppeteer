@@ -66,8 +66,9 @@ public class ExecFileSlave extends AbstractFileSlave {
 	protected String newTempFileImpl(Machine machine) throws PuppetException {
 		List<String> argv = new LinkedList<String>();
 		Consumer<String> sink = argv::add;
+		NewTempFileInfo info = new NewTempFileInfo(machine, execHost);
 		for(NewTempFileWordEmitter emitter : tempFileWords)
-			emitter.buildArgv(machine, sink);
+			emitter.buildArgv(info, sink);
 		ExecControl xctl = ExecUtils.on(execHost).execute(execHost, argv, null, null, 0);
 		ExecUtils.CapturedOutput output = ExecUtils.awaitSuccess(xctl, true,
 				ioe -> new NewTempFileIOPuppetException(machine, ioe));
@@ -80,8 +81,9 @@ public class ExecFileSlave extends AbstractFileSlave {
 	protected void deleteFileImpl(Machine machine, String file) throws PuppetException {
 		List<String> argv = new LinkedList<String>();
 		Consumer<String> sink = argv::add;
+		DeleteFileInfo info = new DeleteFileInfo(machine, execHost, file);
 		for(DeleteFileWordEmitter emitter : deleteFileWords)
-			emitter.buildArgv(machine, file, sink);
+			emitter.buildArgv(info, sink);
 		ExecControl xctl = ExecUtils.on(execHost).execute(execHost, argv, null, null, 0);
 		ExecUtils.awaitSuccess(xctl, true, ioe -> new DeleteFileIOPuppetException(machine, file, ioe));
 	}

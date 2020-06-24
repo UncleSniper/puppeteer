@@ -87,13 +87,12 @@ public class EnvExecStringSource extends AbstractExecStringSource {
 	}
 
 	@Override
-	protected void buildStringImpl(Machine machine, Argv argv, String workdir, Map<String, String> environ,
-			int flags, StringBuilder sink) {
-		if(environ == null || environ.isEmpty())
+	protected void buildStringImpl(ExecSlave.ExecInfo info, StringBuilder sink) {
+		if(info.environ == null || info.environ.isEmpty())
 			return;
 		if(mapPrefix != null)
 			sink.append(mapPrefix);
-		for(Map.Entry<String, String> entry : environ.entrySet()) {
+		for(Map.Entry<String, String> entry : info.environ.entrySet()) {
 			if(pairPrefix != null)
 				sink.append(pairPrefix);
 			sink.append(keyTransform == null ? entry.getKey() : keyTransform.transformString(entry.getKey()));

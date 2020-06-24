@@ -10,10 +10,10 @@ public class MachineStringPropertyCopyToWordEmitter extends AbstractMachineStrin
 	public MachineStringPropertyCopyToWordEmitter() {}
 
 	@Override
-	public void buildArgv(Machine machine, InFile source, String destination, Consumer<String> sink)
+	public void buildArgv(CopySlave.CopyToInfo info, Consumer<String> sink)
 			throws MissingMachineStringPropertyException {
 		try {
-			String value = getPropertyValue(machine);
+			String value = getPropertyValue(info.machine);
 			if(value != null) {
 				putPrefixWords(sink);
 				sink.accept(value);

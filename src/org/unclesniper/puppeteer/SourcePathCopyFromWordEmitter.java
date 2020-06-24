@@ -23,8 +23,8 @@ public class SourcePathCopyFromWordEmitter extends AbstractCopyFromWordEmitter {
 	}
 
 	@Override
-	protected void buildArgvImpl(Machine machine, String source, OutFile destination, Consumer<String> sink) {
-		sink.accept(transform == null ? source : transform.transformString(source));
+	protected void buildArgvImpl(CopySlave.CopyFromInfo info, Consumer<String> sink) {
+		sink.accept(transform == null ? info.source : transform.transformString(info.source));
 	}
 
 }

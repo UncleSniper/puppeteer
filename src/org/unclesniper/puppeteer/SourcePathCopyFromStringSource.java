@@ -22,8 +22,8 @@ public class SourcePathCopyFromStringSource extends AbstractCopyFromStringSource
 	}
 
 	@Override
-	protected void buildStringImpl(Machine machine, String source, OutFile destination, StringBuilder sink) {
-		sink.append(transform == null ? source : transform.transformString(source));
+	protected void buildStringImpl(CopySlave.CopyFromInfo info, StringBuilder sink) {
+		sink.append(transform == null ? info.source : transform.transformString(info.source));
 	}
 
 }
