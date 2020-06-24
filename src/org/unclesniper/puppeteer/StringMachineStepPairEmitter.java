@@ -3,7 +3,9 @@ package org.unclesniper.puppeteer;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.function.BiConsumer;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("machineStepPair")
 public class StringMachineStepPairEmitter extends AbstractMachineStepPairEmitter {
 
 	private final Map<String, String> pairs = new HashMap<String, String>();

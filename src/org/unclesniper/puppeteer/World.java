@@ -4,7 +4,9 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.IdentityHashMap;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("world")
 public class World {
 
 	private class NetworkRenameListener implements NetworkListener {

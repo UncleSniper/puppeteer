@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("stringVar")
 public class StringVariable extends AbstractVariable {
 
 	public StringVariable() {}

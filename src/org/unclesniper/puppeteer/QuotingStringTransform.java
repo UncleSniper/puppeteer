@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("quotingStringTransform")
 public class QuotingStringTransform implements StringTransform {
 
 	private WordQuoter quoter;

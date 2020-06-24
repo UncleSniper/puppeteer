@@ -9,7 +9,9 @@ import java.util.Objects;
 import java.util.LinkedList;
 import java.util.IdentityHashMap;
 import org.unclesniper.puppeteer.util.Listeners;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("network")
 public class Network extends AbstractTraceable {
 
 	private class MachineRenameListener implements MachineListener {

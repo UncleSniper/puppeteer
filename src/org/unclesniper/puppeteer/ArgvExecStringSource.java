@@ -1,7 +1,9 @@
 package org.unclesniper.puppeteer;
 
 import java.util.Map;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("argvExecString")
 public class ArgvExecStringSource extends AbstractExecStringSource {
 
 	private String separator = " ";

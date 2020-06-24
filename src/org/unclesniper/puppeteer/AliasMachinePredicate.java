@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("machineHasAlias")
 public class AliasMachinePredicate extends AbstractMachinePredicate {
 
 	private String alias;

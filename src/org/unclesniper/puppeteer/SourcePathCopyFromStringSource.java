@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("sourcePathCopyFromString")
 public class SourcePathCopyFromStringSource extends AbstractCopyFromStringSource {
 
 	private StringTransform transform;

@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("deleteFileString")
 public class StringDeleteFileStringSource extends AbstractDeleteFileStringSource {
 
 	private String string;

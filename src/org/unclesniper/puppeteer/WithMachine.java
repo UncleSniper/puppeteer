@@ -2,7 +2,9 @@ package org.unclesniper.puppeteer;
 
 import java.util.List;
 import java.util.LinkedList;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("withMachine")
 public class WithMachine extends AbstractNetworkStep {
 
 	private String hostname;

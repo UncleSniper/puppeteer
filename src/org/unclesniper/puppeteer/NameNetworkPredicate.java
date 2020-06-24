@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("networkIsNamed")
 public class NameNetworkPredicate extends AbstractNetworkPredicate {
 
 	private String name;

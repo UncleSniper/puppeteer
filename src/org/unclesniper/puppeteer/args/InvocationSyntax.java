@@ -2,7 +2,9 @@ package org.unclesniper.puppeteer.args;
 
 import org.unclesniper.puppeteer.ScopeLevel;
 import org.unclesniper.puppeteer.PuppetException;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("invocationSyntax")
 public class InvocationSyntax extends Syntax {
 
 	private Syntax target;

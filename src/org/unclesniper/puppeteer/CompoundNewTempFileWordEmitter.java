@@ -3,7 +3,9 @@ package org.unclesniper.puppeteer;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("compoundNewTempFileWord")
 public class CompoundNewTempFileWordEmitter extends AbstractNewTempFileWordEmitter {
 
 	private final List<NewTempFileStringSource> pieces = new LinkedList<NewTempFileStringSource>();

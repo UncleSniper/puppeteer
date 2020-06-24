@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("newTempFile")
 public class NewTempFileMachineStep extends AbstractMachineStep {
 
 	private MachineStringCapture pathCapture;

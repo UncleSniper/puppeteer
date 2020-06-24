@@ -3,7 +3,9 @@ package org.unclesniper.puppeteer.args;
 import org.unclesniper.puppeteer.Argument;
 import org.unclesniper.puppeteer.ScopeLevel;
 import org.unclesniper.puppeteer.PuppetException;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("captureSyntax")
 public class CaptureSyntax extends Syntax {
 
 	private Argument argument;

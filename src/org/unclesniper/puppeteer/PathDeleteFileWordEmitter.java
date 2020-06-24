@@ -1,7 +1,9 @@
 package org.unclesniper.puppeteer;
 
 import java.util.function.Consumer;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("pathDeleteFileWord")
 public class PathDeleteFileWordEmitter extends AbstractDeleteFileWordEmitter {
 
 	private StringTransform transform;

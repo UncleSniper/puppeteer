@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("varStepString")
 public class VariableStepStringSource extends AbstractStepStringSource {
 
 	private Variable variable;

@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("withEachMachine")
 public class WithEachMachine extends AbstractWithAnyMachine {
 
 	private boolean requiresAtLeastOne;

@@ -2,7 +2,9 @@ package org.unclesniper.puppeteer;
 
 import java.util.List;
 import java.util.LinkedList;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("pathCopyOutFile")
 public class PathCopyOutFileProvider extends AbstractCopyOutFileProvider {
 
 	private final List<MachineStepStringSource> pathPieces = new LinkedList<MachineStepStringSource>();

@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("withTheMachine")
 public class WithTheMachine extends AbstractWithAnyMachine {
 
 	public WithTheMachine() {}

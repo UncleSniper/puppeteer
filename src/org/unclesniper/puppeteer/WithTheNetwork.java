@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("withTheNetwork")
 public class WithTheNetwork extends AbstractWithAnyNetwork {
 
 	public WithTheNetwork() {}

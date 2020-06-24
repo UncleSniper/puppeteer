@@ -4,7 +4,9 @@ import java.util.Map;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("compoundExecWord")
 public class CompoundExecWordEmitter extends AbstractExecWordEmitter {
 
 	private final List<ExecStringSource> pieces = new LinkedList<ExecStringSource>();

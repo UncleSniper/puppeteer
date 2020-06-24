@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("machineIsNamed")
 public class HostnameMachinePredicate extends AbstractMachinePredicate {
 
 	private String hostname;

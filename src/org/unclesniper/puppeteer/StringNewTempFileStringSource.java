@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("newTempFileString")
 public class StringNewTempFileStringSource extends AbstractNewTempFileStringSource {
 
 	private String string;

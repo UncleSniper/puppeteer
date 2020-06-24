@@ -2,7 +2,9 @@ package org.unclesniper.puppeteer;
 
 import java.util.List;
 import java.util.LinkedList;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("deleteFile")
 public class DeleteFileMachineStep extends AbstractMachineStep {
 
 	private final List<MachineStepStringSource> pathPieces = new LinkedList<MachineStepStringSource>();

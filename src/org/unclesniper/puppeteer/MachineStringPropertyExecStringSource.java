@@ -1,7 +1,9 @@
 package org.unclesniper.puppeteer;
 
 import java.util.Map;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("machineStringPropertyExecString")
 public class MachineStringPropertyExecStringSource extends AbstractMachineStringPropertyReference
 		implements ExecStringSource {
 

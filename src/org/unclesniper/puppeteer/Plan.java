@@ -3,10 +3,12 @@ package org.unclesniper.puppeteer;
 import java.util.List;
 import java.util.LinkedList;
 import org.unclesniper.puppeteer.args.Syntax;
+import org.unclesniper.puppeteer.util.ShorthandName;
 import org.unclesniper.puppeteer.args.SequenceSyntax;
 import org.unclesniper.puppeteer.args.ArgumentSource;
 import org.unclesniper.puppeteer.args.ArgumentSyntaxException;
 
+@ShorthandName("plan")
 public class Plan extends AbstractTraceable {
 
 	private final List<Step> steps = new LinkedList<Step>();

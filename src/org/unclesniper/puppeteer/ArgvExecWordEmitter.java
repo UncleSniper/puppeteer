@@ -2,7 +2,9 @@ package org.unclesniper.puppeteer;
 
 import java.util.Map;
 import java.util.function.Consumer;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("argvExecWord")
 public class ArgvExecWordEmitter extends AbstractExecWordEmitter {
 
 	private StringTransform transform;

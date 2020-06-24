@@ -2,7 +2,9 @@ package org.unclesniper.puppeteer;
 
 import java.util.Map;
 import java.util.function.Consumer;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("workDirExecWord")
 public class WorkDirExecWordEmitter extends AbstractExecWordEmitter {
 
 	private String prefix;

@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("stepStringMachineStepString")
 public class StepStringSourceMachineStepStringSource extends AbstractMachineStepStringSource {
 
 	private StepStringSource source;

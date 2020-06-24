@@ -2,7 +2,9 @@ package org.unclesniper.puppeteer;
 
 import java.util.List;
 import java.util.LinkedList;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("copyFrom")
 public class CopyFromMachineStep extends AbstractMachineStep {
 
 	private final List<MachineStepStringSource> sourcePieces = new LinkedList<MachineStepStringSource>();

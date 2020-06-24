@@ -3,7 +3,9 @@ package org.unclesniper.puppeteer;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("compoundMachineStepWord")
 public class CompoundMachineStepWordEmitter extends AbstractMachineStepWordEmitter {
 
 	private final List<MachineStepStringSource> pieces = new LinkedList<MachineStepStringSource>();

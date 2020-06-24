@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("stringArg")
 public class StringArgument extends StringVariable implements Argument {
 
 	public StringArgument() {}

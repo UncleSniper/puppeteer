@@ -3,7 +3,9 @@ package org.unclesniper.puppeteer.args;
 import java.util.Map;
 import org.unclesniper.puppeteer.ScopeLevel;
 import org.unclesniper.puppeteer.PuppetException;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("terminalSyntax")
 public class TerminalSyntax extends Syntax {
 
 	private String literal;

@@ -2,7 +2,9 @@ package org.unclesniper.puppeteer;
 
 import java.util.Map;
 import java.util.function.Consumer;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("machineStringPropertyExecWord")
 public class MachineStringPropertyExecWordEmitter extends AbstractMachineStringPropertyReference
 		implements ExecWordEmitter {
 

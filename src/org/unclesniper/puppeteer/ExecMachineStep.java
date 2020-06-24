@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 import java.util.function.BiConsumer;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("exec")
 public class ExecMachineStep extends AbstractMachineStep {
 
 	private final List<MachineStepWordEmitter> words = new LinkedList<MachineStepWordEmitter>();

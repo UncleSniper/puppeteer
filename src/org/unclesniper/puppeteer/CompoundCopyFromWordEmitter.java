@@ -3,7 +3,9 @@ package org.unclesniper.puppeteer;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("compoundCopyFromWord")
 public class CompoundCopyFromWordEmitter extends AbstractCopyFromWordEmitter {
 
 	private final List<CopyFromStringSource> pieces = new LinkedList<CopyFromStringSource>();

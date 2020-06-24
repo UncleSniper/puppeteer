@@ -2,7 +2,9 @@ package org.unclesniper.puppeteer;
 
 import java.util.List;
 import java.util.LinkedList;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("machineIs")
 public class JunctorMachinePredicate extends AbstractJunctorPredicate implements MachinePredicate {
 
 	private final List<MachinePredicate> predicates = new LinkedList<MachinePredicate>();

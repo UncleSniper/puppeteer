@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("machineHasTag")
 public class TagMachinePredicate extends AbstractTagPredicate implements MachinePredicate {
 
 	public TagMachinePredicate() {}

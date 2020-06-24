@@ -2,7 +2,9 @@ package org.unclesniper.puppeteer;
 
 import java.util.List;
 import java.util.LinkedList;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("networkIs")
 public class JunctorNetworkPredicate extends AbstractJunctorPredicate implements NetworkPredicate {
 
 	private final List<NetworkPredicate> predicates = new LinkedList<NetworkPredicate>();

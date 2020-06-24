@@ -2,7 +2,9 @@ package org.unclesniper.puppeteer;
 
 import java.util.List;
 import java.util.LinkedList;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("networkPrint")
 public class PrintNetworkStep extends AbstractNetworkStep {
 
 	private MessageLevel level;

@@ -8,7 +8,9 @@ import java.io.OutputStream;
 import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("copyByExec")
 public class ExecCopySlave extends AbstractCopySlave {
 
 	private Machine execHost;

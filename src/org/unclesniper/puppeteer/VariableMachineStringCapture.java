@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("varMachineStringCapture")
 public class VariableMachineStringCapture extends AbstractMachineStringCapture {
 
 	private StringVariable variable;

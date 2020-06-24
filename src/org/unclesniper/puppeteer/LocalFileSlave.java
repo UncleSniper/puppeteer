@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.FileSystems;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("localFile")
 public class LocalFileSlave extends AbstractFileSlave {
 
 	public static final FileSlave instance = new LocalFileSlave();

@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("machineStringPropertyNewTempFileString")
 public class MachineStringPropertyNewTempFileStringSource extends AbstractMachineStringPropertyReference
 		implements NewTempFileStringSource {
 

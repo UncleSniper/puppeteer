@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("networkHasTag")
 public class TagNetworkPredicate extends AbstractTagPredicate implements NetworkPredicate {
 
 	public TagNetworkPredicate() {}

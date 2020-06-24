@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("localCopy")
 public class LocalCopySlave extends AbstractCopySlave {
 
 	public static final LocalCopySlave instance = new LocalCopySlave();

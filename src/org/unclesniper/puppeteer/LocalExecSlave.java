@@ -4,7 +4,9 @@ import java.io.File;
 import java.util.Map;
 import java.io.IOException;
 import java.util.Collection;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("localExec")
 public class LocalExecSlave extends AbstractExecSlave {
 
 	public static final LocalExecSlave instance = new LocalExecSlave();

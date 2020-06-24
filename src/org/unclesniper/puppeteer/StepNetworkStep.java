@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("stepNetworkStep")
 public class StepNetworkStep extends AbstractNetworkStep {
 
 	private Step step;

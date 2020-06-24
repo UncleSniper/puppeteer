@@ -3,7 +3,9 @@ package org.unclesniper.puppeteer;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("compoundDeleteFileWord")
 public class CompoundDeleteFileWordEmitter extends AbstractDeleteFileWordEmitter {
 
 	private final List<DeleteFileStringSource> pieces = new LinkedList<DeleteFileStringSource>();

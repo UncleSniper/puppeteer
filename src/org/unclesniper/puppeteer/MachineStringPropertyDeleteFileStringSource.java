@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("machineStringPropertyDeleteFileString")
 class MachineStringPropertyDeleteFileStringSource extends AbstractMachineStringPropertyReference
 		implements DeleteFileStringSource {
 

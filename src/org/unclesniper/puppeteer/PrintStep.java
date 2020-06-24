@@ -3,7 +3,9 @@ package org.unclesniper.puppeteer;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.regex.Pattern;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("print")
 public class PrintStep extends AbstractStep {
 
 	private static final Pattern SPLIT_LINES = Pattern.compile("\\r?\\n");

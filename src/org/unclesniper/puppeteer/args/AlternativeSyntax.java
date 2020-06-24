@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import org.unclesniper.puppeteer.ScopeLevel;
 import org.unclesniper.puppeteer.PuppetException;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("alternativeSyntax")
 public class AlternativeSyntax extends Syntax {
 
 	private final List<Syntax> choices = new LinkedList<Syntax>();

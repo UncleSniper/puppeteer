@@ -1,7 +1,9 @@
 package org.unclesniper.puppeteer;
 
 import java.util.function.Consumer;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("sourcePathCopyFromWord")
 public class SourcePathCopyFromWordEmitter extends AbstractCopyFromWordEmitter {
 
 	private StringTransform transform;

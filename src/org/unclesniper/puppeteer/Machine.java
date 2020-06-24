@@ -5,7 +5,9 @@ import java.util.Set;
 import java.util.HashMap;
 import java.util.HashSet;
 import org.unclesniper.puppeteer.util.Listeners;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("machine")
 public class Machine extends AbstractTraceable {
 
 	private String hostname;

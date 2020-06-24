@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("bashQuoter")
 public class BashWordQuoter extends AbstractWordQuoter {
 
 	public static final BashWordQuoter instance = new BashWordQuoter();

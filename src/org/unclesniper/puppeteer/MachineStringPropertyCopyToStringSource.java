@@ -1,5 +1,8 @@
 package org.unclesniper.puppeteer;
 
+import org.unclesniper.puppeteer.util.ShorthandName;
+
+@ShorthandName("machineStringPropertyCopyToString")
 public class MachineStringPropertyCopyToStringSource extends AbstractMachineStringPropertyReference
 		implements CopyToStringSource {
 

@@ -3,7 +3,9 @@ package org.unclesniper.puppeteer;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.function.Consumer;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("networkStepWord")
 public class StringNetworkStepWordEmitter extends AbstractNetworkStepWordEmitter {
 
 	private final List<String> words = new LinkedList<String>();

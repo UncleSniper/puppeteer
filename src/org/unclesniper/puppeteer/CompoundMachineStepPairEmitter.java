@@ -3,7 +3,9 @@ package org.unclesniper.puppeteer;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.function.BiConsumer;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("compoundMachineStepPair")
 public class CompoundMachineStepPairEmitter extends AbstractMachineStepPairEmitter {
 
 	private final List<MachineStepStringSource> keyPieces = new LinkedList<MachineStepStringSource>();

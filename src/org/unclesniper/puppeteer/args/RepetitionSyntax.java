@@ -5,7 +5,9 @@ import java.util.Set;
 import java.util.HashSet;
 import org.unclesniper.puppeteer.ScopeLevel;
 import org.unclesniper.puppeteer.PuppetException;
+import org.unclesniper.puppeteer.util.ShorthandName;
 
+@ShorthandName("repetitionSyntax")
 public class RepetitionSyntax extends Syntax {
 
 	private Syntax subject;
