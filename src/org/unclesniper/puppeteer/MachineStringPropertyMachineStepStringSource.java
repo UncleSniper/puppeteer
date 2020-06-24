@@ -10,9 +10,9 @@ public class MachineStringPropertyMachineStepStringSource extends AbstractMachin
 
 	@Override
 	public void buildString(MachineStep.MachineStepInfo info, StringBuilder sink)
-			throws MissingMachineStringPropertyException {
+			throws MissingMachineStringPropertyException, MissingTargetMachineException, MissingExecHostException {
 		try {
-			String value = getPropertyValue(info.getMachine());
+			String value = getPropertyValue(getCorrectMachine(info.getMachine(), null));
 			if(value != null) {
 				putPrefixWords(sink);
 				sink.append(value);

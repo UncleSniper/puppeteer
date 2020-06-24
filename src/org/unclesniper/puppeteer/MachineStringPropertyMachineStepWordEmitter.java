@@ -11,9 +11,9 @@ public class MachineStringPropertyMachineStepWordEmitter extends AbstractMachine
 
 	@Override
 	public void buildArgv(MachineStep.MachineStepInfo info, Consumer<String> sink)
-			throws MissingMachineStringPropertyException {
+			throws MissingMachineStringPropertyException, MissingTargetMachineException, MissingExecHostException {
 		try {
-			String value = getPropertyValue(info.getMachine());
+			String value = getPropertyValue(getCorrectMachine(info.getMachine(), null));
 			if(value != null) {
 				putPrefixWords(sink);
 				sink.accept(value);

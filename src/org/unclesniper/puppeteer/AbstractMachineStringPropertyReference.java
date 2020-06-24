@@ -18,6 +18,8 @@ public abstract class AbstractMachineStringPropertyReference extends AbstractTra
 
 	private final List<String> suffixWords = new LinkedList<String>();
 
+	private boolean useExecHost;
+
 	public AbstractMachineStringPropertyReference() {}
 
 	public String getProperty() {
@@ -90,6 +92,14 @@ public abstract class AbstractMachineStringPropertyReference extends AbstractTra
 			sink.append(word);
 	}
 
+	public boolean isUseExecHost() {
+		return useExecHost;
+	}
+
+	public void setUseExecHost(boolean useExecHost) {
+		this.useExecHost = useExecHost;
+	}
+
 	protected String getPropertyValue(Machine machine) throws MissingMachineStringPropertyException {
 		if(property == null)
 			return null;
@@ -97,6 +107,20 @@ public abstract class AbstractMachineStringPropertyReference extends AbstractTra
 		if(value == null && required)
 			throw new MissingMachineStringPropertyException(machine, property);
 		return transform == null ? value : transform.transformString(value);
+	}
+
+	protected Machine getCorrectMachine(Machine machine, Machine execHost)
+			throws MissingTargetMachineException, MissingExecHostException {
+		if(useExecHost) {
+			if(machine == null)
+				throw new MissingTargetMachineException();
+			return machine;
+		}
+		else {
+			if(execHost == null)
+				throw new MissingExecHostException();
+			return execHost;
+		}
 	}
 
 }
