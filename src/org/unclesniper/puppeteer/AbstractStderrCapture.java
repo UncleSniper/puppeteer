@@ -4,11 +4,11 @@ public abstract class AbstractStderrCapture extends AbstractTraceable implements
 
 	public AbstractStderrCapture() {}
 
-	protected abstract PuppetRunnable captureStderrImpl(MachineStep.MachineStepInfo info, ExecControl ctl)
+	protected abstract PuppetIORunnable captureStderrImpl(MachineStep.MachineStepInfo info, ExecControl ctl)
 			throws PuppetException;
 
 	@Override
-	public PuppetRunnable captureStderr(MachineStep.MachineStepInfo info, ExecControl ctl) throws PuppetException {
+	public PuppetIORunnable captureStderr(MachineStep.MachineStepInfo info, ExecControl ctl) throws PuppetException {
 		try {
 			return captureStderrImpl(info, ctl);
 		}

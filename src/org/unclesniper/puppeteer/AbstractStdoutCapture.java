@@ -4,11 +4,11 @@ public abstract class AbstractStdoutCapture extends AbstractTraceable implements
 
 	public AbstractStdoutCapture() {}
 
-	protected abstract PuppetRunnable captureStdoutImpl(MachineStep.MachineStepInfo info, ExecControl ctl)
+	protected abstract PuppetIORunnable captureStdoutImpl(MachineStep.MachineStepInfo info, ExecControl ctl)
 			throws PuppetException;
 
 	@Override
-	public PuppetRunnable captureStdout(MachineStep.MachineStepInfo info, ExecControl ctl) throws PuppetException {
+	public PuppetIORunnable captureStdout(MachineStep.MachineStepInfo info, ExecControl ctl) throws PuppetException {
 		try {
 			return captureStdoutImpl(info, ctl);
 		}

@@ -8,6 +8,8 @@ public interface PuppeteerUI {
 
 	void info(Object object, String[] message, boolean verbose);
 
+	void error(Throwable t);
+
 	default void warn(Object object, String message) {
 		warn(object, new String[] {message});
 	}

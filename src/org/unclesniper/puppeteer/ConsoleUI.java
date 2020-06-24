@@ -6,10 +6,17 @@ public class ConsoleUI implements PuppeteerUI {
 
 	private boolean verbose;
 
+	private boolean nativeTrace;
+
 	public ConsoleUI() {}
 
 	public ConsoleUI(boolean verbose) {
+		this(verbose, false);
+	}
+
+	public ConsoleUI(boolean verbose, boolean nativeTrace) {
 		this.verbose = verbose;
+		this.nativeTrace = nativeTrace;
 	}
 
 	public boolean isVerbose() {
@@ -18,6 +25,14 @@ public class ConsoleUI implements PuppeteerUI {
 
 	public void setVerbose(boolean verbose) {
 		this.verbose = verbose;
+	}
+
+	public boolean isNativeTrace() {
+		return nativeTrace;
+	}
+
+	public void setNativeTrace(boolean nativeTrace) {
+		this.nativeTrace = nativeTrace;
 	}
 
 	@Override
@@ -69,6 +84,15 @@ public class ConsoleUI implements PuppeteerUI {
 			System.out.println(message[i]);
 		}
 		System.out.flush();
+	}
+
+	@Override
+	public void error(Throwable t) {
+		if(t == null)
+			return;
+		System.err.print("Error executing plan: ");
+		ExceptionSink.describe(t, new TextualExceptionSink(new PrintStreamStructSink(System.err), nativeTrace));
+		System.err.flush();
 	}
 
 }

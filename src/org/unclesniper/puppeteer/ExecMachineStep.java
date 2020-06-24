@@ -134,18 +134,27 @@ public class ExecMachineStep extends AbstractMachineStep {
 			if(exitStatusCapture != null)
 				exitStatusCapture.captureExitStatus(status);
 		};
+		List<String> capturedStdout = new LinkedList<String>();
+		List<String> capturedStderr = new LinkedList<String>();
 		try(PuppetIORunnable.TryJoin wait = PuppetIORunnable.tryJoin(waitTask)) {
-			try(PuppetRunnable.TryJoin joinStdin = PuppetRunnable.tryJoin(stdinProvider == null
+			try(PuppetIORunnable.TryJoin joinStdin = PuppetIORunnable.tryJoin(stdinProvider == null
 					? null : stdinProvider.provideStdin(info, ctl))) {
-				try(PuppetRunnable.TryJoin joinStdout = PuppetRunnable.tryJoin(stdoutCapture == null
-						? null : stdoutCapture.captureStdout(info, ctl))) {
-					try(PuppetRunnable.TryJoin joinStderr = PuppetRunnable.tryJoin(stderrCapture == null
-							? null : stderrCapture.captureStderr(info, ctl))) {}
+				try(PuppetIORunnable.TryJoin joinStdout = PuppetIORunnable.tryJoin((stdoutCapture == null
+						? new ConsumerStdoutCapture(capturedStdout::add)
+						: stdoutCapture).captureStdout(info, ctl))) {
+					try(PuppetIORunnable.TryJoin joinStderr = PuppetIORunnable.tryJoin((stderrCapture == null
+							? new ConsumerStderrCapture(capturedStderr::add)
+							: stderrCapture).captureStderr(info, ctl))) {}
 				}
 			}
 		}
 		catch(IOException ioe) {
-			throw new FailedToExecuteIOPuppetException(argv, machine, ioe);
+			FailedToExecuteIOPuppetException fteipe = new FailedToExecuteIOPuppetException(argv, machine, ioe);
+			for(String line : capturedStdout)
+				fteipe.addStdoutLine(line);
+			for(String line : capturedStderr)
+				fteipe.addStderrLine(line);
+			throw fteipe;
 		}
 	}
 

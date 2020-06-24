@@ -27,6 +27,8 @@ public class Launcher {
 
 		public boolean verbose;
 
+		public boolean nativeTrace;
+
 		public Config() {}
 
 		public File getConfdir() {
@@ -155,6 +157,14 @@ public class Launcher {
 						}
 						config.verbose = true;
 						break;
+					case "trace":
+						if(optarg != null) {
+							System.err.println("Error: Command line option '--trace' does not take an argument.");
+							System.err.println("       Run with '--help' for usage.");
+							return 1;
+						}
+						config.nativeTrace = true;
+						break;
 					default:
 						System.err.println("Error: Unrecognized command line option: --" + opt);
 						System.err.println("       Run with '--help' for usage.");
@@ -193,6 +203,9 @@ public class Launcher {
 							break optChars;
 						case 'v':
 							config.verbose = true;
+							break;
+						case 't':
+							config.nativeTrace = true;
 							break;
 						default:
 							System.err.println("Error: Unrecognized command line option: -" + opt);
@@ -238,6 +251,8 @@ public class Launcher {
 			"  -p PATH            Same as '--plandir'.",
 			"  --verbose          Print steps as they are executed.",
 			"  -v                 Same as '--verbose'.",
+			"  --trace            Print Java-level stack traces for exceptions.",
+			"  -t                 Same as '--trace'.",
 			"  --help             Print this helpful message and quit.",
 		})
 			System.out.println(line);
@@ -278,6 +293,7 @@ public class Launcher {
 		ArrayArgumentSource argsrc = new ArrayArgumentSource(argv, argOffset, "<command line>", 0, "<word #", ">");
 		ConsoleUI ui = new ConsoleUI();
 		ui.setVerbose(config.verbose);
+		ui.setNativeTrace(config.nativeTrace);
 		return Launcher.wireMain((World)worldObj, (Plan)planObj, argsrc, ui);
 	}
 
@@ -312,21 +328,7 @@ public class Launcher {
 			return 0;
 		}
 		catch(PuppetException pe) {
-			System.err.print("Error executing plan: ");
-			System.err.flush();
-			pe.printStackTrace();
-			System.err.println("Wire object backtrace:");
-			boolean had = false;
-			for(Traceable frame : pe.getPuppetFrames()) {
-				System.err.print("    " + frame.getClass().getName());
-				String location = frame.getTraceObjectDefinitionLocation();
-				if(location != null && location.length() > 0)
-					System.err.print(" [defined at " + location + ']');
-				System.err.println();
-				had = true;
-			}
-			if(!had)
-				System.err.println("    <no frames on stack>");
+			ui.error(pe);
 			return 1;
 		}
 	}
