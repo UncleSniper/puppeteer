@@ -14,8 +14,11 @@ public class MachineStringPropertyMachineStepWordEmitter extends AbstractMachine
 			throws MissingMachineStringPropertyException {
 		try {
 			String value = getPropertyValue(info.getMachine());
-			if(value != null)
+			if(value != null) {
+				putPrefixWords(sink);
 				sink.accept(value);
+				putSuffixWords(sink);
+			}
 		}
 		catch(MissingMachineStringPropertyException mmspe) {
 			mmspe.addPuppetFrame(this);

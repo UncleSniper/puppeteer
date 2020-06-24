@@ -14,8 +14,11 @@ public class MachineStringPropertyCopyFromWordEmitter extends AbstractMachineStr
 			throws MissingMachineStringPropertyException {
 		try {
 			String value = getPropertyValue(machine);
-			if(value != null)
+			if(value != null) {
+				putPrefixWords(sink);
 				sink.accept(value);
+				putSuffixWords(sink);
+			}
 		}
 		catch(MissingMachineStringPropertyException mmspe) {
 			mmspe.addPuppetFrame(this);

@@ -41,7 +41,11 @@ public class ExecExecSlave extends AbstractExecSlave {
 		words.add(emitter);
 	}
 
-	private ExecControl execute(Machine machine, Argv argv, String workdir,
+	public boolean hasWords() {
+		return !words.isEmpty();
+	}
+
+	protected ExecControl execute(Machine machine, Argv argv, String workdir,
 			Map<String, String> environ, int flags) throws PuppetException {
 		List<String> subArgv = new LinkedList<String>();
 		Consumer<String> sink = subArgv::add;

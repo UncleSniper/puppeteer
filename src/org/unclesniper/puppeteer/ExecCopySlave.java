@@ -66,6 +66,10 @@ public class ExecCopySlave extends AbstractCopySlave {
 		toWords.add(emitter);
 	}
 
+	public boolean hasToWords() {
+		return !toWords.isEmpty();
+	}
+
 	public void addFromWord(CopyFromWordEmitter word) {
 		if(word != null)
 			fromWords.add(word);
@@ -79,7 +83,11 @@ public class ExecCopySlave extends AbstractCopySlave {
 		fromWords.add(emitter);
 	}
 
-	private void copyTo(Machine machine, InFile source, String destination) throws PuppetException {
+	protected boolean hasFromWords() {
+		return !fromWords.isEmpty();
+	}
+
+	protected void copyTo(Machine machine, InFile source, String destination) throws PuppetException {
 		if(execHost != null && explicitIntermediate)
 			copyToIndirectly(machine, source, destination);
 		else
@@ -117,7 +125,7 @@ public class ExecCopySlave extends AbstractCopySlave {
 		}
 	}
 
-	private void copyFrom(Machine machine, String source, OutFile destination) throws PuppetException {
+	protected void copyFrom(Machine machine, String source, OutFile destination) throws PuppetException {
 		if(execHost != null && explicitIntermediate)
 			copyFromIndirectly(machine, source, destination);
 		else

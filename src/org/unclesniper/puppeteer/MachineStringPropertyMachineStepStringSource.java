@@ -13,8 +13,11 @@ public class MachineStringPropertyMachineStepStringSource extends AbstractMachin
 			throws MissingMachineStringPropertyException {
 		try {
 			String value = getPropertyValue(info.getMachine());
-			if(value != null)
+			if(value != null) {
+				putPrefixWords(sink);
 				sink.append(value);
+				putSuffixWords(sink);
+			}
 		}
 		catch(MissingMachineStringPropertyException mmspe) {
 			mmspe.addPuppetFrame(this);

@@ -1,5 +1,9 @@
 package org.unclesniper.puppeteer;
 
+import java.util.List;
+import java.util.LinkedList;
+import java.util.function.Consumer;
+
 public abstract class AbstractMachineStringPropertyReference extends AbstractTraceable {
 
 	private String property;
@@ -9,6 +13,10 @@ public abstract class AbstractMachineStringPropertyReference extends AbstractTra
 	private boolean required;
 
 	private StringTransform transform;
+
+	private final List<String> prefixWords = new LinkedList<String>();
+
+	private final List<String> suffixWords = new LinkedList<String>();
 
 	public AbstractMachineStringPropertyReference() {}
 
@@ -42,6 +50,44 @@ public abstract class AbstractMachineStringPropertyReference extends AbstractTra
 
 	public void setTransform(StringTransform transform) {
 		this.transform = transform;
+	}
+
+	public void addPrefixWord(String word) {
+		if(word != null)
+			prefixWords.add(word);
+	}
+
+	public Iterable<String> getPrefixWords() {
+		return prefixWords;
+	}
+
+	protected void putPrefixWords(Consumer<String> sink) {
+		for(String word : prefixWords)
+			sink.accept(word);
+	}
+
+	protected void putPrefixWords(StringBuilder sink) {
+		for(String word : prefixWords)
+			sink.append(word);
+	}
+
+	public void addSuffixWord(String word) {
+		if(word != null)
+			suffixWords.add(word);
+	}
+
+	public Iterable<String> getSuffixWords() {
+		return suffixWords;
+	}
+
+	protected void putSuffixWords(Consumer<String> sink) {
+		for(String word : suffixWords)
+			sink.accept(word);
+	}
+
+	protected void putSuffixWords(StringBuilder sink) {
+		for(String word : suffixWords)
+			sink.append(word);
 	}
 
 	protected String getPropertyValue(Machine machine) throws MissingMachineStringPropertyException {

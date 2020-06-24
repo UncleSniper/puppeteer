@@ -12,8 +12,11 @@ public class MachineStringPropertyNewTempFileStringSource extends AbstractMachin
 	public void buildString(Machine machine, StringBuilder sink) throws MissingMachineStringPropertyException {
 		try {
 			String value = getPropertyValue(machine);
-			if(value != null)
+			if(value != null) {
+				putPrefixWords(sink);
 				sink.append(value);
+				putSuffixWords(sink);
+			}
 		}
 		catch(MissingMachineStringPropertyException mmspe) {
 			mmspe.addPuppetFrame(this);

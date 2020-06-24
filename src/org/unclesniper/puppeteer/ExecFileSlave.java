@@ -16,6 +16,10 @@ public class ExecFileSlave extends AbstractFileSlave {
 
 	public ExecFileSlave() {}
 
+	public ExecFileSlave(Machine execHost) {
+		this.execHost = execHost;
+	}
+
 	public Machine getExecHost() {
 		return execHost;
 	}
@@ -37,6 +41,10 @@ public class ExecFileSlave extends AbstractFileSlave {
 		tempFileWords.add(emitter);
 	}
 
+	public boolean hasTempFileWords() {
+		return !tempFileWords.isEmpty();
+	}
+
 	public void addDeleteFileWord(DeleteFileWordEmitter word) {
 		if(word != null)
 			deleteFileWords.add(word);
@@ -48,6 +56,10 @@ public class ExecFileSlave extends AbstractFileSlave {
 		StringDeleteFileWordEmitter emitter = new StringDeleteFileWordEmitter();
 		emitter.addWord(word);
 		deleteFileWords.add(emitter);
+	}
+
+	public boolean hasDeleteFileWords() {
+		return !deleteFileWords.isEmpty();
 	}
 
 	@Override

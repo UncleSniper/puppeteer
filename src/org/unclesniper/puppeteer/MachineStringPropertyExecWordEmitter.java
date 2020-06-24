@@ -15,8 +15,11 @@ public class MachineStringPropertyExecWordEmitter extends AbstractMachineStringP
 			Consumer<String> sink) throws MissingMachineStringPropertyException {
 		try {
 			String value = getPropertyValue(machine);
-			if(value != null)
+			if(value != null) {
+				putPrefixWords(sink);
 				sink.accept(value);
+				putSuffixWords(sink);
+			}
 		}
 		catch(MissingMachineStringPropertyException mmspe) {
 			mmspe.addPuppetFrame(this);
