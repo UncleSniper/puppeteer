@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Collections;
 import org.unclesniper.puppeteer.Machine;
 import org.unclesniper.puppeteer.PuppetException;
 import org.unclesniper.puppeteer.util.ShorthandName;
@@ -186,6 +187,8 @@ public class StaticSSHConfig extends AbstractSSHConfig {
 		if(defaults == null)
 			return options.entrySet();
 		Iterable<Map.Entry<String, String>> other = defaults.getOptions(machine, execHost);
+		if(other == null)
+			other = Collections.emptyList();
 		if(options.isEmpty())
 			return other;
 		Map<String, String> merged = new HashMap<String, String>();

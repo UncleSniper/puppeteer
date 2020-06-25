@@ -1,9 +1,12 @@
 package org.unclesniper.puppeteer.config;
 
 import java.util.Map;
+import java.util.function.Consumer;
+import org.unclesniper.puppeteer.Doom;
 import org.unclesniper.puppeteer.Machine;
 import org.unclesniper.puppeteer.PuppetException;
 import org.unclesniper.puppeteer.AbstractTraceable;
+import org.unclesniper.puppeteer.MissingTargetHostnameException;
 
 public abstract class AbstractSSHConfig extends AbstractTraceable implements SSHConfig {
 
@@ -165,6 +168,105 @@ public abstract class AbstractSSHConfig extends AbstractTraceable implements SSH
 			pe.addPuppetFrame(this);
 			throw pe;
 		}
+	}
+
+	public static void buildSSHCommand(SSHConfig config, Machine machine, Machine execHost, Consumer<String> sink)
+			throws PuppetException {
+		if(config == null)
+			config = EmptySSHConfig.instance;
+		String executable = config.getExecHostSSHExecutable(machine, execHost);
+		sink.accept(executable == null ? "ssh" : executable);
+		AbstractSSHConfig.buildCommonOptions(config, machine, execHost, sink);
+		int port = config.getPort(machine, execHost);
+		if(port > 0)
+			sink.accept("-p" + port);
+		sink.accept("--");
+		sink.accept(AbstractSSHConfig.buildAuthority(config, machine, execHost));
+	}
+
+	public static void buildSCPCommand(SSHConfig config, Machine machine, Machine execHost, Consumer<String> sink)
+			throws PuppetException {
+		if(config == null)
+			config = EmptySSHConfig.instance;
+		String executable = config.getExecHostSCPExecutable(machine, execHost);
+		sink.accept(executable == null ? "scp" : executable);
+		AbstractSSHConfig.buildCommonOptions(config, machine, execHost, sink);
+		int port = config.getPort(machine, execHost);
+		if(port > 0)
+			sink.accept("-P" + port);
+		sink.accept("--");
+	}
+
+	private static void buildCommonOptions(SSHConfig config, Machine machine, Machine execHost,
+			Consumer<String> sink) throws PuppetException {
+		IPVersion ipv = config.getInternetProtocolVersion(machine, execHost);
+		switch(ipv == null ? IPVersion.ANY : ipv) {
+			case ANY:
+				break;
+			case IPV4:
+				sink.accept("-4");
+				break;
+			case IPV6:
+				sink.accept("-6");
+				break;
+			default:
+				throw new Doom("Unrecognized IPVersion: " + ipv.name());
+		}
+		Boolean compress = config.isCompress(machine, execHost);
+		if(compress != null && compress)
+			sink.accept("-C");
+		StringBuilder builder = null;
+		Iterable<String> ciphers = config.getCiphers(machine, execHost);
+		if(ciphers != null) {
+			for(String cipher : ciphers) {
+				if(cipher == null || cipher.length() == 0)
+					continue;
+				if(builder == null)
+					builder = new StringBuilder();
+				else
+					builder.append(',');
+				builder.append(cipher);
+			}
+		}
+		if(builder != null) {
+			sink.accept("-c");
+			sink.accept(builder.toString());
+		}
+		String configFile = config.getConfigFile(machine, execHost);
+		if(configFile != null) {
+			sink.accept("-F");
+			sink.accept(configFile);
+		}
+		String identityFile = config.getIdentityFile(machine, execHost);
+		if(identityFile != null) {
+			sink.accept("-i");
+			sink.accept(identityFile);
+		}
+		Iterable<Map.Entry<String, String>> options = config.getOptions(machine, execHost);
+		if(options != null) {
+			for(Map.Entry<String, String> entry : options) {
+				String key = entry.getKey(), value = entry.getValue();
+				if(key == null || key.length() == 0 || value == null)
+					continue;
+				sink.accept("-o");
+				sink.accept(key + '=' + value);
+			}
+		}
+	}
+
+	public static String buildAuthority(SSHConfig config, Machine machine, Machine execHost)
+			throws PuppetException {
+		if(config == null)
+			config = EmptySSHConfig.instance;
+		String user = config.getRemoteUser(machine, execHost);
+		String host = config.getRemoteHost(machine, execHost);
+		if(host == null) {
+			if(machine != null)
+				host = machine.getHostname();
+			if(host == null)
+				throw new MissingTargetHostnameException(machine);
+		}
+		return user == null || user.length() == 0 ? host : user + '@' + host;
 	}
 
 }

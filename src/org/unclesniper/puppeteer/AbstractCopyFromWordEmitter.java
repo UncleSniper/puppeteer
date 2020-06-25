@@ -9,8 +9,7 @@ public abstract class AbstractCopyFromWordEmitter extends AbstractTraceable impl
 	protected abstract void buildArgvImpl(CopySlave.CopyFromInfo info, Consumer<String> sink) throws PuppetException;
 
 	@Override
-	public void buildArgv(CopySlave.CopyFromInfo info, Consumer<String> sink)
-			throws PuppetException {
+	public void buildArgv(CopySlave.CopyFromInfo info, Consumer<String> sink) throws PuppetException {
 		try {
 			buildArgvImpl(info, sink);
 		}
