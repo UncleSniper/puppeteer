@@ -5,15 +5,25 @@ import org.unclesniper.puppeteer.util.ShorthandName;
 @ShorthandName("stringArg")
 public class StringArgument extends StringVariable implements Argument {
 
+	private String initialValue;
+
 	public StringArgument() {}
 
 	public StringArgument(String name) {
 		super(name);
 	}
 
+	public String getInitialValue() {
+		return initialValue;
+	}
+
+	public void setInitialValue(String initialValue) {
+		this.initialValue = initialValue;
+	}
+
 	@Override
 	public void initializeValue(ScopeLevel level) {
-		level.setString(this, null, AssignmentScope.LOCAL);
+		level.setString(this, initialValue, AssignmentScope.LOCAL);
 	}
 
 	@Override
