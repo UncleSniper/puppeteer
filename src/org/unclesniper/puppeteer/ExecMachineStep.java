@@ -65,6 +65,21 @@ public class ExecMachineStep extends AbstractMachineStep {
 			workDir.add(new StringMachineStepStringSource(piece));
 	}
 
+	public void addEnvPair(MachineStepPairEmitter pair) {
+		if(pair != null)
+			envPairs.add(pair);
+	}
+
+	public void addEnvPair(NetworkStepPairEmitter pair) {
+		if(pair != null)
+			envPairs.add(new NetworkStepPairEmitterMachineStepPairEmitter(pair));
+	}
+
+	public void addEnvPair(StepPairEmitter pair) {
+		if(pair != null)
+			envPairs.add(new StepPairEmitterMachineStepPairEmitter(pair));
+	}
+
 	public void addFlag(ExecFlag flag) {
 		if(flag != null)
 			flags |= flag.getFlag();

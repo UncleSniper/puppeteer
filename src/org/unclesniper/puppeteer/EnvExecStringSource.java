@@ -98,7 +98,7 @@ public class EnvExecStringSource extends AbstractExecStringSource {
 			sink.append(keyTransform == null ? entry.getKey() : keyTransform.transformString(entry.getKey()));
 			if(pairInfix != null)
 				sink.append(pairInfix);
-			sink.append(valueTransform != null ? entry.getValue()
+			sink.append(valueTransform == null ? entry.getValue()
 					: valueTransform.transformString(entry.getValue()));
 			if(pairSuffix != null)
 				sink.append(pairSuffix);

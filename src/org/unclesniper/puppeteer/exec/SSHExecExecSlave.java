@@ -61,7 +61,7 @@ public class SSHExecExecSlave extends PrefabExecExecSlave {
 			workdir.setTransform(shellQuoter);
 		else
 			workdir.setTransform(BashWordQuoter.instance);
-		workdir.setSuffix("&& ");
+		workdir.setSuffix(" && ");
 		args.addPiece(workdir);
 		EnvExecStringSource env = new EnvExecStringSource();
 		env.ingestObjectDefinitionLocation(this);

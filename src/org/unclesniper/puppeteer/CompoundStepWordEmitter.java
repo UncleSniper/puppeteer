@@ -5,28 +5,23 @@ import java.util.LinkedList;
 import java.util.function.Consumer;
 import org.unclesniper.puppeteer.util.ShorthandName;
 
-@ShorthandName("compoundNetworkStepWord")
-public class CompoundNetworkStepWordEmitter extends AbstractNetworkStepWordEmitter {
+@ShorthandName("compoundStepWord")
+public class CompoundStepWordEmitter extends AbstractStepWordEmitter {
 
-	private final List<NetworkStepStringSource> pieces = new LinkedList<NetworkStepStringSource>();
+	private final List<StepStringSource> pieces = new LinkedList<StepStringSource>();
 
 	private StringTransform transform;
 
-	public CompoundNetworkStepWordEmitter() {}
+	public CompoundStepWordEmitter() {}
 
-	public void addPiece(NetworkStepStringSource piece) {
+	public void addPiece(StepStringSource piece) {
 		if(piece != null)
 			pieces.add(piece);
 	}
 
-	public void addPiece(StepStringSource piece) {
-		if(piece != null)
-			pieces.add(new StepStringSourceNetworkStepStringSource(piece));
-	}
-
 	public void addPiece(String piece) {
 		if(piece != null)
-			pieces.add(new StringNetworkStepStringSource(piece));
+			pieces.add(new StringStepStringSource(piece));
 	}
 
 	public StringTransform getTransform() {
@@ -42,9 +37,9 @@ public class CompoundNetworkStepWordEmitter extends AbstractNetworkStepWordEmitt
 	}
 
 	@Override
-	protected void buildArgvImpl(NetworkStep.NetworkStepInfo info, Consumer<String> sink) throws PuppetException {
+	protected void buildArgvImpl(Step.StepInfo info, Consumer<String> sink) throws PuppetException {
 		StringBuilder builder = new StringBuilder();
-		for(NetworkStepStringSource piece : pieces)
+		for(StepStringSource piece : pieces)
 			piece.buildString(info, builder);
 		String word = builder.toString();
 		sink.accept(transform == null ? word : transform.transformString(word));

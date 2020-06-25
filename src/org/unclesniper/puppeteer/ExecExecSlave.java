@@ -52,7 +52,7 @@ public class ExecExecSlave extends AbstractExecSlave {
 		ExecInfo info = new ExecInfo(machine, execHost, argv, workdir, environ, flags);
 		for(ExecWordEmitter emitter : words)
 			emitter.buildArgv(info, sink);
-		return ExecUtils.on(execHost).execute(execHost, subArgv, workdir, environ, flags);
+		return ExecUtils.on(execHost).execute(execHost, subArgv, null, null, flags);
 	}
 
 	@Override
