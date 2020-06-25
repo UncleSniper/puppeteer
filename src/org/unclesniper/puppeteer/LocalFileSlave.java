@@ -11,22 +11,22 @@ public class LocalFileSlave extends AbstractFileSlave {
 
 	public static final FileSlave instance = new LocalFileSlave();
 
-	private File directory;
+	private File tempDirectory;
 
 	public LocalFileSlave() {}
 
-	public File getDirectory() {
-		return directory;
+	public File getTempDirectory() {
+		return tempDirectory;
 	}
 
-	public void setDirectory(File directory) {
-		this.directory = directory;
+	public void setTempDirectory(File tempDirectory) {
+		this.tempDirectory = tempDirectory;
 	}
 
 	@Override
 	protected String newTempFileImpl(Machine machine) throws PuppetException {
 		try {
-			String path = File.createTempFile("puppet", null, directory).getAbsolutePath();
+			String path = File.createTempFile("puppet", null, tempDirectory).getAbsolutePath();
 			if(LocalUtils.DEBUG_LOCAL) {
 				System.err.println("*** DEBUG: newTempFile:");
 				System.err.println("***            => '" + path + '\'');
