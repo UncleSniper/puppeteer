@@ -19,9 +19,9 @@ public class MachineStringPropertyCopyFromStringSource extends AbstractMachineSt
 				putSuffixWords(sink);
 			}
 		}
-		catch(MissingMachineStringPropertyException mmspe) {
-			mmspe.addPuppetFrame(this);
-			throw mmspe;
+		catch(MissingMachineStringPropertyException | MissingTargetMachineException | MissingExecHostException e) {
+			e.addPuppetFrame(this);
+			throw e;
 		}
 	}
 

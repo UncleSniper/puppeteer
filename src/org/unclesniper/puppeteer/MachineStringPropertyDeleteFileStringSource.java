@@ -3,7 +3,7 @@ package org.unclesniper.puppeteer;
 import org.unclesniper.puppeteer.util.ShorthandName;
 
 @ShorthandName("machineStringPropertyDeleteFileString")
-class MachineStringPropertyDeleteFileStringSource extends AbstractMachineStringPropertyReference
+public class MachineStringPropertyDeleteFileStringSource extends AbstractMachineStringPropertyReference
 		implements DeleteFileStringSource {
 
 	public MachineStringPropertyDeleteFileStringSource() {}
@@ -19,9 +19,9 @@ class MachineStringPropertyDeleteFileStringSource extends AbstractMachineStringP
 				putSuffixWords(sink);
 			}
 		}
-		catch(MissingMachineStringPropertyException mmspe) {
-			mmspe.addPuppetFrame(this);
-			throw mmspe;
+		catch(MissingMachineStringPropertyException | MissingTargetMachineException | MissingExecHostException e) {
+			e.addPuppetFrame(this);
+			throw e;
 		}
 	}
 

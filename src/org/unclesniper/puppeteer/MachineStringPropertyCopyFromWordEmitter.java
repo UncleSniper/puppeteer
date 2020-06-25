@@ -20,9 +20,10 @@ public class MachineStringPropertyCopyFromWordEmitter extends AbstractMachineStr
 				putSuffixWords(sink);
 			}
 		}
-		catch(MissingMachineStringPropertyException mmspe) {
-			mmspe.addPuppetFrame(this);
-			throw mmspe;
+		catch(MissingMachineStringPropertyException | MissingTargetMachineException
+				| MissingExecHostException e) {
+			e.addPuppetFrame(this);
+			throw e;
 		}
 	}
 

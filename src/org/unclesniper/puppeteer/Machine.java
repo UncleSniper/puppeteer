@@ -20,6 +20,8 @@ public class Machine extends AbstractTraceable {
 
 	private final Map<String, String> stringProperties = new HashMap<String, String>();
 
+	private final Map<String, Integer> intProperties = new HashMap<String, Integer>();
+
 	private final Set<String> tags = new HashSet<String>();
 
 	private final Set<String> aliases = new HashSet<String>();
@@ -114,6 +116,24 @@ public class Machine extends AbstractTraceable {
 
 	public String getStringProperty(String key, String fallback) {
 		String value = stringProperties.get(key);
+		return value == null ? fallback : value;
+	}
+
+	public void setIntProperty(String key, Integer value) {
+		if(key == null)
+			return;
+		if(value == null)
+			intProperties.remove(key);
+		else
+			intProperties.put(key, value);
+	}
+
+	public Integer getIntProperty(String key) {
+		return intProperties.get(key);
+	}
+
+	public Integer getIntProperty(String key, Integer fallback) {
+		Integer value = intProperties.get(key);
 		return value == null ? fallback : value;
 	}
 
