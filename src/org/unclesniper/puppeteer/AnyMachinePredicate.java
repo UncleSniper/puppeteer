@@ -14,4 +14,9 @@ public class AnyMachinePredicate extends AbstractMachinePredicate {
 		return true;
 	}
 
+	@Override
+	public void printTo(StructSink sink) {
+		StructPrintable.beginObject(this, sink, true);
+	}
+
 }

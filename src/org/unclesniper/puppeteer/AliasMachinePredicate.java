@@ -26,4 +26,19 @@ public class AliasMachinePredicate extends AbstractMachinePredicate {
 		return alias != null && info.getMachine().hasAlias(alias);
 	}
 
+	@Override
+	public void printTo(StructSink sink) {
+		StructPrintable.beginObject(this, sink, false);
+		printAliasMachinePredicateTo(sink, false);
+		StructPrintable.endObject(sink);
+	}
+
+	protected void printAliasMachinePredicateTo(StructSink sink, boolean more) {
+		printAbstractMachinePredicateTo(sink, true);
+		StructPrintable.string("alias", alias, sink);
+		if(more)
+			sink.print(",");
+		sink.endl();
+	}
+
 }

@@ -18,4 +18,15 @@ public class TagNetworkPredicate extends AbstractTagPredicate implements Network
 		}
 	}
 
+	@Override
+	public void printTo(StructSink sink) {
+		StructPrintable.beginObject(this, sink, false);
+		printTagNetworkPredicateTo(sink, false);
+		StructPrintable.endObject(sink);
+	}
+
+	protected void printTagNetworkPredicateTo(StructSink sink, boolean more) {
+		printAbstractTagPredicateTo(sink, more);
+	}
+
 }

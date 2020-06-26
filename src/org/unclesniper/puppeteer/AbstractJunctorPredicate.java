@@ -34,4 +34,13 @@ public abstract class AbstractJunctorPredicate extends AbstractTraceable {
 		return shortCircuit == negate;
 	}
 
+	protected void printAbstractJunctorPredicateTo(StructSink sink, boolean more) {
+		StructPrintable.enumConstant("junctor", junctor, sink);
+		sink.println(",");
+		StructPrintable.booleanValue("negate", negate, sink);
+		if(more)
+			sink.print(",");
+		sink.endl();
+	}
+
 }

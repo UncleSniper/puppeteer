@@ -17,4 +17,6 @@ public abstract class AbstractNetworkPredicate extends AbstractTraceable impleme
 		}
 	}
 
+	protected void printAbstractNetworkPredicateTo(StructSink sink, boolean more) {}
+
 }

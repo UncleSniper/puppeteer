@@ -26,4 +26,19 @@ public class NameNetworkPredicate extends AbstractNetworkPredicate {
 		return name != null && name.equals(info.getNetwork().getName());
 	}
 
+	@Override
+	public void printTo(StructSink sink) {
+		StructPrintable.beginObject(this, sink, false);
+		printNameNetworkPredicateTo(sink, false);
+		StructPrintable.endObject(sink);
+	}
+
+	protected void printNameNetworkPredicateTo(StructSink sink, boolean more) {
+		printAbstractNetworkPredicateTo(sink, true);
+		StructPrintable.string("name", name, sink);
+		if(more)
+			sink.print(",");
+		sink.endl();
+	}
+
 }

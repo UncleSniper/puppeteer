@@ -17,4 +17,6 @@ public abstract class AbstractMachinePredicate extends AbstractTraceable impleme
 		}
 	}
 
+	protected void printAbstractMachinePredicateTo(StructSink sink, boolean more) {}
+
 }

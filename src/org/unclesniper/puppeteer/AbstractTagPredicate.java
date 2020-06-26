@@ -38,4 +38,13 @@ public abstract class AbstractTagPredicate extends AbstractTraceable {
 		return !shortCircuit;
 	}
 
+	protected void printAbstractTagPredicateTo(StructSink sink, boolean more) {
+		StructPrintable.enumConstant("junctor", junctor, sink);
+		sink.println(",");
+		StructPrintable.stringList("tag", tags, sink);
+		if(more)
+			sink.print(",");
+		sink.endl();
+	}
+
 }

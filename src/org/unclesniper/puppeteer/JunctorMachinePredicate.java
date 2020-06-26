@@ -31,4 +31,19 @@ public class JunctorMachinePredicate extends AbstractJunctorPredicate implements
 		}
 	}
 
+	@Override
+	public void printTo(StructSink sink) {
+		StructPrintable.beginObject(this, sink, false);
+		printJunctorMachinePredicateTo(sink, false);
+		StructPrintable.endObject(sink);
+	}
+
+	protected void printJunctorMachinePredicateTo(StructSink sink, boolean more) {
+		printAbstractJunctorPredicateTo(sink, true);
+		StructPrintable.list("predicate", predicates, sink);
+		if(more)
+			sink.print(",");
+		sink.endl();
+	}
+
 }

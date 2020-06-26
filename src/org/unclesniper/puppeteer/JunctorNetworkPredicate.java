@@ -31,4 +31,19 @@ public class JunctorNetworkPredicate extends AbstractJunctorPredicate implements
 		}
 	}
 
+	@Override
+	public void printTo(StructSink sink) {
+		StructPrintable.beginObject(this, sink, false);
+		printJunctorNetworkPredicateTo(sink, false);
+		StructPrintable.endObject(sink);
+	}
+
+	protected void printJunctorNetworkPredicateTo(StructSink sink, boolean more) {
+		printAbstractJunctorPredicateTo(sink, true);
+		StructPrintable.list("predicate", predicates, sink);
+		if(more)
+			sink.print(",");
+		sink.endl();
+	}
+
 }

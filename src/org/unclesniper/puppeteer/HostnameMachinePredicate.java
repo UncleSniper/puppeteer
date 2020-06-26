@@ -26,4 +26,19 @@ public class HostnameMachinePredicate extends AbstractMachinePredicate {
 		return hostname != null && hostname.equals(info.getMachine().getHostname());
 	}
 
+	@Override
+	public void printTo(StructSink sink) {
+		StructPrintable.beginObject(this, sink, false);
+		printHostnameMachinePredicateTo(sink, false);
+		StructPrintable.endObject(sink);
+	}
+
+	protected void printHostnameMachinePredicateTo(StructSink sink, boolean more) {
+		printAbstractMachinePredicateTo(sink, true);
+		StructPrintable.string("hostname", hostname, sink);
+		if(more)
+			sink.print(",");
+		sink.endl();
+	}
+
 }

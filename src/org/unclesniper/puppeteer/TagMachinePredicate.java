@@ -18,4 +18,15 @@ public class TagMachinePredicate extends AbstractTagPredicate implements Machine
 		}
 	}
 
+	@Override
+	public void printTo(StructSink sink) {
+		StructPrintable.beginObject(this, sink, false);
+		printTagMachinePredicateTo(sink, false);
+		StructPrintable.endObject(sink);
+	}
+
+	protected void printTagMachinePredicateTo(StructSink sink, boolean more) {
+		printAbstractTagPredicateTo(sink, more);
+	}
+
 }
