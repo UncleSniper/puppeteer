@@ -1,6 +1,7 @@
 package org.unclesniper.puppeteer.args;
 
 import org.unclesniper.puppeteer.Argument;
+import org.unclesniper.puppeteer.Traceable;
 import org.unclesniper.puppeteer.ScopeLevel;
 import org.unclesniper.puppeteer.PuppetException;
 import org.unclesniper.puppeteer.util.ShorthandName;
@@ -55,7 +56,7 @@ public class SetArgumentSyntax extends ZeroWidthSyntax {
 	@Override
 	protected void seen(ScopeLevel scope) throws PuppetException {
 		if(argument != null && value != null)
-			argument.addValue(scope, value);
+			argument.addValue(scope, value, Traceable.makeLocation(this, "", "", null));
 	}
 
 }

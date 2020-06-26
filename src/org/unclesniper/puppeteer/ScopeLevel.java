@@ -16,6 +16,8 @@ public class ScopeLevel {
 	private final Map<MachinePredicateVariable, MachinePredicate> machinePredicates
 			= new IdentityHashMap<MachinePredicateVariable, MachinePredicate>();
 
+	private final Map<BooleanVariable, Boolean> booleans = new IdentityHashMap<BooleanVariable, Boolean>();
+
 	public ScopeLevel(ScopeLevel parent) {
 		this.parent = parent;
 	}
@@ -124,6 +126,19 @@ public class ScopeLevel {
 	public void setMachinePredicate(MachinePredicateVariable variable, MachinePredicate value,
 			AssignmentScope scope) {
 		setX(variable, value, scope, level -> level.machinePredicates);
+	}
+
+	public boolean hasBoolean(BooleanVariable variable) {
+		return hasX(variable, level -> level.booleans);
+	}
+
+	public Boolean getBoolean(BooleanVariable variable, boolean required)
+			throws UndefinedBooleanVariableException {
+		return getX(variable, required, level -> level.booleans, UndefinedBooleanVariableException::new);
+	}
+
+	public void setBoolean(BooleanVariable variable, Boolean value, AssignmentScope scope) {
+		setX(variable, value, scope, level -> level.booleans);
 	}
 
 }

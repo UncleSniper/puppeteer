@@ -27,7 +27,7 @@ public class StringArgument extends StringVariable implements Argument {
 	}
 
 	@Override
-	public void addValue(ScopeLevel level, String specifier) throws PuppetException {
+	public void addValue(ScopeLevel level, String specifier, String source) throws PuppetException {
 		level.setString(this, specifier, AssignmentScope.LOCAL);
 	}
 

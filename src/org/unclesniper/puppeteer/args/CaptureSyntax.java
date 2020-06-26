@@ -54,7 +54,7 @@ public class CaptureSyntax extends Syntax {
 		if(token == null)
 			throw new ArgumentSyntaxException("argument", null, source.location());
 		if(argument != null)
-			argument.addValue(scope, token);
+			argument.addValue(scope, token, source.location());
 		source.next();
 	}
 
