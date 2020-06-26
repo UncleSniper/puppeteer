@@ -66,6 +66,11 @@ public class ScopeLevel {
 		}
 	}
 
+	private <VarT, ValueT> void eraseX(VarT variable, Function<ScopeLevel, Map<VarT, ValueT>> field) {
+		for(ScopeLevel level = this; level != null; level = level.parent)
+			field.apply(level).remove(variable);
+	}
+
 	private <VarT, ValueT> void setXGlobal(VarT variable, ValueT value,
 			Function<ScopeLevel, Map<VarT, ValueT>> field) {
 		ScopeLevel level = this;
@@ -98,6 +103,10 @@ public class ScopeLevel {
 		setX(variable, value, scope, level -> level.strings);
 	}
 
+	public void eraseString(StringVariable variable) {
+		eraseX(variable, level -> level.strings);
+	}
+
 	public boolean hasNetworkPredicate(NetworkPredicateVariable variable) {
 		return hasX(variable, level -> level.networkPredicates);
 	}
@@ -111,6 +120,10 @@ public class ScopeLevel {
 	public void setNetworkPredicate(NetworkPredicateVariable variable, NetworkPredicate value,
 			AssignmentScope scope) {
 		setX(variable, value, scope, level -> level.networkPredicates);
+	}
+
+	public void eraseNetworkPredicate(NetworkPredicateVariable variable) {
+		eraseX(variable, level -> level.networkPredicates);
 	}
 
 	public boolean hasMachinePredicate(MachinePredicateVariable variable) {
@@ -128,6 +141,10 @@ public class ScopeLevel {
 		setX(variable, value, scope, level -> level.machinePredicates);
 	}
 
+	public void eraseMachinePredicate(MachinePredicateVariable variable) {
+		eraseX(variable, level -> level.machinePredicates);
+	}
+
 	public boolean hasBoolean(BooleanVariable variable) {
 		return hasX(variable, level -> level.booleans);
 	}
@@ -139,6 +156,10 @@ public class ScopeLevel {
 
 	public void setBoolean(BooleanVariable variable, Boolean value, AssignmentScope scope) {
 		setX(variable, value, scope, level -> level.booleans);
+	}
+
+	public void eraseBoolean(BooleanVariable variable) {
+		eraseX(variable, level -> level.booleans);
 	}
 
 }
