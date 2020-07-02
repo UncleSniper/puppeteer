@@ -9,6 +9,6 @@ public interface InFile extends Closeable {
 
 	InputStream asStream() throws PuppetException;
 
-	void copyTo(Machine machine, String destination) throws PuppetException;
+	void copyTo(MachineStep.MachineStepInfo stepInfo, Machine machine, String destination) throws PuppetException;
 
 }

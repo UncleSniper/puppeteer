@@ -25,17 +25,19 @@ public class ExecUtils {
 
 	private ExecUtils() {}
 
-	public static ExecControl useArray(ExecSlave slave, Machine machine, Collection<String> argv, String workdir,
-			Map<String, String> environ, int flags) throws PuppetException {
-		return slave.execute(machine, argv.toArray(new String[argv.size()]), workdir, environ, flags);
+	public static ExecControl useArray(ExecSlave slave, MachineStep.MachineStepInfo stepInfo, Machine machine,
+			Collection<String> argv, String workdir, Map<String, String> environ, int flags)
+			throws PuppetException {
+		return slave.execute(stepInfo, machine, argv.toArray(new String[argv.size()]), workdir, environ, flags);
 	}
 
-	public static ExecControl useCollection(ExecSlave slave, Machine machine, String[] argv, String workdir,
-			Map<String, String> environ, int flags) throws PuppetException {
+	public static ExecControl useCollection(ExecSlave slave, MachineStep.MachineStepInfo stepInfo,
+			Machine machine, String[] argv, String workdir, Map<String, String> environ, int flags)
+			throws PuppetException {
 		List<String> list = new ArrayList<String>(argv.length);
 		for(String word : argv)
 			list.add(word);
-		return slave.execute(machine, list, workdir, environ, flags);
+		return slave.execute(stepInfo, machine, list, workdir, environ, flags);
 	}
 
 	public static ExecSlave on(Machine machine) {

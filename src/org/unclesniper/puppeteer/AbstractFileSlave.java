@@ -4,12 +4,13 @@ public abstract class AbstractFileSlave extends AbstractTraceable implements Fil
 
 	public AbstractFileSlave() {}
 
-	protected abstract String newTempFileImpl(Machine machine) throws PuppetException;
+	protected abstract String newTempFileImpl(MachineStep.MachineStepInfo stepInfo, Machine machine)
+			throws PuppetException;
 
 	@Override
-	public String newTempFile(Machine machine) throws PuppetException {
+	public String newTempFile(MachineStep.MachineStepInfo stepInfo, Machine machine) throws PuppetException {
 		try {
-			return newTempFileImpl(machine);
+			return newTempFileImpl(stepInfo, machine);
 		}
 		catch(PuppetException pe) {
 			pe.addPuppetFrame(this);
@@ -17,12 +18,14 @@ public abstract class AbstractFileSlave extends AbstractTraceable implements Fil
 		}
 	}
 
-	protected abstract void deleteFileImpl(Machine machine, String file) throws PuppetException;
+	protected abstract void deleteFileImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, String file)
+			throws PuppetException;
 
 	@Override
-	public void deleteFile(Machine machine, String file) throws PuppetException {
+	public void deleteFile(MachineStep.MachineStepInfo stepInfo, Machine machine, String file)
+			throws PuppetException {
 		try {
-			deleteFileImpl(machine, file);
+			deleteFileImpl(stepInfo, machine, file);
 		}
 		catch(PuppetException pe) {
 			pe.addPuppetFrame(this);

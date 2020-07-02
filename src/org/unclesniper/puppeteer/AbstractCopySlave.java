@@ -7,12 +7,14 @@ public abstract class AbstractCopySlave extends AbstractTraceable implements Cop
 
 	public AbstractCopySlave() {}
 
-	protected abstract void copyToImpl(Machine machine, String source, String destination) throws PuppetException;
+	protected abstract void copyToImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, String source,
+			String destination) throws PuppetException;
 
 	@Override
-	public void copyTo(Machine machine, String source, String destination) throws PuppetException {
+	public void copyTo(MachineStep.MachineStepInfo stepInfo, Machine machine, String source, String destination)
+			throws PuppetException {
 		try {
-			copyToImpl(machine, source, destination);
+			copyToImpl(stepInfo, machine, source, destination);
 		}
 		catch(PuppetException pe) {
 			pe.addPuppetFrame(this);
@@ -20,13 +22,14 @@ public abstract class AbstractCopySlave extends AbstractTraceable implements Cop
 		}
 	}
 
-	protected abstract void copyToImpl(Machine machine, InputStream source, String destination)
-			throws PuppetException;
+	protected abstract void copyToImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, InputStream source,
+			String destination) throws PuppetException;
 
 	@Override
-	public void copyTo(Machine machine, InputStream source, String destination) throws PuppetException {
+	public void copyTo(MachineStep.MachineStepInfo stepInfo, Machine machine, InputStream source,
+			String destination) throws PuppetException {
 		try {
-			copyToImpl(machine, source, destination);
+			copyToImpl(stepInfo, machine, source, destination);
 		}
 		catch(PuppetException pe) {
 			pe.addPuppetFrame(this);
@@ -34,13 +37,14 @@ public abstract class AbstractCopySlave extends AbstractTraceable implements Cop
 		}
 	}
 
-	protected abstract void copyFromImpl(Machine machine, String source, String destination)
-			throws PuppetException;
+	protected abstract void copyFromImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, String source,
+			String destination) throws PuppetException;
 
 	@Override
-	public void copyFrom(Machine machine, String source, String destination) throws PuppetException {
+	public void copyFrom(MachineStep.MachineStepInfo stepInfo, Machine machine, String source,
+			String destination) throws PuppetException {
 		try {
-			copyFromImpl(machine, source, destination);
+			copyFromImpl(stepInfo, machine, source, destination);
 		}
 		catch(PuppetException pe) {
 			pe.addPuppetFrame(this);
@@ -48,13 +52,14 @@ public abstract class AbstractCopySlave extends AbstractTraceable implements Cop
 		}
 	}
 
-	protected abstract void copyFromImpl(Machine machine, String source, OutputStream destination)
-			throws PuppetException;
+	protected abstract void copyFromImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, String source,
+			OutputStream destination) throws PuppetException;
 
 	@Override
-	public void copyFrom(Machine machine, String source, OutputStream destination) throws PuppetException {
+	public void copyFrom(MachineStep.MachineStepInfo stepInfo, Machine machine, String source,
+			OutputStream destination) throws PuppetException {
 		try {
-			copyFromImpl(machine, source, destination);
+			copyFromImpl(stepInfo, machine, source, destination);
 		}
 		catch(PuppetException pe) {
 			pe.addPuppetFrame(this);

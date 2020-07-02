@@ -40,7 +40,7 @@ public class DeleteFileMachineStep extends AbstractMachineStep {
 		String path = MachineStepStringSource.accumulate(pathPieces, info);
 		if(path.length() == 0)
 			return;
-		machine.getFileSlave(true).deleteFile(machine, path);
+		machine.getFileSlave(true).deleteFile(info, machine, path);
 	}
 
 }

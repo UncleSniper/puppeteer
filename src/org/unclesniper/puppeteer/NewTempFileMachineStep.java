@@ -20,7 +20,7 @@ public class NewTempFileMachineStep extends AbstractMachineStep {
 	@Override
 	protected void performImpl(MachineStepInfo info) throws PuppetException {
 		Machine machine = info.getMachine();
-		String path = machine.getFileSlave(true).newTempFile(machine);
+		String path = machine.getFileSlave(true).newTempFile(info, machine);
 		if(pathCapture == null)
 			info.getUI().warn(this, "Creating a temp file without capturing its path makes little sense");
 		else

@@ -14,14 +14,15 @@ public class LocalExecSlave extends AbstractExecSlave {
 	public LocalExecSlave() {}
 
 	@Override
-	protected ExecControl executeImpl(Machine machine, Collection<String> argv, String workdir,
-			Map<String, String> environ, int flags) throws PuppetException {
-		return ExecUtils.useArray(this, machine, argv, workdir, environ, flags);
+	protected ExecControl executeImpl(MachineStep.MachineStepInfo stepInfo, Machine machine,
+			Collection<String> argv, String workdir, Map<String, String> environ, int flags)
+			throws PuppetException {
+		return ExecUtils.useArray(this, stepInfo, machine, argv, workdir, environ, flags);
 	}
 
 	@Override
-	protected ExecControl executeImpl(Machine machine, String[] argv, String workdir, Map<String, String> environ,
-			int flags) throws PuppetException {
+	protected ExecControl executeImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, String[] argv,
+			String workdir, Map<String, String> environ, int flags) throws PuppetException {
 		if(LocalUtils.DEBUG_LOCAL) {
 			System.err.println("*** DEBUG: execute:");
 			System.err.println("***            argv:");

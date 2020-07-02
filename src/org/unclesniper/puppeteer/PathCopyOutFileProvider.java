@@ -38,7 +38,7 @@ public class PathCopyOutFileProvider extends AbstractCopyOutFileProvider {
 	protected void copyFromImpl(CopySlave slave, MachineStep.MachineStepInfo info, String source)
 			throws PuppetException {
 		String path = MachineStepStringSource.accumulate(pathPieces, info);
-		slave.copyFrom(info.getMachine(), source, path);
+		slave.copyFrom(info, info.getMachine(), source, path);
 	}
 
 }

@@ -21,8 +21,9 @@ public class IntermediateOutFile implements OutFile {
 	}
 
 	@Override
-	public void copyFrom(Machine machine, String source) throws PuppetException {
-		machine.getCopySlave().copyFrom(machine, source, file);
+	public void copyFrom(MachineStep.MachineStepInfo stepInfo, Machine machine, String source)
+			throws PuppetException {
+		machine.getCopySlave().copyFrom(stepInfo, machine, source, file);
 	}
 
 	@Override

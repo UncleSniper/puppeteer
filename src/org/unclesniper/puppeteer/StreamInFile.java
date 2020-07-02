@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 
 public class StreamInFile implements InFile {
 
+	private final MachineStep.MachineStepInfo stepInfo;
+
 	private final InputStream stream;
 
 	private final FileSlave fileSlave;
@@ -16,7 +18,9 @@ public class StreamInFile implements InFile {
 
 	private String file;
 
-	public StreamInFile(InputStream stream, FileSlave fileSlave, Machine fileMachine) {
+	public StreamInFile(MachineStep.MachineStepInfo stepInfo, InputStream stream, FileSlave fileSlave,
+			Machine fileMachine) {
+		this.stepInfo = stepInfo;
 		this.stream = stream;
 		this.fileSlave = fileSlave;
 		this.fileMachine = fileMachine;
@@ -25,7 +29,7 @@ public class StreamInFile implements InFile {
 	private void slurp() throws PuppetException {
 		if(file != null)
 			return;
-		file = (fileSlave == null ? LocalFileSlave.instance : fileSlave).newTempFile(fileMachine);
+		file = (fileSlave == null ? LocalFileSlave.instance : fileSlave).newTempFile(stepInfo, fileMachine);
 		boolean good = false;
 		try(FileOutputStream fos = new FileOutputStream(file)) {
 			byte[] buffer = new byte[128];
@@ -66,9 +70,10 @@ public class StreamInFile implements InFile {
 	}
 
 	@Override
-	public void copyTo(Machine machine, String destination) throws PuppetException {
+	public void copyTo(MachineStep.MachineStepInfo stepInfo, Machine machine, String destination)
+			throws PuppetException {
 		slurp();
-		machine.getCopySlave().copyTo(machine, file, destination);
+		machine.getCopySlave().copyTo(stepInfo, machine, file, destination);
 	}
 
 	@Override

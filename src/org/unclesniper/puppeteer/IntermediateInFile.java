@@ -24,8 +24,9 @@ public class IntermediateInFile implements InFile {
 	}
 
 	@Override
-	public void copyTo(Machine machine, String destination) throws PuppetException {
-		machine.getCopySlave().copyTo(machine, remoteFile, destination);
+	public void copyTo(MachineStep.MachineStepInfo stepInfo, Machine machine, String destination)
+			throws PuppetException {
+		machine.getCopySlave().copyTo(stepInfo, machine, remoteFile, destination);
 	}
 
 	@Override

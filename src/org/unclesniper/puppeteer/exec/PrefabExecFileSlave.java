@@ -1,6 +1,7 @@
 package org.unclesniper.puppeteer.exec;
 
 import org.unclesniper.puppeteer.Machine;
+import org.unclesniper.puppeteer.MachineStep;
 import org.unclesniper.puppeteer.ExecFileSlave;
 import org.unclesniper.puppeteer.PuppetException;
 
@@ -17,17 +18,18 @@ public abstract class PrefabExecFileSlave extends ExecFileSlave {
 	protected abstract void buildDeleteFileWords();
 
 	@Override
-	protected String newTempFileImpl(Machine machine) throws PuppetException {
+	protected String newTempFileImpl(MachineStep.MachineStepInfo stepInfo, Machine machine) throws PuppetException {
 		if(!hasTempFileWords())
 			buildTempFileWords();
-		return super.newTempFileImpl(machine);
+		return super.newTempFileImpl(stepInfo, machine);
 	}
 
 	@Override
-	protected void deleteFileImpl(Machine machine, String file) throws PuppetException {
+	protected void deleteFileImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, String file)
+			throws PuppetException {
 		if(!hasDeleteFileWords())
 			buildDeleteFileWords();
-		super.deleteFileImpl(machine, file);
+		super.deleteFileImpl(stepInfo, machine, file);
 	}
 
 }

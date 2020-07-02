@@ -147,7 +147,7 @@ public class ExecMachineStep extends AbstractMachineStep {
 		if(env.isEmpty())
 			env = null;
 		Machine machine = info.getMachine();
-		ExecControl ctl = machine.getExecSlave(true).execute(machine, argv, wd, env, flags);
+		ExecControl ctl = machine.getExecSlave(true).execute(info, machine, argv, wd, env, flags);
 		PuppetIORunnable waitTask = () -> {
 			int status = ctl.wait(!ignoreNonZeroStatus);
 			if(exitStatusCapture != null)

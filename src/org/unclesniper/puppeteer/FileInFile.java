@@ -35,8 +35,9 @@ public class FileInFile implements InFile {
 	}
 
 	@Override
-	public void copyTo(Machine machine, String destination) throws PuppetException {
-		machine.getCopySlave().copyTo(machine, file, destination);
+	public void copyTo(MachineStep.MachineStepInfo stepInfo, Machine machine, String destination)
+			throws PuppetException {
+		machine.getCopySlave().copyTo(stepInfo, machine, file, destination);
 	}
 
 	@Override

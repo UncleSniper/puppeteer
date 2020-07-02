@@ -4,11 +4,14 @@ public interface FileSlave extends Traceable {
 
 	public final class NewTempFileInfo {
 
+		public final MachineStep.MachineStepInfo stepInfo;
+
 		public final Machine machine;
 
 		public final Machine execHost;
 
-		public NewTempFileInfo(Machine machine, Machine execHost) {
+		public NewTempFileInfo(MachineStep.MachineStepInfo stepInfo, Machine machine, Machine execHost) {
+			this.stepInfo = stepInfo;
 			this.machine = machine;
 			this.execHost = execHost;
 		}
@@ -17,13 +20,17 @@ public interface FileSlave extends Traceable {
 
 	public final class DeleteFileInfo {
 
+		public final MachineStep.MachineStepInfo stepInfo;
+
 		public final Machine machine;
 
 		public final Machine execHost;
 
 		public final String file;
 
-		public DeleteFileInfo(Machine machine, Machine execHost, String file) {
+		public DeleteFileInfo(MachineStep.MachineStepInfo stepInfo, Machine machine, Machine execHost,
+				String file) {
+			this.stepInfo = stepInfo;
 			this.machine = machine;
 			this.execHost = execHost;
 			this.file = file;
@@ -31,8 +38,8 @@ public interface FileSlave extends Traceable {
 
 	}
 
-	String newTempFile(Machine machine) throws PuppetException;
+	String newTempFile(MachineStep.MachineStepInfo stepInfo, Machine machine) throws PuppetException;
 
-	void deleteFile(Machine machine, String file) throws PuppetException;
+	void deleteFile(MachineStep.MachineStepInfo stepInfo, Machine machine, String file) throws PuppetException;
 
 }

@@ -9,7 +9,7 @@ public interface OutFile extends AutoCloseable {
 
 	OutputStream asStream() throws PuppetException;
 
-	void copyFrom(Machine machine, String source) throws PuppetException;
+	void copyFrom(MachineStep.MachineStepInfo stepInfo, Machine machine, String source) throws PuppetException;
 
 	@Override
 	void close() throws IOException, PuppetException;

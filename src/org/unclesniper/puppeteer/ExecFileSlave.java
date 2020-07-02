@@ -65,13 +65,14 @@ public class ExecFileSlave extends AbstractFileSlave {
 	}
 
 	@Override
-	protected String newTempFileImpl(Machine machine) throws PuppetException {
+	protected String newTempFileImpl(MachineStep.MachineStepInfo stepInfo, Machine machine)
+			throws PuppetException {
 		List<String> argv = new LinkedList<String>();
 		Consumer<String> sink = argv::add;
-		NewTempFileInfo info = new NewTempFileInfo(machine, execHost);
+		NewTempFileInfo info = new NewTempFileInfo(stepInfo, machine, execHost);
 		for(NewTempFileWordEmitter emitter : tempFileWords)
 			emitter.buildArgv(info, sink);
-		ExecControl xctl = ExecUtils.on(execHost).execute(execHost, argv, null, null, 0);
+		ExecControl xctl = ExecUtils.on(execHost).execute(stepInfo, execHost, argv, null, null, 0);
 		ExecUtils.CapturedOutput output = ExecUtils.awaitSuccess(xctl, true,
 				ioe -> new NewTempFileIOPuppetException(machine, ioe));
 		if(output.stdout.size() != 1)
@@ -80,13 +81,14 @@ public class ExecFileSlave extends AbstractFileSlave {
 	}
 
 	@Override
-	protected void deleteFileImpl(Machine machine, String file) throws PuppetException {
+	protected void deleteFileImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, String file)
+			throws PuppetException {
 		List<String> argv = new LinkedList<String>();
 		Consumer<String> sink = argv::add;
-		DeleteFileInfo info = new DeleteFileInfo(machine, execHost, file);
+		DeleteFileInfo info = new DeleteFileInfo(stepInfo, machine, execHost, file);
 		for(DeleteFileWordEmitter emitter : deleteFileWords)
 			emitter.buildArgv(info, sink);
-		ExecControl xctl = ExecUtils.on(execHost).execute(execHost, argv, null, null, 0);
+		ExecControl xctl = ExecUtils.on(execHost).execute(stepInfo, execHost, argv, null, null, 0);
 		ExecUtils.awaitSuccess(xctl, true, ioe -> new DeleteFileIOPuppetException(machine, file, ioe));
 	}
 

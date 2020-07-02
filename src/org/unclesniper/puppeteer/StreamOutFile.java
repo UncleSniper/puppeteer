@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 
 public class StreamOutFile implements OutFile {
 
+	private final MachineStep.MachineStepInfo stepInfo;
+
 	private final OutputStream stream;
 
 	private final FileSlave fileSlave;
@@ -15,7 +17,9 @@ public class StreamOutFile implements OutFile {
 
 	private String file;
 
-	public StreamOutFile(OutputStream stream, FileSlave fileSlave, Machine fileMachine) {
+	public StreamOutFile(MachineStep.MachineStepInfo stepInfo, OutputStream stream, FileSlave fileSlave,
+			Machine fileMachine) {
+		this.stepInfo = stepInfo;
 		this.stream = stream;
 		this.fileSlave = fileSlave;
 		this.fileMachine = fileMachine;
@@ -24,7 +28,7 @@ public class StreamOutFile implements OutFile {
 	@Override
 	public String asFile() throws PuppetException {
 		if(file == null)
-			file = (fileSlave == null ? LocalFileSlave.instance : fileSlave).newTempFile(fileMachine);
+			file = (fileSlave == null ? LocalFileSlave.instance : fileSlave).newTempFile(stepInfo, fileMachine);
 		return file;
 	}
 
@@ -34,8 +38,9 @@ public class StreamOutFile implements OutFile {
 	}
 
 	@Override
-	public void copyFrom(Machine machine, String source) throws PuppetException {
-		machine.getCopySlave().copyFrom(machine, source, stream);
+	public void copyFrom(MachineStep.MachineStepInfo stepInfo, Machine machine, String source)
+			throws PuppetException {
+		machine.getCopySlave().copyFrom(stepInfo, machine, source, stream);
 	}
 
 	@Override

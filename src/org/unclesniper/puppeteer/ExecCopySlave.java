@@ -89,39 +89,42 @@ public class ExecCopySlave extends AbstractCopySlave {
 		return !fromWords.isEmpty();
 	}
 
-	protected void copyTo(Machine machine, InFile source, String destination) throws PuppetException {
+	protected void copyTo(MachineStep.MachineStepInfo stepInfo, Machine machine, InFile source,
+			String destination) throws PuppetException {
 		if(execHost != null && explicitIntermediate)
-			copyToIndirectly(machine, source, destination);
+			copyToIndirectly(stepInfo, machine, source, destination);
 		else
-			copyToDirectly(machine, source, destination);
+			copyToDirectly(stepInfo, machine, source, destination);
 	}
 
-	private void copyToDirectly(Machine machine, InFile source, String destination) throws PuppetException {
+	private void copyToDirectly(MachineStep.MachineStepInfo stepInfo, Machine machine, InFile source,
+			String destination) throws PuppetException {
 		try(InFile inf = source) {
 			List<String> argv = new LinkedList<String>();
 			Consumer<String> sink = argv::add;
-			CopyToInfo info = new CopyToInfo(machine, execHost, source, destination);
+			CopyToInfo info = new CopyToInfo(stepInfo, machine, execHost, source, destination);
 			for(CopyToWordEmitter emitter : toWords)
 				emitter.buildArgv(info, sink);
-			copy(argv, ioe -> new UploadIOPuppetException(machine, destination, ioe));
+			copy(stepInfo, argv, ioe -> new UploadIOPuppetException(machine, destination, ioe));
 		}
 		catch(IOException ioe) {
 			throw new UploadIOPuppetException(machine, destination, ioe);
 		}
 	}
 
-	private void copyToIndirectly(Machine machine, InFile source, String destination) throws PuppetException {
+	private void copyToIndirectly(MachineStep.MachineStepInfo stepInfo, Machine machine, InFile source,
+			String destination) throws PuppetException {
 		try(InFile inf = source) {
-			try(FileUtils.FileHolder temp = FileUtils.withTempFile(execHost)) {
+			try(FileUtils.FileHolder temp = FileUtils.withTempFile(stepInfo, execHost)) {
 				String tempPath = temp.getFile();
-				source.copyTo(execHost, tempPath);
+				source.copyTo(stepInfo, execHost, tempPath);
 				List<String> argv = new LinkedList<String>();
 				Consumer<String> sink = argv::add;
 				IntermediateInFile intIn = new IntermediateInFile(inf, tempPath);
-				CopyToInfo info = new CopyToInfo(machine, execHost, intIn, destination);
+				CopyToInfo info = new CopyToInfo(stepInfo, machine, execHost, intIn, destination);
 				for(CopyToWordEmitter emitter : toWords)
 					emitter.buildArgv(info, sink);
-				copy(argv, ioe -> new UploadIOPuppetException(machine, destination, ioe));
+				copy(stepInfo, argv, ioe -> new UploadIOPuppetException(machine, destination, ioe));
 			}
 		}
 		catch(IOException ioe) {
@@ -129,39 +132,42 @@ public class ExecCopySlave extends AbstractCopySlave {
 		}
 	}
 
-	protected void copyFrom(Machine machine, String source, OutFile destination) throws PuppetException {
+	protected void copyFrom(MachineStep.MachineStepInfo stepInfo, Machine machine, String source,
+			OutFile destination) throws PuppetException {
 		if(execHost != null && explicitIntermediate)
-			copyFromIndirectly(machine, source, destination);
+			copyFromIndirectly(stepInfo, machine, source, destination);
 		else
-			copyFromDirectly(machine, source, destination);
+			copyFromDirectly(stepInfo, machine, source, destination);
 	}
 
-	private void copyFromDirectly(Machine machine, String source, OutFile destination) throws PuppetException {
+	private void copyFromDirectly(MachineStep.MachineStepInfo stepInfo, Machine machine, String source,
+			OutFile destination) throws PuppetException {
 		try(OutFile outf = destination) {
 			List<String> argv = new LinkedList<String>();
 			Consumer<String> sink = argv::add;
-			CopyFromInfo info = new CopyFromInfo(machine, execHost, source, destination);
+			CopyFromInfo info = new CopyFromInfo(stepInfo, machine, execHost, source, destination);
 			for(CopyFromWordEmitter emitter : fromWords)
 				emitter.buildArgv(info, sink);
-			copy(argv, ioe -> new DownloadIOPuppetException(machine, source, ioe));
+			copy(stepInfo, argv, ioe -> new DownloadIOPuppetException(machine, source, ioe));
 		}
 		catch(IOException ioe) {
 			throw new DownloadIOPuppetException(machine, source, ioe);
 		}
 	}
 
-	private void copyFromIndirectly(Machine machine, String source, OutFile destination) throws PuppetException {
+	private void copyFromIndirectly(MachineStep.MachineStepInfo stepInfo, Machine machine, String source,
+			OutFile destination) throws PuppetException {
 		try(OutFile outf = destination) {
-			try(FileUtils.FileHolder temp = FileUtils.withTempFile(execHost)) {
+			try(FileUtils.FileHolder temp = FileUtils.withTempFile(stepInfo, execHost)) {
 				String tempPath = temp.getFile();
 				List<String> argv = new LinkedList<String>();
 				Consumer<String> sink = argv::add;
 				IntermediateOutFile intOut = new IntermediateOutFile(tempPath);
-				CopyFromInfo info = new CopyFromInfo(machine, execHost, source, intOut);
+				CopyFromInfo info = new CopyFromInfo(stepInfo, machine, execHost, source, intOut);
 				for(CopyFromWordEmitter emitter : fromWords)
 					emitter.buildArgv(info, sink);
-				copy(argv, ioe -> new DownloadIOPuppetException(machine, source, ioe));
-				destination.copyFrom(execHost, tempPath);
+				copy(stepInfo, argv, ioe -> new DownloadIOPuppetException(machine, source, ioe));
+				destination.copyFrom(stepInfo, execHost, tempPath);
 			}
 		}
 		catch(IOException ioe) {
@@ -169,30 +175,34 @@ public class ExecCopySlave extends AbstractCopySlave {
 		}
 	}
 
-	private <ExceptT extends PuppetException & CommandOutputBuffer> void copy(Collection<String> argv,
-			Function<? super IOException, ExceptT> onError) throws PuppetException {
-		ExecControl xctl = ExecUtils.on(execHost).execute(execHost, argv, null, null, 0);
+	private <ExceptT extends PuppetException & CommandOutputBuffer> void copy(MachineStep.MachineStepInfo stepInfo,
+			Collection<String> argv, Function<? super IOException, ExceptT> onError) throws PuppetException {
+		ExecControl xctl = ExecUtils.on(execHost).execute(stepInfo, execHost, argv, null, null, 0);
 		ExecUtils.awaitSuccess(xctl, true, onError);
 	}
 
 	@Override
-	protected void copyToImpl(Machine machine, String source, String destination) throws PuppetException {
-		copyTo(machine, new FileInFile(source), destination);
+	protected void copyToImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, String source,
+			String destination) throws PuppetException {
+		copyTo(stepInfo, machine, new FileInFile(source), destination);
 	}
 
 	@Override
-	protected void copyToImpl(Machine machine, InputStream source, String destination) throws PuppetException {
-		copyTo(machine, new StreamInFile(source, localFileSlave, null), destination);
+	protected void copyToImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, InputStream source,
+			String destination) throws PuppetException {
+		copyTo(stepInfo, machine, new StreamInFile(stepInfo, source, localFileSlave, null), destination);
 	}
 
 	@Override
-	protected void copyFromImpl(Machine machine, String source, String destination) throws PuppetException {
-		copyFrom(machine, source, new FileOutFile(destination));
+	protected void copyFromImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, String source,
+			String destination) throws PuppetException {
+		copyFrom(stepInfo, machine, source, new FileOutFile(destination));
 	}
 
 	@Override
-	protected void copyFromImpl(Machine machine, String source, OutputStream destination) throws PuppetException {
-		copyFrom(machine, source, new StreamOutFile(destination, localFileSlave, null));
+	protected void copyFromImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, String source,
+			OutputStream destination) throws PuppetException {
+		copyFrom(stepInfo, machine, source, new StreamOutFile(stepInfo, destination, localFileSlave, null));
 	}
 
 }

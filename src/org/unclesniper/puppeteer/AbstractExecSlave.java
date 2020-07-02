@@ -7,14 +7,15 @@ public abstract class AbstractExecSlave extends AbstractTraceable implements Exe
 
 	public AbstractExecSlave() {}
 
-	protected abstract ExecControl executeImpl(Machine machine, Collection<String> argv, String workdir,
-			Map<String, String> environ, int flags) throws PuppetException;
+	protected abstract ExecControl executeImpl(MachineStep.MachineStepInfo stepInfo, Machine machine,
+			Collection<String> argv, String workdir, Map<String, String> environ, int flags)
+			throws PuppetException;
 
 	@Override
-	public ExecControl execute(Machine machine, Collection<String> argv, String workdir,
-			Map<String, String> environ, int flags) throws PuppetException {
+	public ExecControl execute(MachineStep.MachineStepInfo stepInfo, Machine machine, Collection<String> argv,
+			String workdir, Map<String, String> environ, int flags) throws PuppetException {
 		try {
-			return executeImpl(machine, argv, workdir, environ, flags);
+			return executeImpl(stepInfo, machine, argv, workdir, environ, flags);
 		}
 		catch(PuppetException pe) {
 			pe.addPuppetFrame(this);
@@ -22,14 +23,14 @@ public abstract class AbstractExecSlave extends AbstractTraceable implements Exe
 		}
 	}
 
-	protected abstract ExecControl executeImpl(Machine machine, String[] argv, String workdir,
-			Map<String, String> environ, int flags) throws PuppetException;
+	protected abstract ExecControl executeImpl(MachineStep.MachineStepInfo stepInfo, Machine machine,
+			String[] argv, String workdir, Map<String, String> environ, int flags) throws PuppetException;
 
 	@Override
-	public ExecControl execute(Machine machine, String[] argv, String workdir, Map<String, String> environ,
-			int flags) throws PuppetException {
+	public ExecControl execute(MachineStep.MachineStepInfo stepInfo, Machine machine, String[] argv,
+			String workdir, Map<String, String> environ, int flags) throws PuppetException {
 		try {
-			return executeImpl(machine, argv, workdir, environ, flags);
+			return executeImpl(stepInfo, machine, argv, workdir, environ, flags);
 		}
 		catch(PuppetException pe) {
 			pe.addPuppetFrame(this);

@@ -7,6 +7,8 @@ public interface ExecSlave extends Traceable {
 
 	public final class ExecInfo {
 
+		public final MachineStep.MachineStepInfo stepInfo;
+
 		public final Machine machine;
 
 		public final Machine execHost;
@@ -19,8 +21,9 @@ public interface ExecSlave extends Traceable {
 
 		public final int flags;
 
-		public ExecInfo(Machine machine, Machine execHost, Argv argv, String workdir, Map<String, String> environ,
-				int flags) {
+		public ExecInfo(MachineStep.MachineStepInfo stepInfo, Machine machine, Machine execHost, Argv argv,
+				String workdir, Map<String, String> environ, int flags) {
+			this.stepInfo = stepInfo;
 			this.machine = machine;
 			this.execHost = execHost;
 			this.argv = argv;
@@ -35,10 +38,10 @@ public interface ExecSlave extends Traceable {
 	public static final int FL_STDOUT_UTF8 = 002;
 	public static final int FL_STDERR_UTF8 = 004;
 
-	ExecControl execute(Machine machine, Collection<String> argv, String workdir, Map<String, String> environ,
-			int flags) throws PuppetException;
+	ExecControl execute(MachineStep.MachineStepInfo stepInfo, Machine machine, Collection<String> argv,
+			String workdir, Map<String, String> environ, int flags) throws PuppetException;
 
-	ExecControl execute(Machine machine, String[] argv, String workdir, Map<String, String> environ, int flags)
-			throws PuppetException;
+	ExecControl execute(MachineStep.MachineStepInfo stepInfo, Machine machine, String[] argv, String workdir,
+			Map<String, String> environ, int flags) throws PuppetException;
 
 }

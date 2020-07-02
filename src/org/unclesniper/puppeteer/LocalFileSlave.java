@@ -24,7 +24,7 @@ public class LocalFileSlave extends AbstractFileSlave {
 	}
 
 	@Override
-	protected String newTempFileImpl(Machine machine) throws PuppetException {
+	protected String newTempFileImpl(MachineStep.MachineStepInfo stepInfo, Machine machine) throws PuppetException {
 		try {
 			String path = File.createTempFile("puppet", null, tempDirectory).getAbsolutePath();
 			if(LocalUtils.DEBUG_LOCAL) {
@@ -39,7 +39,8 @@ public class LocalFileSlave extends AbstractFileSlave {
 	}
 
 	@Override
-	protected void deleteFileImpl(Machine machine, String file) throws PuppetException {
+	protected void deleteFileImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, String file)
+			throws PuppetException {
 		if(LocalUtils.DEBUG_LOCAL) {
 			System.err.println("*** DEBUG: deleteFile:");
 			System.err.println("***            path: '" + file + '\'');

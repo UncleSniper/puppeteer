@@ -46,26 +46,27 @@ public class ExecExecSlave extends AbstractExecSlave {
 		return !words.isEmpty();
 	}
 
-	protected ExecControl execute(Machine machine, Argv argv, String workdir,
-			Map<String, String> environ, int flags) throws PuppetException {
+	protected ExecControl execute(MachineStep.MachineStepInfo stepInfo, Machine machine, Argv argv,
+			String workdir, Map<String, String> environ, int flags) throws PuppetException {
 		List<String> subArgv = new LinkedList<String>();
 		Consumer<String> sink = subArgv::add;
-		ExecInfo info = new ExecInfo(machine, execHost, argv, workdir, environ, flags);
+		ExecInfo info = new ExecInfo(stepInfo, machine, execHost, argv, workdir, environ, flags);
 		for(ExecWordEmitter emitter : words)
 			emitter.buildArgv(info, sink);
-		return ExecUtils.on(execHost).execute(execHost, subArgv, null, null, flags);
+		return ExecUtils.on(execHost).execute(stepInfo, execHost, subArgv, null, null, flags);
 	}
 
 	@Override
-	protected ExecControl executeImpl(Machine machine, Collection<String> argv, String workdir,
-			Map<String, String> environ, int flags) throws PuppetException {
-		return execute(machine, new CollectionArgv(argv), workdir, environ, flags);
+	protected ExecControl executeImpl(MachineStep.MachineStepInfo stepInfo, Machine machine,
+			Collection<String> argv, String workdir, Map<String, String> environ, int flags)
+			throws PuppetException {
+		return execute(stepInfo, machine, new CollectionArgv(argv), workdir, environ, flags);
 	}
 
 	@Override
-	protected ExecControl executeImpl(Machine machine, String[] argv, String workdir, Map<String, String> environ,
-			int flags) throws PuppetException {
-		return execute(machine, new ArrayArgv(argv), workdir, environ, flags);
+	protected ExecControl executeImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, String[] argv,
+			String workdir, Map<String, String> environ, int flags) throws PuppetException {
+		return execute(stepInfo, machine, new ArrayArgv(argv), workdir, environ, flags);
 	}
 
 }

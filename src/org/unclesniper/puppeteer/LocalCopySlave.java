@@ -15,14 +15,15 @@ public class LocalCopySlave extends AbstractCopySlave {
 	public LocalCopySlave() {}
 
 	@Override
-	protected void copyToImpl(Machine machine, String source, String destination) throws PuppetException {
+	protected void copyToImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, String source,
+			String destination) throws PuppetException {
 		if(LocalUtils.DEBUG_LOCAL) {
 			System.err.println("*** DEBUG: copyTo:");
 			System.err.println("***            source: '" + source + '\'');
 			System.err.println("***            destination: '" + destination + '\'');
 		}
 		try(FileInputStream fis = new FileInputStream(source)) {
-			copyTo(machine, fis, destination);
+			copyTo(stepInfo, machine, fis, destination);
 		}
 		catch(IOException ioe) {
 			throw new LocalCopyFailedException(destination, true, ioe);
@@ -30,7 +31,8 @@ public class LocalCopySlave extends AbstractCopySlave {
 	}
 
 	@Override
-	protected void copyToImpl(Machine machine, InputStream source, String destination) throws PuppetException {
+	protected void copyToImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, InputStream source,
+			String destination) throws PuppetException {
 		if(LocalUtils.DEBUG_LOCAL) {
 			System.err.println("*** DEBUG: copyTo:");
 			System.err.println("***            source is stream");
@@ -51,14 +53,15 @@ public class LocalCopySlave extends AbstractCopySlave {
 	}
 
 	@Override
-	protected void copyFromImpl(Machine machine, String source, String destination) throws PuppetException {
+	protected void copyFromImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, String source,
+			String destination) throws PuppetException {
 		if(LocalUtils.DEBUG_LOCAL) {
 			System.err.println("*** DEBUG: copyFrom:");
 			System.err.println("***            source: '" + source + '\'');
 			System.err.println("***            destination: '" + destination + '\'');
 		}
 		try(FileOutputStream fos = new FileOutputStream(destination)) {
-			copyFrom(machine, source, fos);
+			copyFrom(stepInfo, machine, source, fos);
 		}
 		catch(IOException ioe) {
 			throw new LocalCopyFailedException(source, false, ioe);
@@ -66,7 +69,8 @@ public class LocalCopySlave extends AbstractCopySlave {
 	}
 
 	@Override
-	protected void copyFromImpl(Machine machine, String source, OutputStream destination) throws PuppetException {
+	protected void copyFromImpl(MachineStep.MachineStepInfo stepInfo, Machine machine, String source,
+			OutputStream destination) throws PuppetException {
 		if(LocalUtils.DEBUG_LOCAL) {
 			System.err.println("*** DEBUG: copyFrom:");
 			System.err.println("***            source: '" + source + '\'');
