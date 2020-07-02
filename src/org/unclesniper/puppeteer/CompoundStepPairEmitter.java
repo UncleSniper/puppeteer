@@ -24,8 +24,11 @@ public class CompoundStepPairEmitter extends AbstractStepPairEmitter {
 	}
 
 	public void addKeyPiece(String piece) {
-		if(piece != null)
-			keyPieces.add(new StringStepStringSource(piece));
+		if(piece == null)
+			return;
+		StringStepStringSource string = new StringStepStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		keyPieces.add(string);
 	}
 
 	public void addValuePiece(StepStringSource piece) {
@@ -34,8 +37,11 @@ public class CompoundStepPairEmitter extends AbstractStepPairEmitter {
 	}
 
 	public void addValuePiece(String piece) {
-		if(piece != null)
-			valuePieces.add(new StringStepStringSource(piece));
+		if(piece == null)
+			return;
+		StringStepStringSource string = new StringStepStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		valuePieces.add(string);
 	}
 
 	public StringTransform getKeyTransform() {

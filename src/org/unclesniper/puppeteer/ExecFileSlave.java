@@ -37,6 +37,7 @@ public class ExecFileSlave extends AbstractFileSlave {
 		if(word == null)
 			return;
 		StringNewTempFileWordEmitter emitter = new StringNewTempFileWordEmitter();
+		emitter.ingestObjectDefinitionLocation(this);
 		emitter.addWord(word);
 		tempFileWords.add(emitter);
 	}
@@ -54,6 +55,7 @@ public class ExecFileSlave extends AbstractFileSlave {
 		if(word == null)
 			return;
 		StringDeleteFileWordEmitter emitter = new StringDeleteFileWordEmitter();
+		emitter.ingestObjectDefinitionLocation(this);
 		emitter.addWord(word);
 		deleteFileWords.add(emitter);
 	}

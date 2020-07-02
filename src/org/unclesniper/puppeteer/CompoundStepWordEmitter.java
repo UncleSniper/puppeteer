@@ -20,8 +20,11 @@ public class CompoundStepWordEmitter extends AbstractStepWordEmitter {
 	}
 
 	public void addPiece(String piece) {
-		if(piece != null)
-			pieces.add(new StringStepStringSource(piece));
+		if(piece == null)
+			return;
+		StringStepStringSource string = new StringStepStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		pieces.add(string);
 	}
 
 	public StringTransform getTransform() {

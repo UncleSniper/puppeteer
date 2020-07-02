@@ -29,8 +29,11 @@ public class CompoundNetworkStepPairEmitter extends AbstractNetworkStepPairEmitt
 	}
 
 	public void addKeyPiece(String piece) {
-		if(piece != null)
-			keyPieces.add(new StringNetworkStepStringSource(piece));
+		if(piece == null)
+			return;
+		StringNetworkStepStringSource string = new StringNetworkStepStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		keyPieces.add(string);
 	}
 
 	public void addValuePiece(NetworkStepStringSource piece) {
@@ -44,8 +47,11 @@ public class CompoundNetworkStepPairEmitter extends AbstractNetworkStepPairEmitt
 	}
 
 	public void addValuePiece(String piece) {
-		if(piece != null)
-			valuePieces.add(new StringNetworkStepStringSource(piece));
+		if(piece == null)
+			return;
+		StringNetworkStepStringSource string = new StringNetworkStepStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		valuePieces.add(string);
 	}
 
 	public StringTransform getKeyTransform() {

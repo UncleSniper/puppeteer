@@ -32,8 +32,11 @@ public class PrintNetworkStep extends AbstractNetworkStep {
 	}
 
 	public void addPiece(String piece) {
-		if(piece != null)
-			pieces.add(new StringNetworkStepStringSource(piece));
+		if(piece == null)
+			return;
+		StringNetworkStepStringSource string = new StringNetworkStepStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		pieces.add(string);
 	}
 
 	@Override

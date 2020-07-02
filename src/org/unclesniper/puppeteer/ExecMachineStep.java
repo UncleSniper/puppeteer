@@ -41,6 +41,7 @@ public class ExecMachineStep extends AbstractMachineStep {
 		if(word == null)
 			return;
 		StringMachineStepWordEmitter emitter = new StringMachineStepWordEmitter();
+		emitter.ingestObjectDefinitionLocation(this);
 		emitter.addWord(word);
 		words.add(emitter);
 	}
@@ -61,8 +62,11 @@ public class ExecMachineStep extends AbstractMachineStep {
 	}
 
 	public void addWorkDir(String piece) {
-		if(piece != null)
-			workDir.add(new StringMachineStepStringSource(piece));
+		if(piece == null)
+			return;
+		StringMachineStepStringSource string = new StringMachineStepStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		workDir.add(string);
 	}
 
 	public void addEnvPair(MachineStepPairEmitter pair) {

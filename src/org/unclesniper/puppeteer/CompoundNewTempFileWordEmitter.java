@@ -20,8 +20,11 @@ public class CompoundNewTempFileWordEmitter extends AbstractNewTempFileWordEmitt
 	}
 
 	public void addPiece(String piece) {
-		if(piece != null)
-			pieces.add(new StringNewTempFileStringSource(piece));
+		if(piece == null)
+			return;
+		StringNewTempFileStringSource string = new StringNewTempFileStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		pieces.add(string);
 	}
 
 	public StringTransform getTransform() {

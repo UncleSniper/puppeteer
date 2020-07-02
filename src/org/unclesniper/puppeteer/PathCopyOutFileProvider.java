@@ -27,8 +27,11 @@ public class PathCopyOutFileProvider extends AbstractCopyOutFileProvider {
 	}
 
 	public void addPathPiece(String piece) {
-		if(piece != null)
-			pathPieces.add(new StringMachineStepStringSource(piece));
+		if(piece == null)
+			return;
+		StringMachineStepStringSource string = new StringMachineStepStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		pathPieces.add(string);
 	}
 
 	@Override

@@ -37,8 +37,11 @@ public class PrintMachineStep extends AbstractMachineStep {
 	}
 
 	public void addPiece(String piece) {
-		if(piece != null)
-			pieces.add(new StringMachineStepStringSource(piece));
+		if(piece == null)
+			return;
+		StringMachineStepStringSource string = new StringMachineStepStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		pieces.add(string);
 	}
 
 	@Override

@@ -20,8 +20,11 @@ public class CompoundDeleteFileWordEmitter extends AbstractDeleteFileWordEmitter
 	}
 
 	public void addPiece(String piece) {
-		if(piece != null)
-			pieces.add(new StringDeleteFileStringSource(piece));
+		if(piece == null)
+			return;
+		StringDeleteFileStringSource string = new StringDeleteFileStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		pieces.add(string);
 	}
 
 	public StringTransform getTransform() {

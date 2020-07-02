@@ -37,8 +37,11 @@ public class CopyToMachineStep extends AbstractMachineStep {
 	}
 
 	public void addDestinationPiece(String piece) {
-		if(piece != null)
-			destinationPieces.add(new StringMachineStepStringSource(piece));
+		if(piece == null)
+			return;
+		StringMachineStepStringSource string = new StringMachineStepStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		destinationPieces.add(string);
 	}
 
 	@Override

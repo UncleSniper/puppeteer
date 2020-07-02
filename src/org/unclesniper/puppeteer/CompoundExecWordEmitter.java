@@ -20,8 +20,11 @@ public class CompoundExecWordEmitter extends AbstractExecWordEmitter {
 	}
 
 	public void addPiece(String piece) {
-		if(piece != null)
-			pieces.add(new StringExecStringSource(piece));
+		if(piece == null)
+			return;
+		StringExecStringSource string = new StringExecStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		pieces.add(string);
 	}
 
 	public StringTransform getTransform() {

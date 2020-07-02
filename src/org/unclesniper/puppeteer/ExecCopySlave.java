@@ -62,6 +62,7 @@ public class ExecCopySlave extends AbstractCopySlave {
 		if(word == null)
 			return;
 		StringCopyToWordEmitter emitter = new StringCopyToWordEmitter();
+		emitter.ingestObjectDefinitionLocation(this);
 		emitter.addWord(word);
 		toWords.add(emitter);
 	}
@@ -79,6 +80,7 @@ public class ExecCopySlave extends AbstractCopySlave {
 		if(word == null)
 			return;
 		StringCopyFromWordEmitter emitter = new StringCopyFromWordEmitter();
+		emitter.ingestObjectDefinitionLocation(this);
 		emitter.addWord(word);
 		fromWords.add(emitter);
 	}

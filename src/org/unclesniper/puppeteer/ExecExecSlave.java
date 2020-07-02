@@ -37,6 +37,7 @@ public class ExecExecSlave extends AbstractExecSlave {
 		if(word == null)
 			return;
 		StringExecWordEmitter emitter = new StringExecWordEmitter();
+		emitter.ingestObjectDefinitionLocation(this);
 		emitter.addWord(word);
 		words.add(emitter);
 	}

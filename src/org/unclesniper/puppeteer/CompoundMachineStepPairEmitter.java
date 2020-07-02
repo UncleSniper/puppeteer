@@ -34,8 +34,11 @@ public class CompoundMachineStepPairEmitter extends AbstractMachineStepPairEmitt
 	}
 
 	public void addKeyPiece(String piece) {
-		if(piece != null)
-			keyPieces.add(new StringMachineStepStringSource(piece));
+		if(piece == null)
+			return;
+		StringMachineStepStringSource string = new StringMachineStepStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		keyPieces.add(string);
 	}
 
 	public void addValuePiece(MachineStepStringSource piece) {
@@ -54,8 +57,11 @@ public class CompoundMachineStepPairEmitter extends AbstractMachineStepPairEmitt
 	}
 
 	public void addValuePiece(String piece) {
-		if(piece != null)
-			valuePieces.add(new StringMachineStepStringSource(piece));
+		if(piece == null)
+			return;
+		StringMachineStepStringSource string = new StringMachineStepStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		valuePieces.add(string);
 	}
 
 	public StringTransform getKeyTransform() {

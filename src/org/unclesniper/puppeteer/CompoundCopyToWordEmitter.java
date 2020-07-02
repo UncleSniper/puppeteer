@@ -20,8 +20,11 @@ public class CompoundCopyToWordEmitter extends AbstractCopyToWordEmitter {
 	}
 
 	public void addPiece(String piece) {
-		if(piece != null)
-			pieces.add(new StringCopyToStringSource(piece));
+		if(piece == null)
+			return;
+		StringCopyToStringSource string = new StringCopyToStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		pieces.add(string);
 	}
 
 	public StringTransform getTransform() {

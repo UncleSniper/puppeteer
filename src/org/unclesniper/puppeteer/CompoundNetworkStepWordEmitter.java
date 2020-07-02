@@ -25,8 +25,11 @@ public class CompoundNetworkStepWordEmitter extends AbstractNetworkStepWordEmitt
 	}
 
 	public void addPiece(String piece) {
-		if(piece != null)
-			pieces.add(new StringNetworkStepStringSource(piece));
+		if(piece == null)
+			return;
+		StringNetworkStepStringSource string = new StringNetworkStepStringSource(piece);
+		string.ingestObjectDefinitionLocation(this);
+		pieces.add(string);
 	}
 
 	public StringTransform getTransform() {
