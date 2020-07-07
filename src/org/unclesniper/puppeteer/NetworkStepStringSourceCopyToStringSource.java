@@ -21,6 +21,7 @@ public class NetworkStepStringSourceCopyToStringSource extends AbstractCopyToStr
 		this.source = source;
 	}
 
+	@Override
 	protected void buildStringImpl(CopySlave.CopyToInfo info, StringBuilder sink) throws PuppetException {
 		if(source == null)
 			return;
